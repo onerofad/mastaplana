@@ -1,5 +1,26 @@
-import { Grid, Header, List, Segment, Button, Image, Icon, Container } from "semantic-ui-react"
+import { Grid, Header, List, Segment, Button, Image, Icon, Container, Dropdown } from "semantic-ui-react"
 
+const trigger = (
+    <span>
+      <Icon name='user outline' size="big" /> Hello, John
+    </span>
+  )
+  
+  const options = [
+    {
+      key: 'user',
+      text: (
+        <span>
+          Signed in as <strong>John Doe</strong>
+        </span>
+      ),
+      disabled: true,
+    },
+    { key: 'profile', text: 'Your Profile' },
+    { key: 'help', text: 'Help' },
+    { key: 'settings', text: 'Settings' },
+    { key: 'sign-out', text: 'Sign Out' },
+  ]
 
 const Dashboard = () => {
     return(
@@ -10,21 +31,20 @@ const Dashboard = () => {
                         <Grid.Column width={4}>
                             <Header content="Member Login" />
                         </Grid.Column>
-                        <Grid.Column width={8}>
+                        <Grid.Column width={7}>
                             <Header  textAlign="center" as="h1" content="Masta Plana Dashboard" />
                         </Grid.Column>
                         <Grid.Column width={2}>
                             <Icon name="calendar outline" color="white" size="big" />
                         </Grid.Column>
-                        <Grid.Column width={2}>
-                            <Icon name="user circle outline" color="white" size="big" />
-                            {/*<Header content="Profile"  />*/}
+                        <Grid.Column width={3}>
+                            <Dropdown trigger={trigger} options={options} />
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={4}  color="black">
                             <Header style={{margin: 20}} textAlign="center" inverted content="Masta Plana Activities" />
-                            <List inverted verticalAlign="middle" divided relaxed selection inverted>
+                            <List size="huge" inverted verticalAlign="middle" divided relaxed selection inverted>
                                 <List.Item>
                                     <List.Content>
                                         Activity 1
