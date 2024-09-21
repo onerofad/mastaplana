@@ -28,7 +28,7 @@ function App() {
       <Media greaterThan="mobile">
         <BrowserRouter>
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route index element={<Dashboard />} />
             <Route path="/signup" element={<SignUp />} />
           </Routes>
         </BrowserRouter>
