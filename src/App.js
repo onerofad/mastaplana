@@ -3,6 +3,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { createMedia } from "@artsy/fresnel"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Dashboard from "./components/Dashboard";
+import SignUp from "./components/SignUp";
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
@@ -18,8 +19,7 @@ function App() {
       <Media at="mobile">
         <BrowserRouter>
           <Routes>
-            <Route index element={<LoginForm />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+           
           </Routes>
         </BrowserRouter>
 
@@ -28,8 +28,8 @@ function App() {
       <Media greaterThan="mobile">
         <BrowserRouter>
           <Routes>
-            <Route index element={<LoginForm />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </BrowserRouter>
 
