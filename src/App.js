@@ -4,6 +4,8 @@ import { createMedia } from "@artsy/fresnel"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Dashboard from "./components/Dashboard";
 import SignUp from "./components/SignUp";
+import LaunchPage from "./components/LaunchPage";
+import SignIn from "./components/SignIn";
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
@@ -28,8 +30,12 @@ function App() {
       <Media greaterThan="mobile">
         <BrowserRouter>
           <Routes>
-            <Route index element={<Dashboard />} />
+            <Route index element={<LaunchPage />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/signin" element={<SignIn/>} />
+
+
           </Routes>
         </BrowserRouter>
 
