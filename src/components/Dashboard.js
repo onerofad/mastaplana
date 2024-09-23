@@ -1,48 +1,33 @@
-import { Grid, Header, List, Segment, Button, Image, Icon, Container, Dropdown } from "semantic-ui-react"
-
-const trigger = (
-    <span>
-      <Icon name='user outline' size="big" /> Hello, John
-    </span>
-  )
-  
-  const options = [
-    {
-      key: 'user',
-      text: (
-        <span>
-          Signed in as <strong>John Doe</strong>
-        </span>
-      ),
-      disabled: true,
-    },
-    { key: 'profile', text: 'Your Profile' },
-    { key: 'help', text: 'Help' },
-    { key: 'settings', text: 'Settings' },
-    { key: 'sign-out', text: 'Sign Out' },
-  ]
+import { useNavigate } from "react-router-dom"
+import { Grid, Header, Segment, Icon, Container, Label, Dropdown } from "semantic-ui-react"
 
 const Dashboard = () => {
+    const navigate = useNavigate()
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#14253F', marginTop: 80}}>
+        <Segment vertical style={{backgroundColor: '#14253F', margin: 40}}>
                 <Grid>
-                    <Grid.Row style={{margin: '10px 40px'}}>
+                    <Grid.Row style={{margin: '5px 40px'}}>
                         <Grid.Column width={12} verticalAlign="middle">
                             <Header inverted content="Member" color="#fff" />
                         </Grid.Column>
                         <Grid.Column width={2} verticalAlign="middle">
-                            <Icon name="calendar alternate outline" inverted color="#fff" size="huge" />
+                            <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
                         <Grid.Column width={2} style={{alignSelf: 'right'}}>
-                            <Segment textAlign="right" size="mini" circular color="#fff">
+                            <Segment textAlign="right" size="tiny" circular color="#fff">
+                                <Dropdown text="JD">
+                                  <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => navigate("/signin")}>
+                                        Log out
+                                    </Dropdown.Item>
+                                  </Dropdown.Menu>
+                                </Dropdown>
                             </Segment>
-                            <Header  inverted content="Profile" />
-
-
+                            {/*<Header  inverted content="Profile" />*/}
                         </Grid.Column>
                     </Grid.Row>   
-                    <Grid.Row  style={{margin: '10px 40px'}}>
+                    <Grid.Row  style={{margin: '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
                                 <Header textAlign="center" content="MASTA PLANA" as="h1" />
@@ -50,9 +35,9 @@ const Dashboard = () => {
                         </Grid.Column>
                        
                     </Grid.Row>  
-                    <Grid.Row style={{margin: '10px 40px'}}>
+                    <Grid.Row style={{margin: '5px 40px'}}>
                         <Grid.Column>
-                            <Segment vertical style={{paddingTop: 20, paddingBottom: 80, borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
+                            <Segment vertical style={{paddingTop: 20, paddingBottom: 20, borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
                                         <Grid.Column width={2} textAlign="center">
@@ -94,7 +79,7 @@ const Dashboard = () => {
                             </Segment>
                         </Grid.Column>
                     </Grid.Row> 
-                    <Grid.Row style={{margin: '10px 40px'}}>
+                    <Grid.Row style={{margin: '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Grid>

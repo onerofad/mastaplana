@@ -1,16 +1,23 @@
+import { Link } from "react-router-dom"
 import { Grid, Header, List, Segment, Button, Image, Icon, Container, Dropdown, Form, Search } from "semantic-ui-react"
 
 const SignUp = () => {
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#14253F', marginTop: 80}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: 40}}>
                 <Grid>
-                    <Grid.Row style={{margin: '10px 40px'}}>
+                    <Grid.Row style={{margin: '5px 40px'}}>
                         <Grid.Column width={10} verticalAlign="middle">
-                            <Icon inverted name="angle left" color="green" size="big" />
-                            <Header inverted content="Member" color="#fff" />
+                            <Link style={{ fontSize: 20, color: '#fff'}} to="/signin">
+                                <Icon inverted name="angle left" color="green" size="big" />
+                                Sign in
+                            </Link>
                         </Grid.Column>
-                        <Grid.Column width={2} textAlign="center" verticalAlign="middle">
+                        <Grid.Column textAlign="right" width={6} verticalAlign="middle">
+                            <Header inverted content="Member Sign up" color="#fff" />
+
+                        </Grid.Column>
+                        {/*<Grid.Column width={2} textAlign="center" verticalAlign="middle">
                             <Header inverted content="DOWNLOAD" />
                             <Icon inverted color="blue" name="cloud download" size="large" />
                         </Grid.Column>
@@ -21,11 +28,10 @@ const SignUp = () => {
                             <Segment textAlign="right" size="mini" circular color="#fff">
                             </Segment>
                             <Header  inverted content="Profile" />
-
-
                         </Grid.Column>
+                        */}
                     </Grid.Row>   
-                    <Grid.Row  style={{margin: '10px 40px'}}>
+                    <Grid.Row  style={{margin: '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
                                 <Header textAlign="center" content="MASTA PLANA" as="h1" />
@@ -33,10 +39,10 @@ const SignUp = () => {
                         </Grid.Column>
                        
                     </Grid.Row>  
-                    <Grid.Row style={{margin: '10px 40px'}}>
+                    <Grid.Row style={{margin: '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
-                                <Form size="huge" style={{padding: '40px 40px'}}>
+                                <Form size="big" style={{padding: '20px 40px'}}>
                                     <Grid>                                
                                         <Grid.Row >
                                             <Grid.Column>
@@ -57,16 +63,23 @@ const SignUp = () => {
                                             </Grid.Column>       
                                         </Grid.Row>
                                         <Grid.Row>
+                                            <Grid.Column style={{textAlign: 'center'}}>
+                                                <Button size="large" color="green" >
+                                                    Sign up
+                                                </Button>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        {/*<Grid.Row>
                                             <Grid.Column textAlign="center">
                                                 <Search  placeholder="Search" />
                                             </Grid.Column>
-                                        </Grid.Row>
+                                        </Grid.Row>*/}
                                     </Grid>
                                 </Form>
                             </Segment>
                         </Grid.Column>
                     </Grid.Row> 
-                    <Grid.Row style={{margin: '10px 40px'}}>
+                   {/* <Grid.Row style={{margin: '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Grid>
@@ -81,7 +94,7 @@ const SignUp = () => {
                                 </Grid>
                             </Segment>
                         </Grid.Column>
-                    </Grid.Row>           
+                    </Grid.Row>  */}         
                 </Grid>
         </Segment>
         </Container>
