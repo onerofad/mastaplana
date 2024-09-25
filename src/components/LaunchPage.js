@@ -10,7 +10,9 @@ const LaunchPage = ({mobile}) => {
       }, 10000);
     },[])
 
-
+    if(loading){
+        <SignIn mobile />
+    }else{
     return(
         <Container>
         <Segment  vertical style={{ backgroundColor: '#133467'}}>
@@ -38,5 +40,6 @@ const LaunchPage = ({mobile}) => {
         </Container>
 
     )
+}
 }
 export default LaunchPage
