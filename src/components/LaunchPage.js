@@ -17,7 +17,7 @@ const LaunchPage = ({mobile}) => {
     }else{
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 10 : 40}}>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column> 
