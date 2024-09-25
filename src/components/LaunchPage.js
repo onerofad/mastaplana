@@ -12,7 +12,7 @@ const LaunchPage = ({mobile}) => {
 
 
     return(
-        
+        <Container>
         <Segment  vertical style={{ backgroundColor: '#133467'}}>
                 <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                     <Grid.Column style ={{maxWidth: 400}}>
@@ -35,6 +35,7 @@ const LaunchPage = ({mobile}) => {
                 </Grid>
                 
         </Segment>
+        </Container>
 
     )
 }
