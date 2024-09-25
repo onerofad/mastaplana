@@ -51,7 +51,7 @@ const SignIn = ({mobile}) => {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-                <Grid textAlign="center" style={{height: mobile ? '35vh' : '75vh'}} verticalAlign="middle">
+                <Grid textAlign="center" style={{height: mobile ? '60vh' : '75vh'}} verticalAlign="middle">
                     <Grid.Row >
                         <Grid.Column style={{ maxWidth: 450}}>
                             <Form size="big">

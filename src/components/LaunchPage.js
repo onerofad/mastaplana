@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
 import { Grid, Header, Segment, Container, Loader } from "semantic-ui-react"
 import SignIn from "./SignIn"
+import { useNavigate } from "react-router-dom"
  
 const LaunchPage = ({mobile}) => {
+
+    const navigate = useNavigate()
     const [loading, setloading] = useState(false)
     useEffect(() => {
       setTimeout(() => {
@@ -10,13 +13,14 @@ const LaunchPage = ({mobile}) => {
       }, 10000);
     },[])
 
+
     if(loading){
-        <SignIn mobile={mobile} />
+        return navigate('/signin')
     }else{
     return(
         <Container>
         <Segment  vertical style={{ backgroundColor: '#133467'}}>
-                <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+                <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
                     <Grid.Column style ={{maxWidth: 400}}>
                     <Segment vertical style={{backgroundColor: '#3A54AF'}}>     
                         <Segment vertical style={{backgroundColor: '#3E72C0', margin: mobile ? 30 : 60}}>
