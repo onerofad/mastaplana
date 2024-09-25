@@ -1,4 +1,3 @@
-import LoginForm from "./components/LoginForm";
 import 'semantic-ui-css/semantic.min.css'
 import { createMedia } from "@artsy/fresnel"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
