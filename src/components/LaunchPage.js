@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Grid, Header, List, Segment, Button, Image, Icon, Container, Dropdown, Loader } from "semantic-ui-react"
 import SignIn from "./SignIn"
  
-const LaunchPage = (mobile) => {
+const LaunchPage = ({mobile}) => {
     const [loading, setloading] = useState(false)
     useEffect(() => {
       setTimeout(() => {

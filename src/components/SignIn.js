@@ -9,7 +9,7 @@ const users = [
         password: 'password@1234'
     }
 ]
-const SignIn = (mobile) => {
+const SignIn = ({mobile}) => {
 
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")

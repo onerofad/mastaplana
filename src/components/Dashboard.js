@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Segment, Icon, Container, Label, Dropdown } from "semantic-ui-react"
 
-const Dashboard = (mobile) => {
+const Dashboard = ({mobile}) => {
     const navigate = useNavigate()
     return(
         <Container>

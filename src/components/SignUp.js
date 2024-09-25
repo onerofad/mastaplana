@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Grid, Header, List, Segment, Button, Image, Icon, Container, Dropdown, Form, Search } from "semantic-ui-react"
 
-const SignUp = (mobile) => {
+const SignUp = ({mobile}) => {
     return(
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
