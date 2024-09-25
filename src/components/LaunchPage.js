@@ -21,11 +21,11 @@ const LaunchPage = ({mobile}) => {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column> 
-                            <Segment vertical style={{backgroundColor: '#3A54AF', margin: mobile ? 30: 60}}>
-                                <Grid>
+                            <Segment vertical style={{backgroundColor: '#3A54AF', margin: mobile ? 10: 60}}>
+                                <Grid style={{height: mobile ? '40vh' : '75vh'}}>
                                     <Grid.Row>
                                         <Grid.Column>
-                                            <Segment vertical style={{backgroundColor: '#3E72C0', margin: mobile ? 30 : 60}}>
+                                            <Segment vertical style={{backgroundColor: '#3E72C0', margin: mobile ? 10 : 60}}>
                                                 <Grid textAlign="center" verticalAlign="middle">
                                                     <Grid.Row>
                                                         <Grid.Column>
