@@ -11,7 +11,7 @@ const LaunchPage = ({mobile}) => {
     },[])
 
     if(loading){
-        <SignIn mobile />
+        <SignIn mobile={mobile} />
     }else{
     return(
         <Container>
