@@ -5,9 +5,9 @@ const SignUp = ({mobile}) => {
     return(
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
-                <Grid>
-                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
-                        <Grid.Column width={10} verticalAlign="middle">
+                <Grid textAlign="center">
+                    <Grid.Row>
+                        <Grid.Column width={10} textAlign="left" verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/signin">
                                 <Icon inverted name="angle left" color="green" size={mobile ? 'large' : 'big'} />
                                 Sign in
@@ -19,7 +19,7 @@ const SignUp = ({mobile}) => {
                         </Grid.Column>
     
                     </Grid.Row>   
-                    <Grid.Row  style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
+                    <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
                                 <Header textAlign="center" content="MASTA PLANA" as="h1" />
@@ -27,7 +27,7 @@ const SignUp = ({mobile}) => {
                         </Grid.Column>
                        
                     </Grid.Row>  
-                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
+                    <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Form size="big" style={{padding: mobile ? '10px 20px' : '20px 40px'}}>
