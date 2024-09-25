@@ -5,9 +5,9 @@ const Dashboard = ({mobile}) => {
     const navigate = useNavigate()
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#14253F', margin: mobile ? 20 : 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
-                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
+                    <Grid.Row>
                         <Grid.Column width={mobile ? 8 : 12} verticalAlign="middle">
                             <Header inverted content="Member" color="#fff" />
                         </Grid.Column>
@@ -33,7 +33,7 @@ const Dashboard = ({mobile}) => {
                             </Segment>
                         </Grid.Column>
                     </Grid.Row>   
-                    <Grid.Row  style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
+                    <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
                                 <Header textAlign="center" content="MASTA PLANA" as="h1" />
@@ -41,7 +41,7 @@ const Dashboard = ({mobile}) => {
                         </Grid.Column>
                        
                     </Grid.Row>  
-                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
+                    <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{paddingTop: 20, paddingBottom: 20, borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Grid>
@@ -85,7 +85,7 @@ const Dashboard = ({mobile}) => {
                             </Segment>
                         </Grid.Column>
                     </Grid.Row> 
-                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
+                    <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Grid>
