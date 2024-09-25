@@ -9,7 +9,7 @@ const users = [
         password: 'password@1234'
     }
 ]
-const SignIn = () => {
+const SignIn = (mobile) => {
 
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
@@ -43,15 +43,15 @@ const SignIn = () => {
     }
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
             <Grid>
-<               Grid.Row style={{ margin: '10px 40px'}}>
+<               Grid.Row style={{ margin: mobile ? '5px 5px' : '10px 40px'}}>
                     <Grid.Column> 
                         <Header as="h1" inverted content="MASTA PLANA" />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-                <Grid textAlign="center" style={{height: '75vh'}} verticalAlign="middle">
+                <Grid textAlign="center" style={{height: mobile ? '60vh' : '75vh'}} verticalAlign="middle">
                     <Grid.Row >
                         <Grid.Column style={{ maxWidth: 450}}>
                             <Form size="big">

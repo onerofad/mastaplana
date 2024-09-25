@@ -1,22 +1,29 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Segment, Icon, Container, Label, Dropdown } from "semantic-ui-react"
 
-const Dashboard = () => {
+const Dashboard = (mobile) => {
     const navigate = useNavigate()
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#14253F', margin: 40}}>
+        <Segment vertical style={{backgroundColor: '#14253F', margin: mobile ? 20 : 40}}>
                 <Grid>
-                    <Grid.Row style={{margin: '5px 40px'}}>
-                        <Grid.Column width={12} verticalAlign="middle">
+                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
+                        <Grid.Column width={mobile ? 8 : 12} verticalAlign="middle">
                             <Header inverted content="Member" color="#fff" />
                         </Grid.Column>
-                        <Grid.Column width={2} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
-                        <Grid.Column width={2} style={{alignSelf: 'right'}}>
-                            <Segment textAlign="right" size="tiny" circular color="#fff">
-                                <Dropdown text="JD">
+                        <Grid.Column width={mobile ? 4 : 2} style={{textAlign: 'center'}}>
+                            <Segment vertical style={{ 
+                                alignSelf: 'right', 
+                                alignContent: 'center',
+                                width: 70, 
+                                height: 70, 
+                                borderRadius: 100,
+                                backgroundColor: '#fff'
+                            }}>
+                                <Dropdown text="JD" inline>
                                   <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => navigate("/signin")}>
                                         Log out
@@ -24,10 +31,9 @@ const Dashboard = () => {
                                   </Dropdown.Menu>
                                 </Dropdown>
                             </Segment>
-                            {/*<Header  inverted content="Profile" />*/}
                         </Grid.Column>
                     </Grid.Row>   
-                    <Grid.Row  style={{margin: '5px 40px'}}>
+                    <Grid.Row  style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
                                 <Header textAlign="center" content="MASTA PLANA" as="h1" />
@@ -35,40 +41,40 @@ const Dashboard = () => {
                         </Grid.Column>
                        
                     </Grid.Row>  
-                    <Grid.Row style={{margin: '5px 40px'}}>
+                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{paddingTop: 20, paddingBottom: 20, borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="edit outline" />
                                             <Header as="h4" inverted content="DOCUMENT" />
                                         </Grid.Column>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="ticket" />
                                             <Header as="h4" inverted content="SCAN" />
                                         </Grid.Column>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="image outline" />
                                             <Header as="h4" inverted content="PHOTOS" />
                                         </Grid.Column>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="file alternate outline" />
                                             <Header as="h4" inverted content="DOCUMENT" />
                                         </Grid.Column>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="music" />
                                             <Header as="h4" inverted content="AUDIO" />
                                         </Grid.Column>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="youtube square" />
                                             <Header as="h4" inverted content="VIDEO" />
                                         </Grid.Column>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="bell outline" />
                                             <Header as="h4" inverted content="NOTICE CENTER" />
                                         </Grid.Column>
-                                        <Grid.Column width={2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="home" />
                                             <Header as="h4" inverted content="OFFICE" />
                                         </Grid.Column>
@@ -79,7 +85,7 @@ const Dashboard = () => {
                             </Segment>
                         </Grid.Column>
                     </Grid.Row> 
-                    <Grid.Row style={{margin: '5px 40px'}}>
+                    <Grid.Row style={{margin: mobile ? '5px 10px' : '5px 40px'}}>
                         <Grid.Column>
                             <Segment vertical style={{borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
                                 <Grid>

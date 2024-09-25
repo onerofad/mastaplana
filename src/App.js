@@ -21,7 +21,10 @@ function App() {
       <Media at="mobile">
         <BrowserRouter>
           <Routes>
-           
+          <Route index element={<LaunchPage mobile />} />
+            <Route path="/signup" element={<SignUp mobile />} />
+            <Route path="/dashboard" element={<Dashboard mobile />} />
+            <Route path="/signin" element={<SignIn mobile />} />
           </Routes>
         </BrowserRouter>
 
