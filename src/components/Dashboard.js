@@ -18,8 +18,8 @@ const Dashboard = ({mobile}) => {
                             <Segment vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
-                                width: 70, 
-                                height: 70, 
+                                width: 60, 
+                                height: 60, 
                                 borderRadius: 100,
                                 backgroundColor: '#fff'
                             }}>
@@ -47,7 +47,7 @@ const Dashboard = ({mobile}) => {
                                 <Grid>
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge" color="green" name="edit outline" />
+                                            <Icon inverted size="huge" onClick={() => navigate("/form1")}  link={true} color="green" name="edit outline" />
                                             <Header as="h4" inverted content="DOCUMENT" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>

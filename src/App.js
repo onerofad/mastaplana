@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import SignUp from "./components/SignUp";
 import LaunchPage from "./components/LaunchPage";
 import SignIn from "./components/SignIn";
+import FormTemplate1 from './components/FormTemplate1';
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/signup" element={<SignUp mobile />} />
             <Route path="/dashboard" element={<Dashboard mobile />} />
             <Route path="/signin" element={<SignIn mobile />} />
+            <Route path="/form1" element={<FormTemplate1 mobile />} />
           </Routes>
         </BrowserRouter>
 
@@ -36,8 +38,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/signin" element={<SignIn/>} />
-
-
+            <Route path="/form1" element={<FormTemplate1 />} />
           </Routes>
         </BrowserRouter>
 
