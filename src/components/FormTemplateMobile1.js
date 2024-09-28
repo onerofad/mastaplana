@@ -50,21 +50,21 @@ const FormTemplateMobile1 = () => {
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        <Button fluid size="mini" color="green">
+                                                        <Button  size="mini" color="green">
                                                             FORM
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
-                                                        <Button fluid size="mini" color="green">
+                                                        <Button  size="mini" color="green">
                                                             FILE
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
-                                                        <Button fluid size="mini" color="green">
+                                                        <Button  size="mini" color="green">
                                                             TEMPLATE
                                                         </Button>
                                                     </Grid.Column>
