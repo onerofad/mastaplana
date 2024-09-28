@@ -43,33 +43,33 @@ const FormTemplateMobile1 = () => {
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                    <Grid.Column width={4} style={{marginTop: 10}}>
+                                    <Grid.Column width={6} style={{marginTop: 10}}>
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
                                                         <Button fluid  size="mini" color="green">
-                                                            FORM
+                                                            Form
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
                                                         <Button fluid size="mini" color="green">
-                                                            FILE
+                                                            File
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
                                                         <Button fluid size="mini" color="green">
-                                                            TEMPLATE
+                                                            Template
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                             </Grid>
                                            
                                         </Grid.Column>
-                                        <Grid.Column width={12} style={{marginTop: 10}}>
+                                        <Grid.Column width={10} style={{marginTop: 10}}>
                                             <TextArea  placeholder="type..." style={{ minWidth: '100%', minHeight: 300}} />
                                         </Grid.Column>
                                         
