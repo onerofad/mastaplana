@@ -70,7 +70,7 @@ const FormTemplateMobile1 = () => {
                                            
                                         </Grid.Column>
                                         <Grid.Column width={11} style={{marginTop: 10}}>
-                                            <TextArea fluid  placeholder="type..." style={{ minHeight: 300}} />
+                                            <TextArea   placeholder="type..." style={{ marginLeft: 4, minHeight: 300}} />
                                         </Grid.Column>
                                         
                                     </Grid.Row>
