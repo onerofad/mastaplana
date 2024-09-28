@@ -43,25 +43,25 @@ const FormTemplateMobile1 = () => {
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                    <Grid.Column width={8} style={{marginTop: 10}}>
+                                    <Grid.Column width={4} style={{marginTop: 10}}>
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        <Button  size="mini" color="green">
+                                                        <Button fluid  size="mini" color="green">
                                                             FORM
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
-                                                        <Button  size="mini" color="green">
+                                                        <Button fluid size="mini" color="green">
                                                             FILE
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
-                                                        <Button  size="mini" color="green">
+                                                        <Button fluid size="mini" color="green">
                                                             TEMPLATE
                                                         </Button>
                                                     </Grid.Column>
@@ -69,7 +69,7 @@ const FormTemplateMobile1 = () => {
                                             </Grid>
                                            
                                         </Grid.Column>
-                                        <Grid.Column width={8} style={{marginTop: 10}}>
+                                        <Grid.Column width={12} style={{marginTop: 10}}>
                                             <TextArea  placeholder="type..." style={{ minWidth: '100%', minHeight: 300}} />
                                         </Grid.Column>
                                         
