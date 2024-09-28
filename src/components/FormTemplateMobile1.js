@@ -1,25 +1,25 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Segment, Icon, Container, Label, Dropdown, TextArea, Button } from "semantic-ui-react"
 import { Link } from "react-router-dom"
-const FormTemplate1 = () => {
+const FormTemplateMobile1 = () => {
     const navigate = useNavigate()
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: 20}}>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={6} verticalAlign="middle">
+                        <Grid.Column width={4} verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/dashboard">
-                                <Icon inverted name="angle left" color="green" size='big' />
+                                <Icon inverted name="angle left" color="green" size='large' />
                             </Link>
                         </Grid.Column>
-                        <Grid.Column width={6} verticalAlign="middle">
-                            <Header as="h1" inverted content="MASTA PLANA" color="#fff" />
+                        <Grid.Column width={4} verticalAlign="middle">
+                            <Header as="h4" inverted content="MASTA PLANA" color="#fff" />
                         </Grid.Column>
-                        <Grid.Column width={2} verticalAlign="middle">
+                        <Grid.Column width={4} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
-                        <Grid.Column width={2} style={{textAlign: 'center'}}>
+                        <Grid.Column width={4} style={{textAlign: 'center'}}>
                             <Segment vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
@@ -43,10 +43,10 @@ const FormTemplate1 = () => {
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={6} style={{marginTop: 10}}>
+                                        <Grid.Column width={8} style={{marginTop: 10}}>
                                             <TextArea  placeholder="type..." style={{ minWidth: '100%', minHeight: 300}} />
                                         </Grid.Column>
-                                        <Grid.Column width={4} style={{marginTop: 10}}>
+                                        <Grid.Column width={8} style={{marginTop: 10}}>
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
@@ -70,9 +70,11 @@ const FormTemplate1 = () => {
                                                     </Grid.Column>
                                                 </Grid.Row>
                                             </Grid>
-                                            
+                                           
                                         </Grid.Column>
-                                        <Grid.Column width={6} style={{marginTop: 10}}>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column style={{marginTop: 10}}>
                                           <Segment vertical inverted color="teal" style={{ height: 250, borderRadius: 10}}>
                                           </Segment>
                                         </Grid.Column>
@@ -105,4 +107,4 @@ const FormTemplate1 = () => {
     )
 
 }
-export default FormTemplate1
+export default FormTemplateMobile1
