@@ -62,7 +62,7 @@ const FormTemplateMobile1 = () => {
                                                 <Grid.Row>
                                                 <Grid.Column>
                                                         <Button fluid size="mini" color="green">
-                                                            Template
+                                                            Temp
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
