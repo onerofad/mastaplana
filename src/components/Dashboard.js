@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Icon, Container, Label, Dropdown } from "semantic-ui-react"
+import { Grid, Header, Segment, Icon, Container, Dropdown } from "semantic-ui-react"
 
 const Dashboard = ({mobile}) => {
     const navigate = useNavigate()
@@ -18,12 +18,17 @@ const Dashboard = ({mobile}) => {
                             <Segment vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
-                                width: 60, 
-                                height: 60, 
+                                width: 50, 
+                                height: 50, 
                                 borderRadius: 100,
                                 backgroundColor: '#fff'
                             }}>
-                                <Dropdown text="JD" inline>
+                                <Dropdown 
+                                    text={
+                                            sessionStorage.getItem("fname").charAt(0).toUpperCase()
+                                    }
+                                    inline
+                                >
                                   <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => navigate("/signin")}>
                                         Log out
@@ -47,7 +52,7 @@ const Dashboard = ({mobile}) => {
                                 <Grid>
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge" onClick={() => navigate("/form1")}  link={true} color="green" name="edit outline" />
+                                            <Icon inverted size="huge"  link={true} color="green" name="edit outline" />
                                             <Header as="h4" inverted content="DOCUMENT" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
@@ -55,7 +60,7 @@ const Dashboard = ({mobile}) => {
                                             <Header as="h4" inverted content="SCAN" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge" color="green" name="image outline" />
+                                            <Icon inverted size="huge" link={true} onClick={() => navigate("/photos")} color="green" name="image outline" />
                                             <Header as="h4" inverted content="PHOTOS" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
@@ -63,7 +68,7 @@ const Dashboard = ({mobile}) => {
                                             <Header as="h4" inverted content="DOCUMENT" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge" color="green" name="music" />
+                                            <Icon inverted size="huge" link={true} onClick={() => navigate("/audio")} color="green" name="music" />
                                             <Header as="h4" inverted content="AUDIO" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>

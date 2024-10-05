@@ -1,45 +1,50 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Grid, Header, List, Segment, Button, Image, Icon, Container, Dropdown, Form } from "semantic-ui-react"
+import { Grid, Header, Segment, Button, Container, Form } from "semantic-ui-react"
+import { useGetUsersQuery } from "../features/api/apiSlice"
  
-const users = [
-    {
-        id: 1,
-        email: 'johndoe@gmail.com',
-        password: 'password@1234'
-    }
-]
 const SignIn = ({mobile}) => {
 
     const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
+    const [accessnumber, setaccessnumber] = useState("")
     const [loading, setloading] = useState(false)
 
     const [emailerror, setemailerror] = useState(false)
-    const [passworderror, setpassworderror] = useState(false)
+    const [accessnumbererror, setaccessnumbererror] = useState(false)
     const navigate = useNavigate()
 
     const handleEmail = (e) => setemail(e.target.value)
-    const handlePassword = (e) => setpassword(e.target.value)
+    const handleAccessnumber = (e) => setaccessnumber(e.target.value)
 
+    const {data:users, isSuccess} = useGetUsersQuery()
 
     const loginBtn = () => {
-        const user = users.filter(u => u.id === 1)[0]
+
         if(email === ''){
-            setemailerror({content: 'Enter email address'})
-        }else if(password === ''){
-            setpassworderror({content: 'Enter password'})
-        }else if(user.email !== email){
-            setemailerror({content: 'Email does not exist'})
-        }else if(user.password !== password){
-            setpassworderror({content: 'Password does not exist'})
+            setemailerror({content: 'Enter email address', pointing: 'below'})
+        }else if(accessnumber === ''){
+            setaccessnumbererror({content: 'Enter access number', pointing: 'below'})
         }else{
-            setloading(true)
-            setTimeout(() => {
-                setloading(false)
-                navigate("/dashboard")
-            }, 3000)     
+            const user = users.filter(u => u.email === email)[0]
+            if(!user){
+                setemailerror({content: 'Email does not exist', pointing: 'below'})
+            }else{
+                if(user.accessnumber !== accessnumber){
+                    setaccessnumbererror({content: 'access numnber does not exist', pointing: 'below'})
+                }else{
+                    setloading(true)
+                    setTimeout(() => {
+                        setloading(false)
+                        sessionStorage.setItem("fname", user.fname)
+                        sessionStorage.setItem("lname", user.lname)
+                        sessionStorage.setItem("email", user.email)
+                        navigate("/dashboard")
+                    }, 3000)  
+                }   
+            }
+
         }
+        
     }
     return(
         <Container>
@@ -66,11 +71,11 @@ const SignIn = ({mobile}) => {
                                 </Form.Field>
                                 <Form.Field>
                                     <Form.Input placeholder="Password"
-                                        value={password} 
-                                        onChange={handlePassword}
-                                        error={passworderror}
+                                        value={accessnumber} 
+                                        onChange={handleAccessnumber}
+                                        error={accessnumbererror}
                                         type="password"
-                                        onClick={() => setpassworderror(false)}
+                                        onClick={() => setaccessnumbererror(false)}
                                     />
                                 </Form.Field> 
                                 <Form.Field>
@@ -82,8 +87,9 @@ const SignIn = ({mobile}) => {
                                 >
                                     LOGIN
                                 </Button>
-                                <Link to="/signup" style={{ marginLeft: 10, color: '#fff'}}>
-                                    Member Sign up
+                                <Link to="/signup" 
+                                    style={{ marginLeft: 10, color: '#fff'}}>
+                                    Sign up
                                 </Link>
                                 </Form.Field>      
                             </Form>

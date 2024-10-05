@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { Grid, Header, Segment, Container, Loader } from "semantic-ui-react"
-import SignIn from "./SignIn"
 import { useNavigate } from "react-router-dom"
  
 const LaunchPage = ({mobile}) => {

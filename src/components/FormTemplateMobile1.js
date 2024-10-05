@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Icon, Container, Label, Dropdown, TextArea, Button } from "semantic-ui-react"
+import { Grid, Header, Segment, Icon, Container, Dropdown, TextArea, Button } from "semantic-ui-react"
 import { Link } from "react-router-dom"
 const FormTemplateMobile1 = () => {
     const navigate = useNavigate()
@@ -23,12 +23,15 @@ const FormTemplateMobile1 = () => {
                             <Segment vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
-                                width: 60, 
-                                height: 60, 
+                                width: 50, 
+                                height: 50, 
                                 borderRadius: 100,
                                 backgroundColor: '#fff'
                             }}>
-                                <Dropdown text="JD" inline>
+                                <Dropdown 
+                                    text={sessionStorage.getItem("fname").charAt(0).toUpperCase()} 
+                                    inline
+                                >
                                   <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => navigate("/signin")}>
                                         Log out
