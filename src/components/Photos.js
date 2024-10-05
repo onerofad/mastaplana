@@ -139,7 +139,7 @@ const Photos = ({mobile}) => {
 
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
