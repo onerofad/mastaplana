@@ -1,27 +1,149 @@
-import { Container, Grid, Segment, Header, Dropdown, Icon, Form, Button } from "semantic-ui-react"
+import { Container, Grid, Segment, Image, Header, Dropdown, Icon, Form, Button, Modal, List } from "semantic-ui-react"
 import { Link, useNavigate } from "react-router-dom"
+import { useReducer, useState } from "react"
+import { useGetUploadAudiosQuery, useUploadAudioMutation } from "../features/api/apiSlice"
+import H5AudioPlayer from "react-h5-audio-player"
+import 'react-h5-audio-player/lib/styles.css'
+import '../audio.webp'
 
-const Audio = () => {
+
+const initialState = {
+    size: undefined,
+    open: false
+}
+
+function uploadReducer(state, action){
+    switch(action.type){
+        case 'open':
+            return {open: true, size: action.size}
+        case 'close':
+            return {open: false}
+        default:
+            return new Error('An error has occurred')
+    }
+
+}
+
+const Audio = ({mobile}) => {
 
     const navigate = useNavigate()
+
+    const [source, setSource] = useState('')
+
+    const [state, dispatch] = useReducer(uploadReducer, initialState)
+    const {open, size} = state
+
+    const [loading, setloading] = useState(false)
+
+    const [audio, setAudio] = useState(null);
+    let uploaded_audio
+    let filesender = sessionStorage.getItem("email")
+    const [fileowner, setfileowner] = useState('')
+
+    const [fileownerError, setfileownerError] = useState(false)
+    const [upload_audioError, setupload_audioError] = useState(false)
+
+    const handleFileowner = (e) => setfileowner(e.target.value)
+
+    const handleAudio = (e) => {
+        const file = e.target.files[0]
+        setAudio(file)
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file)
+    }
+
+    const {data:uploads, isSuccess} = useGetUploadAudiosQuery()
+
+    let files_uploaded
+    let pos = 49
+    let substr = "fl_attachment/"
+    if(isSuccess){
+        files_uploaded = uploads.map(m => {
+            if(m.fileowner === sessionStorage.getItem("email")){
+                return(
+                    <List size="large" icon relaxed celled>
+                        <List.Item>
+                            <List.Icon name="file audio outline" />
+                            <List.Content>
+                                <List.Header>{m.filesender}</List.Header>
+                                <List.Description style={{wordWrap: 'break-word'}}>
+                                    {m.uploaded_audio.substring(78)}
+                                    <Header as="h4" content={m.file_date} />
+                                    <Link onClick={() => setSource(m.uploaded_audio)}>
+                                        <Icon name="play" /> play &nbsp;
+                                    </Link>
+                                    <Link to={[m.uploaded_audio.slice(0, pos), substr, m.uploaded_audio.slice(pos)].join('')}>  
+                                        <Icon name="download" />download
+                                    </Link>
+                                </List.Description>
+                            </List.Content>
+                        </List.Item>
+                    </List>
+                )
+            }
+    })
+    }
+
+    const [uploadAudio, {isLoading}] = useUploadAudioMutation()
+    const saveAudio = [fileowner, filesender].every(Boolean) && !isLoading
+
+    const sendAudio = async () => {
+        if(fileowner === ''){
+            setfileownerError({content: 'Enter email address', pointing: 'above'})
+        }else if(audio === null){
+            setupload_audioError({content: 'Select a file', pointing: 'above'})
+        }else{
+            try{
+                if(saveAudio){
+                    setloading(true)
+                    let audioURL
+                    const data = new FormData();
+                    data.append("file", audio);
+                    data.append("upload_preset", "slakw5ml");
+                    data.append("cloud_name", "du3ck2joa");
+                    data.append("resource_type", "video")
+                    data.append("folder", "mastaplana_audio");
+
+                    const response = await fetch(
+                        `https://api.cloudinary.com/v1_1/du3ck2joa/upload/`,
+                        {
+                          method: "POST",
+                          body: data,
+                        }
+                      );
+                      const res = await response.json();
+                      audioURL = res.url.toString()
+                      uploaded_audio = audioURL
+
+                      await uploadAudio({fileowner, uploaded_audio, filesender}).unwrap()
+                      setloading(false)
+                }
+                dispatch({type: 'open', size: 'mini'})
+            }catch(error){
+
+            }
+        }
+    }
+
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={6} verticalAlign="middle">
+                        <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/dashboard">
                                 <Icon inverted name="angle left" color="green" size='big' />
                             </Link>
                         </Grid.Column>
-                        <Grid.Column width={6} verticalAlign="middle">
-                            <Header as="h1" inverted content="MASTA PLANA" color="#fff" />
+                        <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
+                            <Header as={ mobile ? 'h4' : 'h1'} inverted content="MASTA PLANA" color="#fff" />
                         </Grid.Column>
-                        <Grid.Column width={2} verticalAlign="middle">
+                        <Grid.Column width={ mobile ? 4 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
-                        <Grid.Column width={2} style={{textAlign: 'center'}}>
-                            <Segment vertical style={{ 
+                        <Grid.Column width={ mobile ? 4 : 2} style={{textAlign: 'center'}}>
+                            <Segment floated="right" vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
                                 width: 50, 
@@ -47,40 +169,63 @@ const Audio = () => {
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={5} style={{marginTop: 10}}>
+                                        <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>
                                             <Form.Field>
                                                 <Form.Input
                                                     type="text"
                                                     placeholder="Enter Receiver Email"
-                                                   
+                                                    onChange={handleFileowner}
+                                                    value={fileowner}
+                                                    error={fileownerError}
+                                                    
+                                                    onClick={() => setfileownerError(false)}
                                                 />
                                             </Form.Field>
                                             <Form.Field>
-                                            <Form.Input
-                                                type="file"
-                                                placeholder="Select a file"
-                                               
-                                            />
+                                                <Form.Input
+                                                    type="file"
+                                                    placeholder="Select a file"
+                                                    accept="audio/*"
+                                                    error={upload_audioError}
+                                                    onChange={handleAudio}
+                                                    onClick={() => setupload_audioError(false)}
+                                            
+                                                
+                                                />
                                             </Form.Field>
-                                            <Button  size="large" color="green">
-                                            Send
+                                            <Button 
+                                                onClick={sendAudio}  
+                                                size="large" color="green"
+                                                loading={loading}
+                                            >
+                                            Send Audio
                                             </Button>
                                           
                                         </Form>
                                         </Grid.Column>
-                                        <Grid.Column width={4} style={{marginTop: 10}}>
-                                          <Segment vertical inverted color="yellow" style={{ padding: 10, maxHeight: 300, borderRadius: 10, overflowY: 'auto'}}>
-                                          
-                                                <Header inverted  textAlign="center" as="h4" content="RECEIVED PHOTOS" />
-
-                                                   
+                                       
+                                        <Grid.Column width={ mobile ? 16 : 6} style={{marginTop: 0}}>
+                                          <Segment vertical style={{ padding: 10, height: 300, borderRadius: 10}}>
+                                              <Image
+                                                src="../audio.webp"
+                                                fluid
+                                              />
+                                                <H5AudioPlayer
+                                                    autoPlay
+                                                    src={source}
+                                                    style={{backgroundColor: 'ThreeDFace'}}
+                                                />
+                                              
                                           </Segment>
                                         </Grid.Column>
-                                        <Grid.Column width={7} style={{marginTop: 10}}>
-                                          <Segment vertical inverted color="teal" style={{ padding: 10, height: 300, borderRadius: 10}}>
-                                           
+                                        <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 0}}>
+                                            <Header as="h4" content="RECEIVED AUDIOS" />
 
+                                          <Segment vertical style={{ padding: 10, maxHeight: 300, borderRadius: 10, overflowY: 'auto'}}>
+                                          
+                                                {files_uploaded}
+                                                   
                                           </Segment>
                                         </Grid.Column>
                                     </Grid.Row>
@@ -90,6 +235,26 @@ const Audio = () => {
                         </Grid.Column>
                     </Grid.Row>     
                 </Grid>
+                <Modal
+                    size={size}
+                    open={open}
+                >
+                    <Modal.Header >
+                        Audio upload complete
+                       <Icon 
+                            onClick={() => dispatch({type: 'close'})}
+                            link name="close" 
+                            size="tiny"
+                            style={{float: 'right'}} 
+                        />
+                    </Modal.Header>
+                    <Modal.Content>
+                        <Header textAlign="center"  icon>
+                            <Icon inverted circular size={20} name="checkmark" color="green" />
+                            Audio upload successfull
+                        </Header>
+                    </Modal.Content>
+                </Modal>
         </Segment>
         </Container>
 

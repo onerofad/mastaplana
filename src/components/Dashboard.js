@@ -15,7 +15,7 @@ const Dashboard = ({mobile}) => {
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
                         <Grid.Column width={mobile ? 4 : 2} style={{textAlign: 'center'}}>
-                            <Segment vertical style={{ 
+                            <Segment floated="right" vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
                                 width: 50, 
@@ -49,40 +49,40 @@ const Dashboard = ({mobile}) => {
                     <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{paddingTop: 20, paddingBottom: 20, borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
-                                <Grid>
+                                <Grid textAlign="center">
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge"  link={true} color="green" name="edit outline" />
                                             <Header as="h4" inverted content="DOCUMENT" />
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                        {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="ticket" />
                                             <Header as="h4" inverted content="SCAN" />
-                                        </Grid.Column>
+                                        </Grid.Column> */}
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" link={true} onClick={() => navigate("/photos")} color="green" name="image outline" />
                                             <Header as="h4" inverted content="PHOTOS" />
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                        {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="file alternate outline" />
                                             <Header as="h4" inverted content="DOCUMENT" />
-                                        </Grid.Column>
+                                        </Grid.Column> */}
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" link={true} onClick={() => navigate("/audio")} color="green" name="music" />
                                             <Header as="h4" inverted content="AUDIO" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge" color="green" name="youtube square" />
+                                            <Icon inverted size="huge" link={true} onClick={() => navigate("/video")} color="green" name="youtube square" />
                                             <Header as="h4" inverted content="VIDEO" />
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                       {/*} <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="bell outline" />
                                             <Header as="h4" inverted content="NOTICE CENTER" />
-                                        </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                        </Grid.Column> */}
+                                        {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="home" />
                                             <Header as="h4" inverted content="OFFICE" />
-                                        </Grid.Column>
+                                        </Grid.Column> */}
                                        
                                     </Grid.Row>
                                 </Grid>

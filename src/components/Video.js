@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Icon, Container, Dropdown, TextArea, Button, Modal, Form, Image, List, Placeholder } from "semantic-ui-react"
-import { Link } from "react-router-dom"
-import { useReducer, useState } from "react"
-
-import { useGetUploadFilesQuery, useUploadFileMutation } from "../features/api/apiSlice";
+import { Container, Grid, Segment, Image, Header, Dropdown, Icon, Form, Button, Modal, List } from "semantic-ui-react"
+import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useReducer, useState } from "react"
+import videojs from 'video.js';
+import { useGetUploadVideosQuery, useUploadVideoMutation } from "../features/api/apiSlice"
+import VideoJS from "./VideoJs";
+import React from "react";
 
 const initialState = {
     size: undefined,
@@ -21,14 +22,37 @@ function uploadReducer(state, action){
     }
 
 }
-const Photos = ({mobile}) => {
+
+const Video = ({mobile}) => {
+
+    const navigate = useNavigate()
+
+    const [source, setSource] = useState(null)
 
     const [state, dispatch] = useReducer(uploadReducer, initialState)
     const {open, size} = state
 
-    const navigate = useNavigate()
+    const [loading, setloading] = useState(false)
 
-    const {data:uploads, isSuccess} = useGetUploadFilesQuery()
+    const [video, setVideo] = useState(null);
+    let uploaded_video
+    let filesender = sessionStorage.getItem("email")
+    const [fileowner, setfileowner] = useState('')
+
+    const [fileownerError, setfileownerError] = useState(false)
+    const [upload_videoError, setupload_videoError] = useState(false)
+
+    const handleFileowner = (e) => setfileowner(e.target.value)
+
+    const handleVideo = (e) => {
+        const file = e.target.files[0]
+        setVideo(file)
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file)
+    }
+
+    const {data:uploads, isSuccess} = useGetUploadVideosQuery()
 
     let files_uploaded
     let pos = 49
@@ -39,18 +63,17 @@ const Photos = ({mobile}) => {
                 return(
                     <List size="large" icon relaxed celled>
                         <List.Item>
-                            <List.Icon name="file image outline" />
+                            <List.Icon name="file video outline" />
                             <List.Content>
                                 <List.Header>{m.filesender}</List.Header>
                                 <List.Description style={{wordWrap: 'break-word'}}>
-                                    {m.uploaded_file.substring(72)}
+                                    {m.uploaded_video.substring(78)}
                                     <Header as="h4" content={m.file_date} />
-                                    <Link onClick={() => setPreview(m.uploaded_file)}>
-                                        <Icon name="eye" /> view &nbsp;
+                                    <Link onClick={() => setSource(m.uploaded_video)}>
+                                        <Icon name="video" /> watch &nbsp;
                                     </Link>
-
-                                    <Link to={[m.uploaded_file.slice(0, pos), substr, m.uploaded_file.slice(pos)].join('')}>  
-                                        <Icon name="download" /> download
+                                    <Link to={[m.uploaded_video.slice(0, pos), substr, m.uploaded_video.slice(pos)].join('')}>  
+                                        <Icon name="download" />download
                                     </Link>
                                 </List.Description>
                             </List.Content>
@@ -59,86 +82,75 @@ const Photos = ({mobile}) => {
                 )
             }
     })
+
     }
 
-    const fileUpload = () => {
-        dispatch({type: 'open', size: 'mini'})
-    }
+    const [uploadVideo, {isLoading}] = useUploadVideoMutation()
+    const saveVideo = [fileowner, filesender].every(Boolean) && !isLoading
 
-    const [image, setImage] = useState(null);
-    let uploaded_file
-    let filesender = sessionStorage.getItem("email")
-
-    const [preview, setPreview] = useState(null);
-
-    const [loading, setloading] = useState(false)
-    const [fileowner, setfileowner] = useState('')
-
-    const [fileownerError, setfileownerError] = useState(false)
-    const [upload_fileError, setupload_fileError] = useState(false)
-
-    const handleFileowner = (e) => setfileowner(e.target.value)
-
-    const handleFile = (e) => {
-        const file = e.target.files[0]
-        setImage(file)
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file)
-
-        reader.onload = () => {
-            setPreview(reader.result)
-        }
-    }
-
-
-    const [uploadFile, {isLoading}] = useUploadFileMutation()
-    const saveFile = [fileowner, filesender].every(Boolean) && !isLoading
-
-    const sendFile = async () => {
+    const sendVideo = async () => {
         if(fileowner === ''){
             setfileownerError({content: 'Enter email address', pointing: 'above'})
-        }else if(image === null){
-            setupload_fileError({content: 'Select a file', pointing: 'above'})
+        }else if(video === null){
+            setupload_videoError({content: 'Select a file', pointing: 'above'})
         }else{
             try{
-                if(saveFile){
-                    setloading(true);
-                    let imageURL
+                if(saveVideo){
+                    setloading(true)
+                    let videoURL
                     const data = new FormData();
-                    data.append("file", image);
+                    data.append("file", video);
                     data.append("upload_preset", "slakw5ml");
                     data.append("cloud_name", "du3ck2joa");
-                    data.append("transformations", "fl_attachment")
-                    data.append("folder", "mastaplana");
+                    data.append("resource_type", "video")
+                    data.append("folder", "mastaplana_video");
 
                     const response = await fetch(
-                        `https://api.cloudinary.com/v1_1/du3ck2joa/image/upload/`,
+                        `https://api.cloudinary.com/v1_1/du3ck2joa/upload/`,
                         {
                           method: "POST",
                           body: data,
                         }
                       );
                       const res = await response.json();
-                      imageURL = res.url.toString()
-                      //alert(imageURL)
-                      uploaded_file = imageURL
-                      //setUrl(res.url.toString());
+                      videoURL = res.url.toString()
+                      uploaded_video = videoURL
 
-                      await uploadFile({fileowner, uploaded_file, filesender}).unwrap()
-                      setfileowner('')
-                      setPreview(null)
-                      setImage(null)
-                      //setUrl('')
+                      await uploadVideo({fileowner, uploaded_video, filesender}).unwrap()
                       setloading(false)
-                      dispatch({type: 'open', size: 'mini'})
                 }
-
+                dispatch({type: 'open', size: 'mini'})
             }catch(error){
-                console.log('An error has occurred ' + error)
+
             }
         }
     }
+
+    const playerRef = React.useRef(null);
+
+    const videoJsOptions = {
+      controls: true,
+      responsive: true,
+      fluid: true,
+      autoplay: true,
+      sources: [{
+        src: source,
+        type: 'video/mp4'
+      }]
+    };
+  
+    const handlePlayerReady = (player) => {
+      playerRef.current = player;
+  
+      // You can handle player events here, for example:
+      player.on('waiting', () => {
+        videojs.log('player is waiting');
+      });
+  
+      player.on('dispose', () => {
+        videojs.log('player will dispose');
+      });
+    };
 
     return(
         <Container>
@@ -157,7 +169,7 @@ const Photos = ({mobile}) => {
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
                         <Grid.Column width={ mobile ? 4 : 2} style={{textAlign: 'center'}}>
-                            <Segment floated="right" vertical style={{ 
+                            <Segment vertical floated="right" style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
                                 width: 50, 
@@ -177,60 +189,67 @@ const Photos = ({mobile}) => {
                                 </Dropdown>
                             </Segment>
                         </Grid.Column>
-                    </Grid.Row>     
+                    </Grid.Row> 
                     <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 10}}>
+                                        <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>
                                             <Form.Field>
                                                 <Form.Input
                                                     type="text"
                                                     placeholder="Enter Receiver Email"
+                                                    onChange={handleFileowner}
                                                     value={fileowner}
                                                     error={fileownerError}
-                                                    onChange={handleFileowner}
+                                                    
                                                     onClick={() => setfileownerError(false)}
                                                 />
                                             </Form.Field>
                                             <Form.Field>
-                                            <Form.Input
-                                                type="file"
-                                                placeholder="Select a file"
-                                                accept="image/*"
-                                                error={upload_fileError}
-                                                onChange={handleFile}
-                                                onClick={() => setupload_fileError(false)}
-                                            />
+                                                <Form.Input
+                                                    type="file"
+                                                    placeholder="Select a file"
+                                                    accept="video/*"
+                                                    error={upload_videoError}
+                                                    onChange={handleVideo}
+                                                    onClick={() => setupload_videoError(false)}
+                                            
+                                                
+                                                />
                                             </Form.Field>
-                                            <Button loading={loading} onClick={sendFile} size="large" color="green">
-                                            Send Photo
+                                            <Button 
+                                                onClick={sendVideo}  
+                                                size="large" color="green"
+                                                loading={loading}
+                                            >
+                                            Send Video
                                             </Button>
                                           
                                         </Form>
                                         </Grid.Column>
+                                       
                                         <Grid.Column width={ mobile ? 16 : 6} style={{marginTop: 0}}>
-                                          <Segment vertical style={{ padding: 10, height: 300, borderRadius: 10}}>
-                                            {preview ? 
-                                                <Image 
-                                                    src={preview} 
-                                                    alt="preview" 
-                                                    style={{width: '100%', height: '100%'}} 
-                                                     centered
-                                                     inline
-                                                /> :
-                                                <Placeholder fluid style={{width: '100%', height: '100%'}}>
-                                                    <Placeholder.Image />
-                                                </Placeholder>
-                                            }
-                                           
-
+                                          <Segment vertical style={{ padding: 10, height: 300, borderRadius: 10}}>                 
+                                              {
+                                                source ?
+                                                    <VideoJS 
+                                                        options={videoJsOptions}
+                                                        onReady={handlePlayerReady}
+                                                        style={{height: '280px'}}
+                                                    />
+                                                :
+                                                        <Image
+                                                            src="../video.jpg"
+                                                            fluid
+                                                        />
+                                              }
                                           </Segment>
                                         </Grid.Column>
                                         <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 0}}>
-                                            <Header as="h4" content="RECEIVED PHOTOS" />
+                                        <Header as="h4" content="RECEIVED VIDEOS" />
 
                                           <Segment vertical style={{ padding: 10, maxHeight: 300, borderRadius: 10, overflowY: 'auto'}}>
                                           
@@ -238,36 +257,19 @@ const Photos = ({mobile}) => {
                                                    
                                           </Segment>
                                         </Grid.Column>
-                                     
                                     </Grid.Row>
                                 </Grid>
 
                             </Segment>
                         </Grid.Column>
-                    </Grid.Row> 
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Segment vertical style={{borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
-                                <Grid>
-                                    <Grid.Row>
-                                        <Grid.Column width={8}>
-                                            <Icon inverted size="huge" color="green" name="microphone" />
-                                        </Grid.Column>
-                                        <Grid.Column width={8} textAlign="right">
-                                            <Icon  inverted size="huge" color="green" name="chat" />
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Segment>
-                        </Grid.Column>
-                    </Grid.Row>           
+                    </Grid.Row>     
                 </Grid>
                 <Modal
                     size={size}
                     open={open}
                 >
                     <Modal.Header >
-                        Photo upload complete
+                        Video upload complete
                        <Icon 
                             onClick={() => dispatch({type: 'close'})}
                             link name="close" 
@@ -278,7 +280,7 @@ const Photos = ({mobile}) => {
                     <Modal.Content>
                         <Header textAlign="center"  icon>
                             <Icon inverted circular size={20} name="checkmark" color="green" />
-                            Photo upload successfull
+                            Video upload successfull
                         </Header>
                     </Modal.Content>
                 </Modal>
@@ -286,6 +288,5 @@ const Photos = ({mobile}) => {
         </Container>
 
     )
-
 }
-export default Photos
+export default Video
