@@ -62,7 +62,7 @@ const Audio = ({mobile}) => {
         files_uploaded = uploads.map(m => {
             if(m.fileowner === sessionStorage.getItem("email")){
                 return(
-                    <List size="large" icon relaxed celled>
+                    <List size="medium" icon relaxed celled>
                         <List.Item>
                             <List.Icon name="file audio outline" />
                             <List.Content>
@@ -206,7 +206,7 @@ const Audio = ({mobile}) => {
                                         </Grid.Column>
                                        
                                         <Grid.Column width={ mobile ? 16 : 6} style={{marginTop: 0}}>
-                                          <Segment vertical style={{ padding: 10, height: 300, borderRadius: 10}}>
+                                          <Segment vertical style={{ padding: 10, borderRadius: 10}}>
                                               <Image
                                                 src="../audio.webp"
                                                 fluid

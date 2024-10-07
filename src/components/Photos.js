@@ -37,7 +37,7 @@ const Photos = ({mobile}) => {
         files_uploaded = uploads.map(m => {
             if(m.fileowner === sessionStorage.getItem("email")){
                 return(
-                    <List size="large" icon relaxed celled>
+                    <List size="medium" icon relaxed celled>
                         <List.Item>
                             <List.Icon name="file image outline" />
                             <List.Content>
