@@ -52,7 +52,7 @@ const Dashboard = ({mobile}) => {
                                 <Grid textAlign="center">
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge"  link={true} color="green" name="edit outline" />
+                                            <Icon inverted size="huge"  link={true} onClick={() => navigate("/document")} color="green" name="edit outline" />
                                             <Header as="h4" inverted content="DOCUMENT" />
                                         </Grid.Column>
                                         {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>

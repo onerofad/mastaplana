@@ -37,7 +37,6 @@ const Photos = ({mobile}) => {
         files_uploaded = uploads.map(m => {
             if(m.fileowner === sessionStorage.getItem("email")){
                 return(
-                    <List size="medium" icon relaxed celled>
                         <List.Item>
                             <List.Icon name="file image outline" />
                             <List.Content>
@@ -55,7 +54,7 @@ const Photos = ({mobile}) => {
                                 </List.Description>
                             </List.Content>
                         </List.Item>
-                    </List>
+                    
                 )
             }
     })
@@ -231,36 +230,18 @@ const Photos = ({mobile}) => {
                                         </Grid.Column>
                                         <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 0}}>
                                             <Header as="h4" content="RECEIVED PHOTOS" />
+                                          <List size="small" icon divided style={{maxHeight: 300, overflowY: 'auto'}}>
 
-                                          <Segment vertical style={{ padding: 10, maxHeight: 300, borderRadius: 10, overflowY: 'auto'}}>
-                                          
                                                 {files_uploaded}
+                                           </List>
                                                    
-                                          </Segment>
-                                        </Grid.Column>
-                                     
+                                        </Grid.Column>         
                                     </Grid.Row>
                                 </Grid>
 
                             </Segment>
                         </Grid.Column>
-                    </Grid.Row> 
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Segment vertical style={{borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
-                                <Grid>
-                                    <Grid.Row>
-                                        <Grid.Column width={8}>
-                                            <Icon inverted size="huge" color="green" name="microphone" />
-                                        </Grid.Column>
-                                        <Grid.Column width={8} textAlign="right">
-                                            <Icon  inverted size="huge" color="green" name="chat" />
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Segment>
-                        </Grid.Column>
-                    </Grid.Row>           
+                    </Grid.Row>          
                 </Grid>
                 <Modal
                     size={size}

@@ -62,7 +62,6 @@ const Audio = ({mobile}) => {
         files_uploaded = uploads.map(m => {
             if(m.fileowner === sessionStorage.getItem("email")){
                 return(
-                    <List size="medium" icon relaxed celled>
                         <List.Item>
                             <List.Icon name="file audio outline" />
                             <List.Content>
@@ -79,7 +78,7 @@ const Audio = ({mobile}) => {
                                 </List.Description>
                             </List.Content>
                         </List.Item>
-                    </List>
+                    
                 )
             }
     })
@@ -222,11 +221,12 @@ const Audio = ({mobile}) => {
                                         <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 0}}>
                                             <Header as="h4" content="RECEIVED AUDIOS" />
 
-                                          <Segment vertical style={{ padding: 10, maxHeight: 300, borderRadius: 10, overflowY: 'auto'}}>
-                                          
+                                         <List size="small" icon relaxed celled style={{maxHeight: 300, overflowY: 'auto'}}>
+                                        
+
                                                 {files_uploaded}
+                                          </List>
                                                    
-                                          </Segment>
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>

@@ -61,7 +61,6 @@ const Video = ({mobile}) => {
         files_uploaded = uploads.map(m => {
             if(m.fileowner === sessionStorage.getItem("email")){
                 return(
-                    <List size="medium" icon relaxed celled>
                         <List.Item>
                             <List.Icon name="file video outline" />
                             <List.Content>
@@ -78,7 +77,7 @@ const Video = ({mobile}) => {
                                 </List.Description>
                             </List.Content>
                         </List.Item>
-                    </List>
+                    
                 )
             }
     })
@@ -251,11 +250,10 @@ const Video = ({mobile}) => {
                                         <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 0}}>
                                         <Header as="h4" content="RECEIVED VIDEOS" />
 
-                                          <Segment vertical style={{ padding: 10, maxHeight: 300, borderRadius: 10, overflowY: 'auto'}}>
-                                          
+                                            <List style={{maxHeight: 300, overflowY: 'auto'}} size="small" icon relaxed celled>
+
                                                 {files_uploaded}
-                                                   
-                                          </Segment>
+                                            </List>      
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>

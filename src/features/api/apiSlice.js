@@ -48,9 +48,16 @@ export const apiSlice = createApi({
         getUploadVideos: builder.query({
             query: () => '/uploadvideos'
         }),
-        getFirstVideo: builder.query({
-            query: () => `/uploadvideos`
-        })
+        getNotes: builder.query({
+            query: () => '/notes'
+        }),
+        addNotes: builder.mutation({
+            query: initialPost => ({
+                url: 'notes/',
+                method: 'POST',
+                body: initialPost
+            })
+        }),
     })
     
 })
@@ -60,6 +67,6 @@ export const {
     useUploadFileMutation, useGetUploadFilesQuery,
     useGetUploadAudiosQuery, useUploadAudioMutation,
     useGetUploadVideosQuery, useUploadVideoMutation,
-    useGetFirstVideoQuery
+    useGetNotesQuery, useAddNotesMutation
 
 } = apiSlice
