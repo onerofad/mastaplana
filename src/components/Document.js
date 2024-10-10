@@ -229,21 +229,21 @@ const Document = ({mobile}) => {
                                                 <Grid.Row>
                                                     <Grid.Column>
                                                         <Button fluid size="large" color="green">
-                                                            FORM
+                                                            Send Form
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
                                                         <Button fluid size="large" color="green">
-                                                            FILE
+                                                            Send Text File
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
                                                         <Button fluid size="large" color="green">
-                                                            TEMPLATE
+                                                            Send Tabular Data
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
