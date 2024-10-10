@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useReducer, useState } from "react"
 import { useAddNotesMutation, useGetNotesQuery, useUploadFileMutation } from "../features/api/apiSlice";
 
-const Document = () => {
+const Document = ({mobile}) => {
 
     const [addNote, setaddNote] = useState(false)
 
@@ -82,21 +82,21 @@ const Document = () => {
     }
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={6} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 6} verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/dashboard">
                                 <Icon inverted name="angle left" color="green" size='big' />
                             </Link>
                         </Grid.Column>
-                        <Grid.Column width={6} verticalAlign="middle">
-                            <Header as="h1" inverted content="MASTA PLANA" color="#fff" />
+                        <Grid.Column width={mobile ? 4 : 6} verticalAlign="middle">
+                            <Header as={mobile ? "h4" : "h1"} inverted content="MASTA PLANA" color="#fff" />
                         </Grid.Column>
-                        <Grid.Column width={2} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
-                        <Grid.Column width={2} style={{textAlign: 'center'}}>
+                        <Grid.Column width={mobile ? 4 : 2} style={{textAlign: 'center'}}>
                             <Segment floated="right" vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
@@ -123,7 +123,7 @@ const Document = () => {
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid divided>
                                     <Grid.Row>
-                                        <Grid.Column width={5} style={{marginTop: 0}}>
+                                        <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 0}}>
                                             <Grid>
                                                 { addNote ?
                                                 <>
@@ -224,7 +224,7 @@ const Document = () => {
                                                 }
                                             </Grid>                                
                                         </Grid.Column>
-                                        <Grid.Column width={5} style={{marginTop: 10}}>
+                                        <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
@@ -250,13 +250,14 @@ const Document = () => {
                                             </Grid>
                                             
                                         </Grid.Column>
-                                        <Grid.Column width={6} style={{marginTop: 10}}>
-                                          <Segment vertical inverted color="teal" style={{ height: 250, borderRadius: 10}}>
-                                           {/* {preview && 
-                                                <Image src={preview} alt="preview" />
-                                            }*/}
+                                        <Grid.Column width={mobile ? 16 : 6} style={{marginTop: 10}}>
+                                          {
+                                            mobile ? '' :
+                                            <Segment vertical inverted color="teal" style={{ height: 250, borderRadius: 10}}>
+                                        
 
-                                          </Segment>
+                                            </Segment> 
+                                           }
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
