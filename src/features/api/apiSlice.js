@@ -58,6 +58,13 @@ export const apiSlice = createApi({
                 body: initialPost
             })
         }),
+        editNote: builder.mutation({
+            query: item => ({
+                url: `/notes/${item.id}/`,
+                method: 'PATCH',
+                body: item
+            })
+        })
     })
     
 })
@@ -67,6 +74,6 @@ export const {
     useUploadFileMutation, useGetUploadFilesQuery,
     useGetUploadAudiosQuery, useUploadAudioMutation,
     useGetUploadVideosQuery, useUploadVideoMutation,
-    useGetNotesQuery, useAddNotesMutation
+    useGetNotesQuery, useAddNotesMutation, useEditNoteMutation
 
 } = apiSlice

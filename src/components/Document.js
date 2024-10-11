@@ -1,15 +1,38 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Icon, Container, Dropdown, TextArea, Button, Modal, Form, Image, SearchResult, Search, List, Input } from "semantic-ui-react"
+import { Grid, Header, Segment, Icon, Container, Dropdown, TextArea, Button, Modal, Form, Image, SearchResult, Search, List, Input, Menu } from "semantic-ui-react"
 import { Link } from "react-router-dom"
 import { useReducer, useState } from "react"
-import { useAddNotesMutation, useGetNotesQuery, useUploadFileMutation } from "../features/api/apiSlice";
+import { useAddNotesMutation, useEditNoteMutation, useGetNotesQuery, useUploadFileMutation } from "../features/api/apiSlice";
+import SearchNote from "./SearchNote";
 
+const initialState = {
+    open: false,
+    size: undefined
+}
+
+function editReducer(state, action){
+    switch(action.type){
+        case 'open':
+            return {open: true, size: action.size}
+
+        case 'close':
+            return {open: false}
+
+        default:
+            new Error('An arror has occurred')
+    }
+}
 const Document = ({mobile}) => {
 
+    const [state, dispatch] = useReducer(editReducer, initialState)
+    const {open, size} = state
+
     const [addNote, setaddNote] = useState(false)
+    const [editnote, seteditNote] = useState(false)
 
     const navigate = useNavigate()
-    
+
+    const [editId, seteditId] = useState("")
     const [content, setcontent] = useState("")
     const [title, setTitle] = useState("")
     let noteowner = sessionStorage.getItem("email")
@@ -32,7 +55,23 @@ const Document = ({mobile}) => {
                                 {n.title}
                             </List.Header>
                         <List.Content floated="right">
-                            <Icon  name="ellipsis vertical" />
+                            <Dropdown 
+                                className="icon"  
+                                icon="ellipsis vertical"
+                                compact
+                                direction="left"
+                            >
+                                <Dropdown.Menu>
+                                    <Dropdown.Item  onClick={() => editNote(n.id)}   text="edit" icon="edit"  />
+                                    <Dropdown.Item text="delete" icon="trash" />
+                                </Dropdown.Menu>
+                            </Dropdown>
+                           {/* <Icon 
+                                onClick={() => editNote(n.id)}  
+                                name="ellipsis vertical" 
+                                link={true}
+                                
+                            />*/}
                         </List.Content>
                         {n.content}
                     </List.Item>
@@ -44,6 +83,35 @@ const Document = ({mobile}) => {
 
     const openNote = () => {
         setaddNote(!addNote)
+    }
+
+    const editNote = (id) => {
+        const note = notes.filter(n => n.id === id)[0]
+        seteditId(note.id)
+        setTitle(note.title)
+        setcontent(note.content)
+
+        dispatch({type: 'open', size: 'mini'})
+    }
+
+    const [updateNote] = useEditNoteMutation()
+    const saveupdateNote = [noteowner, title, content].every(Boolean)
+    const editText = async() => {
+       
+            if(saveupdateNote){
+                setLoading(true)
+                try{
+                    await updateNote({id: editId, noteowner, title, content}).unwrap()
+                    setLoading(false)
+                    dispatch({type: 'close'})
+                }catch(error){
+                    console.log('An error has occurred ' + error)
+                }
+
+            }
+
+      
+        dispatch({type: 'close'})
     }
 
     const handlecontentChange = (e) => {
@@ -138,7 +206,8 @@ const Document = ({mobile}) => {
                                                                 
                                                                 <Grid.Column textAlign="right" width={8}>
                                                                     {
-                                                                        content ? <Icon loading={loading} onClick={addContent} size="large" link={true} name="check mark" /> : ''
+                                                                        content ? <Icon loading={loading} onClick={addContent} size="large" aria-label="save" link={true} name="save" /> 
+                                                                        : ''
 
                                                                     }
 
@@ -197,15 +266,15 @@ const Document = ({mobile}) => {
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        <Search size="large" placeholder="search" fluid />
+                                                        <SearchNote  />
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        
-                                                        <List style={{maxHeight: 120, overflowY: 'auto'}} selection verticalAlign="middle" size="tiny" divided >
-                                                            {notes_list}
-                                                        </List>
+                                                       
+                                                            <List style={{maxHeight: 120, overflowY: 'auto'}} relaxed verticalAlign="middle" size="tiny"  divided >
+                                                                {notes_list}
+                                                            </List> 
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
@@ -266,6 +335,39 @@ const Document = ({mobile}) => {
                         </Grid.Column>
                     </Grid.Row>           
                 </Grid>
+                <Modal
+                    open={open}
+                    size={size}
+                >
+                    <Modal.Header>
+                        Edit Note
+                        <Icon loading={loading} onClick={editText} link={true} style={{float: "right"}} name="edit" />
+                    </Modal.Header>
+                    <Modal.Content>
+                        <Form>
+                            <Form.Field>
+                                <Form.Input
+                                    value={title}
+                                    onChange={handleTitleChange}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <TextArea 
+                                    value={content}
+                                    onChange={handlecontentChange}
+                                
+                                >
+
+                                </TextArea>
+                            </Form.Field>
+                            <Button 
+                                onClick={() => dispatch({type: 'close'})} 
+                                color="youtube">
+                                close
+                            </Button>
+                        </Form>
+                    </Modal.Content>
+                </Modal>
         </Segment>
         </Container>
 
