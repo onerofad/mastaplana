@@ -1,33 +1,15 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Segment, Icon, Container, Dropdown, TextArea, Button, Modal, Form, Image, SearchResult, Search, List, Input, Menu } from "semantic-ui-react"
 import { Link } from "react-router-dom"
-import { useReducer, useState } from "react"
+import { useState } from "react"
 import { useAddNotesMutation, useEditNoteMutation, useGetNotesQuery, useUploadFileMutation } from "../features/api/apiSlice";
 import SearchNote from "./SearchNote";
 
-const initialState = {
-    open: false,
-    size: undefined
-}
 
-function editReducer(state, action){
-    switch(action.type){
-        case 'open':
-            return {open: true, size: action.size}
-
-        case 'close':
-            return {open: false}
-
-        default:
-            new Error('An arror has occurred')
-    }
-}
 const Document = ({mobile}) => {
 
-    const [state, dispatch] = useReducer(editReducer, initialState)
-    const {open, size} = state
-
     const [addNote, setaddNote] = useState(false)
+    const [allNotes, setallnotes] = useState(true)
     const [editnote, seteditNote] = useState(false)
 
     const navigate = useNavigate()
@@ -42,6 +24,16 @@ const Document = ({mobile}) => {
 
     const [loading, setLoading] = useState(false)
 
+    const editNote = (id) => {
+        const note = notes.filter(n => n.id === id)[0]
+        seteditId(note.id)
+        setTitle(note.title)
+        setcontent(note.content)
+        setaddNote(false)
+        setallnotes(false)
+        seteditNote(!editnote)
+    }
+
     let notes_list
     let no_notes = 0
     const {data:notes, isSuccess, refetch} = useGetNotesQuery()
@@ -50,30 +42,16 @@ const Document = ({mobile}) => {
             if(n.noteowner === sessionStorage.getItem("email")){
                 ++no_notes
                 return(
-                    <List.Item>
+                    <List.Item onClick={() => {
+                        editNote(n.id)}
+                    }
+                    >
                          <List.Header>
                                 {n.title}
                             </List.Header>
-                        <List.Content floated="right">
-                            <Dropdown 
-                                className="icon"  
-                                icon="ellipsis vertical"
-                                compact
-                                direction="left"
-                            >
-                                <Dropdown.Menu>
-                                    <Dropdown.Item  onClick={() => editNote(n.id)}   text="edit" icon="edit"  />
-                                    <Dropdown.Item text="delete" icon="trash" />
-                                </Dropdown.Menu>
-                            </Dropdown>
-                           {/* <Icon 
-                                onClick={() => editNote(n.id)}  
-                                name="ellipsis vertical" 
-                                link={true}
-                                
-                            />*/}
+                        <List.Content>                        
+                                {n.content}        
                         </List.Content>
-                        {n.content}
                     </List.Item>
                 )
             }
@@ -82,28 +60,23 @@ const Document = ({mobile}) => {
     }
 
     const openNote = () => {
+        setallnotes(!allNotes)
         setaddNote(!addNote)
-    }
-
-    const editNote = (id) => {
-        const note = notes.filter(n => n.id === id)[0]
-        seteditId(note.id)
-        setTitle(note.title)
-        setcontent(note.content)
-
-        dispatch({type: 'open', size: 'mini'})
     }
 
     const [updateNote] = useEditNoteMutation()
     const saveupdateNote = [noteowner, title, content].every(Boolean)
-    const editText = async() => {
+    const editContent = async() => {
        
             if(saveupdateNote){
                 setLoading(true)
                 try{
                     await updateNote({id: editId, noteowner, title, content}).unwrap()
                     setLoading(false)
-                    dispatch({type: 'close'})
+                    setaddNote(false)
+                    setallnotes(true)
+                    seteditNote(false)
+
                 }catch(error){
                     console.log('An error has occurred ' + error)
                 }
@@ -111,7 +84,6 @@ const Document = ({mobile}) => {
             }
 
       
-        dispatch({type: 'close'})
     }
 
     const handlecontentChange = (e) => {
@@ -140,6 +112,7 @@ const Document = ({mobile}) => {
                         setcontent("")
                         setLoading(false)
                         setaddNote(!addNote)
+                        setallnotes(!allNotes)
                         refetch()
                     }catch(error){
                         console.log('An error has occurred ' + error)
@@ -193,14 +166,15 @@ const Document = ({mobile}) => {
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 0}}>
                                             <Grid>
-                                                { addNote ?
+                                                { addNote &&
                                                 <>
                                                 <Grid.Row>
                                                     <Grid.Column>
                                                         <Grid>
                                                             <Grid.Row>
                                                                 <Grid.Column width={8}>
-                                                                    <Icon size="large" link={true} onClick={() => setaddNote(!addNote)} name="long arrow alternate left" />
+                                                                    <Icon size="large" link={true} 
+                                                                    onClick={() => {setaddNote(!addNote); setallnotes(!allNotes)}} name="long arrow alternate left" />
                                                                     Notes
                                                                 </Grid.Column>
                                                                 
@@ -244,7 +218,63 @@ const Document = ({mobile}) => {
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 </>
-                                                :
+                                                }
+                                                {
+                                                     editnote &&
+                                                        <>
+                                                        <Grid.Row>
+                                                            <Grid.Column>
+                                                                <Grid>
+                                                                    <Grid.Row>
+                                                                        <Grid.Column width={8}>
+                                                                            <Icon size="large" link={true} onClick={() => {setaddNote(false); setallnotes(true); seteditNote(false)}} name="long arrow alternate left" />
+                                                                            Notes
+                                                                        </Grid.Column>
+                                                                        
+                                                                        <Grid.Column textAlign="right" width={8}>
+                                                                            {
+                                                                                content ? <Icon loading={loading} onClick={editContent} size="large" aria-label="save" link={true} name="edit" /> 
+                                                                                : ''
+        
+                                                                            }
+        
+                                                                        </Grid.Column>
+                                                                    </Grid.Row>
+                                                                </Grid>
+                                                            </Grid.Column>
+                                                        </Grid.Row>
+                                                        <Grid.Row>
+                                                            <Grid.Column>
+                                                                <Form>
+                                                                    <Form.Field>
+                                                                        <Form.Input
+                                                                            placeholder="Title"
+                                                                            onChange={handleTitleChange}
+                                                                            error={titleError}
+                                                                            onClick={() => setTitleError(false)}
+                                                                            value={title}
+                                                                        />
+                                                                    </Form.Field>
+                                                                    <Form.Field>
+                                                                            <TextArea 
+                                                                            placeholder="Note something down"
+                                                                            style={{width: '100%', height: 150}}
+                                                                            onChange={handlecontentChange}
+                                                                            error={contentError}
+                                                                            onClick={() => setcontentError(false)}
+                                                                            value={content}
+                                                                        >
+                
+                                                                        </TextArea>
+                                                                    </Form.Field>
+                                                                    
+                                                                </Form>
+                                                               
+                                                            </Grid.Column>
+                                                        </Grid.Row>
+                                                        </>
+                                                }
+                                                { allNotes && 
                                                 <>
                                                 <Grid.Row>
                                                     <Grid.Column>
@@ -266,13 +296,20 @@ const Document = ({mobile}) => {
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        <SearchNote  />
+                                                        <SearchNote />
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                     <Grid.Column>
                                                        
-                                                            <List style={{maxHeight: 120, overflowY: 'auto'}} relaxed verticalAlign="middle" size="tiny"  divided >
+                                                            <List 
+                                                            style={{maxHeight: 120, overflowY: 'auto'}} 
+                                                                relaxed 
+                                                                verticalAlign="middle" 
+                                                                size="tiny"  
+                                                                divided 
+                                                                selection
+                                                            >
                                                                 {notes_list}
                                                             </List> 
                                                     </Grid.Column>
@@ -335,39 +372,7 @@ const Document = ({mobile}) => {
                         </Grid.Column>
                     </Grid.Row>           
                 </Grid>
-                <Modal
-                    open={open}
-                    size={size}
-                >
-                    <Modal.Header>
-                        Edit Note
-                        <Icon loading={loading} onClick={editText} link={true} style={{float: "right"}} name="edit" />
-                    </Modal.Header>
-                    <Modal.Content>
-                        <Form>
-                            <Form.Field>
-                                <Form.Input
-                                    value={title}
-                                    onChange={handleTitleChange}
-                                />
-                            </Form.Field>
-                            <Form.Field>
-                                <TextArea 
-                                    value={content}
-                                    onChange={handlecontentChange}
-                                
-                                >
-
-                                </TextArea>
-                            </Form.Field>
-                            <Button 
-                                onClick={() => dispatch({type: 'close'})} 
-                                color="youtube">
-                                close
-                            </Button>
-                        </Form>
-                    </Modal.Content>
-                </Modal>
+                
         </Segment>
         </Container>
 

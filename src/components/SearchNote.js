@@ -29,9 +29,13 @@ function searchReducer(state, action){
     }
 
 }
-const SearchNote = ({noteid}) => {
+const SearchNote = () => {
 
-    const {data:source, isSuccess} = useGetNotesQuery()
+    const {data:sources, isSuccess} = useGetNotesQuery()
+    let source 
+    if(isSuccess){
+         source = sources.filter(s => s.noteowner === sessionStorage.getItem("email"))
+    }
 
     const [state, dispatch] = useReducer(searchReducer, initialState)
     const {loading, value, results} = state
@@ -59,25 +63,23 @@ const SearchNote = ({noteid}) => {
         
     }, [])
 
-    const openNote = () => {
-        alert(1)
-    }
     return(
         <Search
             loading={loading}
             placeholder="search..."
             results={results}
             value={value}
+            size="large"
+            fluid
             onSearchChange={handleSearchChange}
             onResultSelect={(e, data) => 
-                {dispatch({
+                dispatch({
                     type: 'UPDATE_SELECTION', 
                     selection: data.result.title
-                })
-                    noteid = data.result.id
-                }
+                })     
             }
         />
+        
     )
 }
 
