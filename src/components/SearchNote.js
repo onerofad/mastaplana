@@ -73,10 +73,12 @@ const SearchNote = () => {
             fluid
             onSearchChange={handleSearchChange}
             onResultSelect={(e, data) => 
-                dispatch({
+                {dispatch({
                     type: 'UPDATE_SELECTION', 
                     selection: data.result.title
-                })     
+                });
+                    sessionStorage.setItem("id", data.result.id) 
+                }   
             }
         />
         

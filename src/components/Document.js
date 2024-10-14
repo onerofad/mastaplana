@@ -1,12 +1,38 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Segment, Icon, Container, Dropdown, TextArea, Button, Modal, Form, Image, SearchResult, Search, List, Input, Menu } from "semantic-ui-react"
 import { Link } from "react-router-dom"
-import { useState } from "react"
-import { useAddNotesMutation, useEditNoteMutation, useGetNotesQuery, useUploadFileMutation } from "../features/api/apiSlice";
+import { useReducer, useState } from "react"
+import { useAddNotesMutation, useEditNoteMutation, useGetFormTemplatesQuery, useGetNotesQuery, useUploadFileMutation } from "../features/api/apiSlice";
 import SearchNote from "./SearchNote";
+import FormTemplateModal from "./FormTemplateModal";
 
+const iinitialState = {
+    open: false,
+    size: undefined,
+}
+
+function formReducer(state, action){
+    switch(action.type){
+        case 'open':
+            return {open: true, size: action.size}
+
+        case 'close':
+            return {open: false}
+
+        default:
+            return new Error('An error occurred')
+    }
+}
 
 const Document = ({mobile}) => {
+
+    const [state, dispatch] = useReducer(formReducer, iinitialState)
+    const {open, size} = state
+
+    const closeModal = () => {
+        dispatch({type: 'close'})
+    }
+
 
     const [addNote, setaddNote] = useState(false)
     const [allNotes, setallnotes] = useState(true)
@@ -50,7 +76,7 @@ const Document = ({mobile}) => {
                                 {n.title}
                             </List.Header>
                         <List.Content>                        
-                                {n.content}        
+                                {n.content}
                         </List.Content>
                     </List.Item>
                 )
@@ -82,8 +108,6 @@ const Document = ({mobile}) => {
                 }
 
             }
-
-      
     }
 
     const handlecontentChange = (e) => {
@@ -334,7 +358,11 @@ const Document = ({mobile}) => {
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        <Button fluid size="large" color="green">
+                                                        <Button 
+                                                            fluid size="large" 
+                                                            color="green"
+                                                            onClick={() => dispatch({type: 'open', size: 'large'})}
+                                                        >
                                                             Send Form
                                                         </Button>
                                                     </Grid.Column>
@@ -357,13 +385,7 @@ const Document = ({mobile}) => {
                                             
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 16 : 6} style={{marginTop: 10}}>
-                                          {
-                                            mobile ? '' :
-                                            <Segment vertical inverted color="teal" style={{ height: 250, borderRadius: 10}}>
-                                        
-
-                                            </Segment> 
-                                           }
+                                           
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
@@ -372,7 +394,11 @@ const Document = ({mobile}) => {
                         </Grid.Column>
                     </Grid.Row>           
                 </Grid>
-                
+                <FormTemplateModal 
+                    openModal={open} 
+                    closeModal={closeModal} 
+                    
+                />
         </Segment>
         </Container>
 

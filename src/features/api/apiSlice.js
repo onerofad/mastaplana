@@ -64,7 +64,10 @@ export const apiSlice = createApi({
                 method: 'PATCH',
                 body: item
             })
-        })
+        }),
+        getFormTemplates: builder.query({
+            query: () => '/formtemplates'
+        }),
     })
     
 })
@@ -74,6 +77,7 @@ export const {
     useUploadFileMutation, useGetUploadFilesQuery,
     useGetUploadAudiosQuery, useUploadAudioMutation,
     useGetUploadVideosQuery, useUploadVideoMutation,
-    useGetNotesQuery, useAddNotesMutation, useEditNoteMutation
+    useGetNotesQuery, useAddNotesMutation, useEditNoteMutation,
+    useGetFormTemplatesQuery
 
 } = apiSlice
