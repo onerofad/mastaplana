@@ -182,6 +182,11 @@ const Photos = ({mobile}) => {
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
+                                        <Grid.Column>
+                                            <Header textAlign="center" as="h2" content="PHOTOS" />
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
                                         <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>
                                             <Form.Field>

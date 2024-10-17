@@ -36,6 +36,7 @@ const Audio = ({mobile}) => {
     const [loading, setloading] = useState(false)
 
     const [audio, setAudio] = useState(null);
+    
     let uploaded_audio
     let filesender = sessionStorage.getItem("email")
     const [fileowner, setfileowner] = useState('')
@@ -167,6 +168,11 @@ const Audio = ({mobile}) => {
                         <Grid.Column>
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
+                                    <Grid.Row>
+                                        <Grid.Column>
+                                            <Header textAlign="center" as="h2" content="AUDIO" />
+                                        </Grid.Column>
+                                    </Grid.Row>
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>

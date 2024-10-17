@@ -68,6 +68,26 @@ export const apiSlice = createApi({
         getFormTemplates: builder.query({
             query: () => '/formtemplates'
         }),
+        uploadTextFile: builder.mutation({
+            query: initialPost => ({
+                url: 'uploadtextfiles/',
+                method: 'POST',
+                body: initialPost
+            }),
+        }),
+        getTextFile: builder.query({
+            query: () => '/uploadtextfiles'
+        }),
+        uploadPdfFile: builder.mutation({
+            query: initialPost => ({
+                url: 'uploadpdffiles/',
+                method: 'POST',
+                body: initialPost
+            }), 
+        }),
+        getUploadPdf: builder.query({
+            query: () => '/uploadpdffiles'
+        })
     })
     
 })
@@ -78,6 +98,8 @@ export const {
     useGetUploadAudiosQuery, useUploadAudioMutation,
     useGetUploadVideosQuery, useUploadVideoMutation,
     useGetNotesQuery, useAddNotesMutation, useEditNoteMutation,
-    useGetFormTemplatesQuery
+    useGetFormTemplatesQuery, 
+    useUploadTextFileMutation, useGetTextFileQuery,
+    useUploadPdfFileMutation, useGetUploadPdfQuery
 
 } = apiSlice

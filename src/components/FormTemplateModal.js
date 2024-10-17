@@ -1,7 +1,7 @@
 import { Modal,Grid, Icon } from "semantic-ui-react"
 import { useGetFormTemplatesQuery } from "../features/api/apiSlice"
 
-    const FormTemplateModal = ({openModal, closeModal}) => {
+    const FormTemplateModal = ({openModal, sizeModal, closeModal}) => {
         const {data:htmlFile, isSuccess} = useGetFormTemplatesQuery()
 
         let htmlFiles
@@ -22,6 +22,7 @@ import { useGetFormTemplatesQuery } from "../features/api/apiSlice"
         return(
             <Modal
                 open={openModal}
+                size={sizeModal}
                 style={{maxHeight: 400, overflowY: 'auto'}}
             >
                 <Modal.Header>

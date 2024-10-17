@@ -5,10 +5,20 @@ import { useReducer, useState } from "react"
 import { useAddNotesMutation, useEditNoteMutation, useGetFormTemplatesQuery, useGetNotesQuery, useUploadFileMutation } from "../features/api/apiSlice";
 import SearchNote from "./SearchNote";
 import FormTemplateModal from "./FormTemplateModal";
+import TextModal from "./TextModal";
+import ReceivedFiles from "./ReceivedFiles";
+import ReceivedPdf from "./ReceivedPdf";
+import PdfModal from "./PdfModal";
 
 const iinitialState = {
     open: false,
     size: undefined,
+
+    open_text: false,
+    size_text: undefined,
+
+    open_pdf: false,
+    size_pdf: undefined
 }
 
 function formReducer(state, action){
@@ -16,8 +26,14 @@ function formReducer(state, action){
         case 'open':
             return {open: true, size: action.size}
 
+        case 'open_text':
+            return {open_text: true, size_text: action.size_text}
+
+        case 'open_pdf':
+            return {open_pdf: true, size_pdf: action.size_pdf}
+
         case 'close':
-            return {open: false}
+            return {open: false, open_text: false, open_pdf: false}
 
         default:
             return new Error('An error occurred')
@@ -27,7 +43,7 @@ function formReducer(state, action){
 const Document = ({mobile}) => {
 
     const [state, dispatch] = useReducer(formReducer, iinitialState)
-    const {open, size} = state
+    const {open, size, open_text, size_text, open_pdf, size_pdf} = state
 
     const closeModal = () => {
         dispatch({type: 'close'})
@@ -188,7 +204,12 @@ const Document = ({mobile}) => {
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid divided>
                                     <Grid.Row>
-                                        <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 0}}>
+                                        <Grid.Column>
+                                            <Header textAlign="center" as="h2" content="DOCUMENTS" />
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column width={mobile ? 16 : 6} style={{marginTop: 0}}>
                                             <Grid>
                                                 { addNote &&
                                                 <>
@@ -354,30 +375,40 @@ const Document = ({mobile}) => {
                                                 }
                                             </Grid>                                
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
+                                        <Grid.Column width={mobile ? 16 : 4} style={{marginTop: 10}}>
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
                                                         <Button 
                                                             fluid size="large" 
                                                             color="green"
-                                                            onClick={() => dispatch({type: 'open', size: 'large'})}
+                                                            onClick={() => dispatch({type: 'open', size: 'small'})}
                                                         >
-                                                            Send Form
+                                                            Send Form Data
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
-                                                        <Button fluid size="large" color="green">
+                                                        <Button 
+                                                            fluid 
+                                                            size="large" 
+                                                            color="green" 
+                                                            onClick={() => dispatch({type: 'open_text', size_text: "mini"})}
+                                                        >
                                                             Send Text File
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                 <Grid.Column>
-                                                        <Button fluid size="large" color="green">
-                                                            Send Tabular Data
+                                                        <Button 
+                                                            fluid 
+                                                            size="large" 
+                                                            color="green"
+                                                            onClick={() => dispatch({type: 'open_pdf', size_pdf: 'mini'})}
+                                                        >
+                                                            Send Pdf File
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
@@ -385,7 +416,20 @@ const Document = ({mobile}) => {
                                             
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 16 : 6} style={{marginTop: 10}}>
-                                           
+                                           {/*
+                                            mobile ? '' : <Segment inverted secondary 
+                                            color="teal"  vertical style={{
+                                                height: 250,
+                                            }}
+                                            >
+
+                                            </Segment>
+                                           */}
+                                            <Header as="h4" content="RECEIVED TEXT FILES" />
+                                            <ReceivedFiles />
+
+                                            <Header as="h4" content="RECEIVED PDF FILES" />
+                                            <ReceivedPdf />
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
@@ -396,8 +440,19 @@ const Document = ({mobile}) => {
                 </Grid>
                 <FormTemplateModal 
                     openModal={open} 
+                    sizeModal={size}
                     closeModal={closeModal} 
                     
+                />
+                <TextModal
+                    openModal={open_text}
+                    sizeModal={size_text}
+                    closeModal={closeModal}
+                />
+                <PdfModal
+                    openModalPdf={open_pdf}
+                    sizeModalPdf={size_pdf}
+                    closeModal={closeModal}
                 />
         </Segment>
         </Container>
