@@ -87,6 +87,9 @@ export const apiSlice = createApi({
         }),
         getUploadPdf: builder.query({
             query: () => '/uploadpdffiles'
+        }),
+        getUploadedPdf: builder.query({
+            query: () => '/uploadpdffiles'
         })
     })
     
@@ -100,6 +103,6 @@ export const {
     useGetNotesQuery, useAddNotesMutation, useEditNoteMutation,
     useGetFormTemplatesQuery, 
     useUploadTextFileMutation, useGetTextFileQuery,
-    useUploadPdfFileMutation, useGetUploadPdfQuery
+    useUploadPdfFileMutation, useGetUploadPdfQuery, useGetUploadedPdfQuery
 
 } = apiSlice
