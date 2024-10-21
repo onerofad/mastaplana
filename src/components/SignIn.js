@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Button, Container, Form } from "semantic-ui-react"
+import { Grid, Header, Segment, Button, Container, Form, Image } from "semantic-ui-react"
 import { useGetUsersQuery } from "../features/api/apiSlice"
  
 const SignIn = ({mobile}) => {
@@ -51,8 +51,22 @@ const SignIn = ({mobile}) => {
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
             <Grid>
 <               Grid.Row style={{ margin: mobile ? '5px 5px' : '10px 40px'}}>
-                    <Grid.Column> 
-                        <Header as="h1" inverted content="MASTA PLANA" />
+                    <Grid.Column width={2}>
+                        <Image
+                            src="../mastaplana_logo.jpg"
+                        />
+                    </Grid.Column>
+                    <Grid.Column verticalAlign="middle" width={14}> 
+                        <Header 
+                            as="h1" 
+                            inverted 
+                            content="MASTA PLANA" 
+                            style={{
+                                fontFamily: 'Spicy Rice',
+                                fontWeight: 400,
+                                fontStyle: 'normal'
+                            }}
+                        />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

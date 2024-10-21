@@ -155,6 +155,25 @@ const Video = ({mobile}) => {
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
+                <Grid.Row>
+                    <Grid.Column width={2}>
+                            <Image
+                                src="../mastaplana_logo.jpg"
+                            />
+                        </Grid.Column>
+                        <Grid.Column verticalAlign="middle" width={14}>
+                            <Header 
+                                content="MASTA PLANA" 
+                                as="h1" 
+                                inverted
+                                style={{
+                                    fontFamily: 'Spicy Rice',
+                                    fontWeight: 400,
+                                    fontStyle: 'normal'
+                                }}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/dashboard">
@@ -162,7 +181,17 @@ const Video = ({mobile}) => {
                             </Link>
                         </Grid.Column>
                         <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
-                            <Header as={ mobile ? 'h4' : 'h1'} inverted content="MASTA PLANA" color="#fff" />
+                            <Header 
+                                as={ mobile ? 'h4' : 'h1'} 
+                                inverted 
+                                content="VIDEOS" 
+                                color="#fff" 
+                                style={{
+                                    fontFamily: 'Spicy Rice',
+                                    fontWeight: 400,
+                                    fontStyle: 'normal'
+                                }}
+                            />
                         </Grid.Column>
                         <Grid.Column width={ mobile ? 4 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
@@ -193,11 +222,11 @@ const Video = ({mobile}) => {
                         <Grid.Column>
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
-                                    <Grid.Row>
+                                    {/*<Grid.Row>
                                         <Grid.Column>
                                             <Header textAlign="center" as="h2" content="VIDEOS" />
                                         </Grid.Column>
-                                    </Grid.Row>
+                                    </Grid.Row>*/}
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>

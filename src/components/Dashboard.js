@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Icon, Container, Dropdown } from "semantic-ui-react"
+import { Grid, Header, Segment, Icon, Container, Dropdown, Image } from "semantic-ui-react"
 
 const Dashboard = ({mobile}) => {
     const navigate = useNavigate()
@@ -7,6 +7,25 @@ const Dashboard = ({mobile}) => {
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={2}>
+                            <Image
+                                src="../mastaplana_logo.jpg"
+                            />
+                        </Grid.Column>
+                        <Grid.Column verticalAlign="middle" width={14}>
+                            <Header 
+                                content="MASTA PLANA" 
+                                as="h1" 
+                                inverted
+                                style={{
+                                    fontFamily: 'Spicy Rice',
+                                    fontWeight: 400,
+                                    fontStyle: 'normal'
+                                }}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={mobile ? 8 : 12} verticalAlign="middle">
                             <Header inverted content="Member" color="#fff" />
@@ -41,7 +60,16 @@ const Dashboard = ({mobile}) => {
                     <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
-                                <Header textAlign="center" content="MASTA PLANA" as="h1" />
+                                <Header 
+                                    textAlign="center" 
+                                    content="MASTA PLANA" 
+                                    as="h1" 
+                                    style={{
+                                        fontFamily: 'Spicy Rice',
+                                        fontWeight: 400,
+                                        fontStyle: 'normal'
+                                    }}
+                                />
                             </Segment>
                         </Grid.Column>
                        

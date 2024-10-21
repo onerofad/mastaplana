@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Grid, Header, Segment, Button, Icon, Container, Form } from "semantic-ui-react"
+import { Grid, Header, Segment, Button, Icon, Container, Form, Image } from "semantic-ui-react"
 import { useAddUsersMutation, useGetUsersQuery } from "../features/api/apiSlice"
 
 const SignUp = ({mobile}) => {
@@ -73,10 +73,29 @@ const SignUp = ({mobile}) => {
 
     }
 
-    return(
+    return( 
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
-                <Grid textAlign="center">
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={2}>
+                            <Image
+                                src="../mastaplana_logo.jpg"
+                            />
+                        </Grid.Column>
+                        <Grid.Column verticalAlign="middle" width={14}>
+                            <Header 
+                                content="MASTA PLANA" 
+                                as="h1" 
+                                inverted
+                                style={{
+                                    fontFamily: 'Spicy Rice',
+                                    fontWeight: 400,
+                                    fontStyle: 'normal'
+                                }}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={10} textAlign="left" verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/signin">
@@ -93,7 +112,16 @@ const SignUp = ({mobile}) => {
                     <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
-                                <Header textAlign="center" content="MASTA PLANA" as="h1" />
+                                <Header 
+                                    textAlign="center" 
+                                    content="MASTA PLANA" 
+                                    as="h1" 
+                                    style={{
+                                        fontFamily: 'Spicy Rice',
+                                        fontWeight: 400,
+                                        fontStyle: 'normal'
+                                    }}
+                                />
                             </Segment>
                         </Grid.Column>
                        
@@ -183,7 +211,6 @@ const SignUp = ({mobile}) => {
                 </Grid>
         </Segment>
         </Container>
-
     )
 
 }

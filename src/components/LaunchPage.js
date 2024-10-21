@@ -26,7 +26,18 @@ const LaunchPage = ({mobile}) => {
                             <Grid textAlign="center" verticalAlign="middle">
                                 <Grid.Row>
                                     <Grid.Column>
-                                        <Header style={{ margin: 10 }} textAlign="center" as="h1" content="MASTA PLANA" inverted  />
+                                        <Header 
+                                            textAlign="center" 
+                                            as="h1" 
+                                            content="MASTA PLANA" 
+                                            inverted  
+                                            style={{
+                                                margin: 10,
+                                                fontFamily: 'Spicy Rice',
+                                                fontWeight: 400,
+                                                fontStyle: 'normal'
+                                            }}
+                                        />
                                         <Loader inverted active inline size="big">
                                             Loading,,,
                                         </Loader>
