@@ -21,7 +21,7 @@ const LaunchPage = ({mobile}) => {
         <Segment  vertical style={{ backgroundColor: '#133467'}}>
                 <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle'>
                     <Grid.Column style ={{maxWidth: 400}}>
-                    <Segment vertical style={{backgroundColor: '#3A54AF'}}>     
+                    <Segment vertical style={{backgroundColor: '#3A54AF', borderRadius: 10}}>     
                         <Segment vertical style={{backgroundColor: '#3E72C0', margin: mobile ? 30 : 60}}>
                             <Grid textAlign="center" verticalAlign="middle">
                                 <Grid.Row>
