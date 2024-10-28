@@ -8,6 +8,7 @@
     "@cloudinary/url-gen": "^1.21.0",
     "@graphland/react-video-player": "^0.1.14",
     "@reduxjs/toolkit": "^2.2.7",
+    "@silamoney/sdk": "^1.0.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
