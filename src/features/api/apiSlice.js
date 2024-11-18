@@ -103,7 +103,7 @@ export const apiSlice = createApi({
         }),
         verify_email: builder.mutation({
             query: item => ({
-                url: `users/${item.id}/`,
+                url: `/users/${item.id}/`,
                 method: 'PATCH',
                 body: item
             })
