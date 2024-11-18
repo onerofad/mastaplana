@@ -28,6 +28,8 @@ const SignIn = ({mobile}) => {
             const user = users.filter(u => u.email === email)[0]
             if(!user){
                 setemailerror({content: 'Email does not exist', pointing: 'below'})
+            }else if(user.verifyemail !== 1){
+                setemailerror({content: 'Email is not verified', pointing: 'below'})
             }else{
                 if(user.password !== password){
                     setpassworderror({content: 'password does not exist', pointing: 'below'})

@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Header, Segment, Modal, Icon } from "semantic-ui-react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useGetUsersQuery, useVerify_emailMutation } from "../features/api/apiSlice"
 import { useReducer, useState } from "react"
 
@@ -13,7 +13,7 @@ const VerifyEmail = ({mobile}) => {
 
     const [loading, setloading] = useState(false)
 
-    const [userId, setuserId] = useState("")
+    const [msg, setMsg] = useState(false)
 
     const {data:users, isSuccess} = useGetUsersQuery()
     let current_user
@@ -31,6 +31,9 @@ const VerifyEmail = ({mobile}) => {
                 setloading(true)
                 await updateEmail({id: current_user.id, verifyemail}).unwrap()
                 setloading(false)
+                if(current_user.verifyemail === 1){
+                    setMsg(true)
+                }
                 
             }
         }catch(error){
@@ -67,6 +70,13 @@ const VerifyEmail = ({mobile}) => {
                             >
                                 Verify your email
                             </Button>
+                            {
+                                msg && <>
+                                    <Header as="h5" content="Email Already Verified" />
+                                    <Link style={{color: '#fff'}} to="/signin" >Sign In</Link>
+                                </>
+                            }
+                            
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
