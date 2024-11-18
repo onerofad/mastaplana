@@ -9,6 +9,8 @@ import Photos from './components/Photos';
 import Audio from './components/Audio';
 import Video from './components/Video';
 import Document from './components/Document';
+import Members from './components/Members';
+import VerifyEmail from './components/VerifyEmail';
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
@@ -32,6 +34,8 @@ function App() {
             <Route path='/audio'  element={<Audio mobile />} />
             <Route path='/video'  element={<Video mobile />} />
             <Route path='/document' element={<Document mobile />} />
+            <Route path='/members' element={<Members />} mobile />
+            <Route path='/verifyemail/{email}' element={<VerifyEmail />} mobile />
 
           </Routes>
         </BrowserRouter>
@@ -49,6 +53,9 @@ function App() {
             <Route path='/audio' element={<Audio />} />
             <Route path='/video'  element={<Video />} />
             <Route path='/document' element={<Document />} />
+            <Route path='/members' element={<Members />} />
+            <Route path='/verifyemail/{email}' element={<VerifyEmail />} />
+
           </Routes>
         </BrowserRouter>
 

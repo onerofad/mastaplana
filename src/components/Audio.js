@@ -130,7 +130,7 @@ const Audio = ({mobile}) => {
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
-                    <Grid.Row>
+                    {/*<Grid.Row>
                         <Grid.Column width={2}>
                             <Image
                                 src="../mastaplana_logo.jpg"
@@ -148,7 +148,7 @@ const Audio = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row>*/}
                     <Grid.Row>
                         <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/dashboard">

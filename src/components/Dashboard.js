@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Icon, Container, Dropdown, Image } from "semantic-ui-react"
+import { Grid, Header, Segment, Icon, Container, Dropdown, Image, Button, Modal, Form, Divider } from "semantic-ui-react"
+
 
 const Dashboard = ({mobile}) => {
+
     const navigate = useNavigate()
+    
     return(
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
-                    <Grid.Row>
+                    {/*<Grid.Row>
                         <Grid.Column width={2}>
                             <Image
                                 src="../mastaplana_logo.jpg"
@@ -25,10 +28,33 @@ const Dashboard = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row>*/}
                     <Grid.Row>
-                        <Grid.Column width={mobile ? 8 : 12} verticalAlign="middle">
-                            <Header inverted content="Member" color="#fff" />
+                        <Grid.Column width={mobile ? 4 : 6} verticalAlign="middle">
+                            <Button 
+                                color="green"
+                                size={ mobile ? "mini" : "large"}
+                                onClick={() => {
+                                    navigate("/members")
+                                }
+                                }
+                            >
+                                Add Member
+                            </Button>
+                            {/*<Header inverted content="Add Member" color="#fff" />*/}
+                        </Grid.Column>
+                        <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
+                            <Header 
+                                as={ mobile ? 'h4' : 'h1'} 
+                                inverted 
+                                content="DASHBOARD" 
+                                color="#fff" 
+                                style={{
+                                    fontFamily: 'Spicy Rice',
+                                    fontWeight: 400,
+                                    fontStyle: 'normal'
+                                }}
+                            />
                         </Grid.Column>
                         <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />

@@ -165,7 +165,7 @@ const Document = ({mobile}) => {
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
-                    <Grid.Row>
+                    {/*<Grid.Row>
                         <Grid.Column width={2}>
                             <Image
                                 src="../mastaplana_logo.jpg"
@@ -183,7 +183,7 @@ const Document = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row>*/}
                     <Grid.Row>
                         <Grid.Column width={mobile ? 4 : 6} verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/dashboard">
@@ -232,11 +232,11 @@ const Document = ({mobile}) => {
                         <Grid.Column>
                             <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid divided>
-                                    {/*<Grid.Row>
+                                    <Grid.Row>
                                         <Grid.Column>
                                             <Header textAlign="center" as="h2" content="DOCUMENTS" />
                                         </Grid.Column>
-                                    </Grid.Row>*/}
+                                    </Grid.Row>
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 16 : 6} style={{marginTop: 0}}>
                                             <Grid>

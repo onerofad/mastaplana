@@ -90,7 +90,17 @@ export const apiSlice = createApi({
         }),
         getUploadedPdf: builder.query({
             query: () => '/uploadpdffiles'
-        })
+        }),
+        addMember: builder.mutation({
+            query: initialPost => ({
+                url: 'members/',
+                method: 'POST',
+                body: initialPost
+            }),
+        }),
+        getMembers: builder.query({
+            query: () => '/members'
+        }),
     })
     
 })
@@ -103,6 +113,7 @@ export const {
     useGetNotesQuery, useAddNotesMutation, useEditNoteMutation,
     useGetFormTemplatesQuery, 
     useUploadTextFileMutation, useGetTextFileQuery,
-    useUploadPdfFileMutation, useGetUploadPdfQuery, useGetUploadedPdfQuery
-
+    useUploadPdfFileMutation, useGetUploadPdfQuery, useGetUploadedPdfQuery,
+    useAddMemberMutation, useGetMembersQuery
+    
 } = apiSlice

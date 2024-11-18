@@ -1,9 +1,31 @@
-import { useState } from "react"
+import { useReducer, useState } from "react"
 import { Link } from "react-router-dom"
-import { Grid, Header, Segment, Button, Icon, Container, Form, Image } from "semantic-ui-react"
+import { Grid, Header, Segment, Button, Icon, Container, Form, Modal } from "semantic-ui-react"
 import { useAddUsersMutation, useGetUsersQuery } from "../features/api/apiSlice"
+import emailjs from '@emailjs/browser'
 
+const initialState = {
+    open: false,
+    size: undefined
+}
+
+function registerReducer(state, action){
+    switch(action.type){
+        case 'open':
+            return {open: true, size: action.size}
+
+        case 'close':
+            return {open: false}
+
+        default:
+            return new Error('An error occurred')
+    }
+}
 const SignUp = ({mobile}) => {
+
+    const [state, dispatch] = useReducer(registerReducer, initialState)
+
+    const {open, size} = state
 
     const {data:users, isSuccess} = useGetUsersQuery()
 
@@ -14,14 +36,14 @@ const SignUp = ({mobile}) => {
     const [lname, setlname] = useState('')
     const [email, setemail] = useState('')
     const [phone, setphone] = useState('')
-    const [accessnumber, setaccessnumber] =useState('')
+    const [password, setpassword] =useState('')
 
     const [fnameError, setfnameError] = useState(false)
     const [mnameError, setmnameError] = useState(false)
     const [lnameError, setlnameError] = useState(false)
     const [phoneError, setphoneError] = useState(false)
     const [emailError, setemailError] = useState(false)
-    const [accessnumberError, setaccessnumberError] = useState(false)
+    const [passwordError, setpasswordError] = useState(false)
 
 
     const handleFname = (e) => setfname(e.target.value)
@@ -29,25 +51,26 @@ const SignUp = ({mobile}) => {
     const handleLname = (e) => setlname(e.target.value)
     const handleEmail = (e) => setemail(e.target.value)
     const handlePhone = (e) => setphone(e.target.value)
-    const handleAccessnumber = (e) => setaccessnumber(e.target.value)
+    const handlepassword = (e) => setpassword(e.target.value)
 
     const [insertUser, {isLoading}] = useAddUsersMutation()
-    const saveuser = [fname, mname, lname, phone, email, accessnumber].every(Boolean) && !isLoading
+    const saveuser = [fname, mname, lname, phone, email, password].every(Boolean) && !isLoading
 
     const signupBtn = async () => {
 
         if(fname === ''){
             setfnameError({content: 'Please enter your first name', pointing: 'above'})
-        }else if(mname === ''){
+        }/*else if(mname === ''){
             setmnameError({content: 'Please enter your middle name', pointing: 'above'})
-        }else if(lname === ''){
+        }*/
+        else if(lname === ''){
             setlnameError({content: 'Please enter your last name', pointing: 'above'})
         }else if(phone === ''){
             setphoneError({content: 'Please enter your phone number', pointing: 'above'})
         }else if(email === ''){
             setemailError({content: 'Please enter your email address', pointing: 'above'})
-        }else if(accessnumber === ''){
-            setaccessnumberError({content: 'Please enter your access number', pointing: 'above'})
+        }else if(password === ''){
+            setpasswordError({content: 'Please enter your password', pointing: 'above'})
         }else{
             const user = users.filter(u => u.email === email)[0]
             if(user){
@@ -56,14 +79,20 @@ const SignUp = ({mobile}) => {
                 setloading(true)
                 if(saveuser){
                     try{
-                        await insertUser({fname, mname, lname, phone, email, accessnumber}).unwrap()
+                        await insertUser({fname, mname, lname, phone, email, password}).unwrap()
+                        emailjs.send("service_xb23hnw","template_ym6f2ho",{
+                            to_name: fname,
+                            message: `https://localhost:3000/verifyemail/${email}`,
+                            to_email: email,
+                        },  {publicKey: 'ksmb9LVXc2VEPulHb'});
                         setfname('')
                         setmname('')
                         setlname('')
                         setphone('')
                         setemail('')
-                        setaccessnumber('')
+                        setpassword('')
                         setloading(false)
+                        dispatch({type: 'open', size: "mini"})
                     }catch(error){
                     console.log('An error has occurred ' + error)
                     }
@@ -77,7 +106,7 @@ const SignUp = ({mobile}) => {
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
-                    <Grid.Row>
+                    {/*<Grid.Row>
                         <Grid.Column width={2}>
                             <Image
                                 src="../mastaplana_logo.jpg"
@@ -95,7 +124,7 @@ const SignUp = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row>*/}
                     <Grid.Row>
                         <Grid.Column width={10} textAlign="left" verticalAlign="middle">
                             <Link style={{ fontSize: 20, color: '#fff'}} to="/signin">
@@ -146,8 +175,6 @@ const SignUp = ({mobile}) => {
                                                         placeholder="Middle name" 
                                                         value={mname}
                                                         onChange={handleMname}
-                                                        error={mnameError}
-                                                        onClick={() => setmnameError(false)}
 
                                                     />
                                                     <Form.Input 
@@ -172,7 +199,7 @@ const SignUp = ({mobile}) => {
                                                         onClick={() => setphoneError(false)}
                                                         
                                                     />
-                                                    <Form.Input 
+                                                    <Form.Input
                                                         placeholder="Email address" 
                                                         value={email}
                                                         onChange={handleEmail}
@@ -181,11 +208,12 @@ const SignUp = ({mobile}) => {
 
                                                     />
                                                     <Form.Input 
-                                                        placeholder="Access number" 
-                                                        value={accessnumber}
-                                                        onChange={handleAccessnumber}
-                                                        error={accessnumberError}
-                                                        onClick={() => setaccessnumberError(false)}
+                                                        type = "password"
+                                                        placeholder="Password" 
+                                                        value={password}
+                                                        onChange={handlepassword}
+                                                        error={passwordError}
+                                                        onClick={() => setpasswordError(false)}
 
                                                     />
                                                 </Form.Group>
@@ -209,6 +237,28 @@ const SignUp = ({mobile}) => {
                         </Grid.Column>
                     </Grid.Row>      
                 </Grid>
+                <Modal
+                    open={open}
+                    size={size}
+                >
+                    <Modal.Header>
+                        Success
+                        <Icon
+                            onClick={() => dispatch({type: 'close'})}
+                            link
+                            name="close"
+                            style={{
+                                float: 'right'
+                            }}
+                       />
+                       <Modal.Content>
+                            <Header textAlign="center"  icon>
+                                <Icon inverted circular size={20} name="checkmark" color="green" />
+                                Verify Email From Inbox
+                            </Header>
+                       </Modal.Content>
+                    </Modal.Header>
+                </Modal>
         </Segment>
         </Container>
     )

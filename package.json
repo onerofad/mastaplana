@@ -6,6 +6,7 @@
     "@artsy/fresnel": "^7.1.4",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.21.0",
+    "@emailjs/browser": "^4.4.1",
     "@graphland/react-video-player": "^0.1.14",
     "@reduxjs/toolkit": "^2.2.7",
     "@silamoney/sdk": "^1.0.1",
