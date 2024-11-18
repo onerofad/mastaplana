@@ -101,6 +101,13 @@ export const apiSlice = createApi({
         getMembers: builder.query({
             query: () => '/members'
         }),
+        verify_email: builder.mutation({
+            query: item => ({
+                url: `users/${item.id}/`,
+                method: 'PATCH',
+                body: item
+            })
+        }),
     })
     
 })
@@ -114,6 +121,7 @@ export const {
     useGetFormTemplatesQuery, 
     useUploadTextFileMutation, useGetTextFileQuery,
     useUploadPdfFileMutation, useGetUploadPdfQuery, useGetUploadedPdfQuery,
-    useAddMemberMutation, useGetMembersQuery
+    useAddMemberMutation, useGetMembersQuery,
+    useVerify_emailMutation
     
 } = apiSlice
