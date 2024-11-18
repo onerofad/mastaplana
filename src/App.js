@@ -35,7 +35,7 @@ function App() {
             <Route path='/video'  element={<Video mobile />} />
             <Route path='/document' element={<Document mobile />} />
             <Route path='/members' element={<Members />} mobile />
-            <Route path='/verifyemail/{email}' element={<VerifyEmail />} mobile />
+            <Route path='/verifyemail/:email' element={<VerifyEmail />} mobile />
 
           </Routes>
         </BrowserRouter>
@@ -54,7 +54,7 @@ function App() {
             <Route path='/video'  element={<Video />} />
             <Route path='/document' element={<Document />} />
             <Route path='/members' element={<Members />} />
-            <Route path='/verifyemail/{email}' element={<VerifyEmail />} />
+            <Route path='/verifyemail/:email' element={<VerifyEmail />} />
 
           </Routes>
         </BrowserRouter>
