@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Header, Segment } from "semantic-ui-react"
+import { Button, Container, Grid, Header, Segment, Modal, Icon } from "semantic-ui-react"
 import { useParams } from "react-router-dom"
 import { useGetUsersQuery, useVerify_emailMutation } from "../features/api/apiSlice"
 import { useReducer, useState } from "react"
@@ -27,7 +27,7 @@ const VerifyEmail = ({mobile}) => {
     const [state, dispatch] = useReducer(ModalReducer, iinitialState)
 
     const {open, size} = state
-    
+
     const [verify, setverify] = useState(1)
 
     const param = useParams()
@@ -50,7 +50,7 @@ const VerifyEmail = ({mobile}) => {
     const verifyBtn = async () => {
         try{
             if(saveEmail){
-                await updateEmail({id: userId, verify})
+                await updateEmail({id: userId, verify}).unwrap()
                 dispatch({type: 'open', size: "mini"})
             }
         }catch(error){
