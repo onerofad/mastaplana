@@ -34,7 +34,7 @@ function App() {
             <Route path='/audio'  element={<Audio mobile />} />
             <Route path='/video'  element={<Video mobile />} />
             <Route path='/document' element={<Document mobile />} />
-            <Route path='/members' element={<Members />} mobile />
+            <Route path='/members' element={<Members mobile />}  />
             <Route path='/verifyemail/:email' element={<VerifyEmail />} mobile />
 
           </Routes>

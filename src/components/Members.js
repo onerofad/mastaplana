@@ -112,7 +112,7 @@ const Members = ({mobile}) => {
     }
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 10 : 40}}>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
@@ -160,20 +160,20 @@ const Members = ({mobile}) => {
                     </Grid.Row>   
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment vertical style={{padding: 30, borderRadius: 10, backgroundColor: '#fff'}}>
+                            <Segment vertical style={{padding: mobile ? 20 : 30, borderRadius: 10, backgroundColor: '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
                                         <Grid.Column width={8}>
                                             <Search
                                                 placeholder="Search Member"
-                                                size="large"
+                                                size={mobile ? "mini" : "large"}
                                                 fluid
                                             />
 
                                         </Grid.Column>
                                         <Grid.Column width={8}>
                                             <Button
-                                                size="large"
+                                                size={mobile ? "mini" : "large"}
                                                 floated="right"
                                                 icon
                                                 labelPosition="left"
@@ -190,7 +190,7 @@ const Members = ({mobile}) => {
                                     </Grid.Row>
                                     <Grid.Row>
                                         <Grid.Column>
-                                            <Table compact>
+                                            <Table fixed size={mobile ? "small" : "large"}>
                                                 <Table.Header>
                                                     <Table.HeaderCell>Name</Table.HeaderCell>
                                                     <Table.HeaderCell>Access Code</Table.HeaderCell>
