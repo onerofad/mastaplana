@@ -241,8 +241,9 @@ const SignUp = ({mobile}) => {
                     open={open}
                     size={size}
                 >
-                    <Modal.Header>
-                        Success
+                        <Modal.Header>
+                            Success
+                        
                         <Icon
                             onClick={() => dispatch({type: 'close'})}
                             link
@@ -251,13 +252,13 @@ const SignUp = ({mobile}) => {
                                 float: 'right'
                             }}
                        />
+                       </Modal.Header>
                        <Modal.Content>
                             <Header textAlign="center"  icon>
                                 <Icon inverted circular size={20} name="checkmark" color="green" />
                                 Verify Email From Inbox
                             </Header>
                        </Modal.Content>
-                    </Modal.Header>
                 </Modal>
         </Segment>
         </Container>
