@@ -71,10 +71,12 @@ const VerifyEmail = ({mobile}) => {
                                 Verify your email
                             </Button>
                             {
-                                msg && <>
-                                    <Header as="h5" content="Email Already Verified" />
-                                    <Link style={{color: '#fff'}} to="/signin" >Sign In</Link>
-                                </>
+                                msg &&
+                                    <Header as="h5">
+                                        Email Already Verified
+                                        <Link style={{color: '#fff'}} to="/signin" >Sign In</Link>
+                                    </Header>
+                            
                             }
                             
                         </Grid.Column>
