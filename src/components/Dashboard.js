@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Header, Segment, Icon, Container, Dropdown, Image, Button, Modal, Form, Divider } from "semantic-ui-react"
+import { Grid, Header, Segment, Icon, Container, Dropdown, Button } from "semantic-ui-react"
 
 
 const Dashboard = ({mobile}) => {
@@ -35,11 +35,11 @@ const Dashboard = ({mobile}) => {
                                 color="green"
                                 size={ mobile ? "mini" : "large"}
                                 onClick={() => {
-                                    navigate("/members")
+                                    navigate("/community")
                                 }
                                 }
                             >
-                                Add Member
+                                COMMUNITY
                             </Button>
                             {/*<Header inverted content="Add Member" color="#fff" />*/}
                         </Grid.Column>
@@ -70,7 +70,9 @@ const Dashboard = ({mobile}) => {
                             }}>
                                 <Dropdown 
                                     text={
-                                            sessionStorage.getItem("fname").charAt(0).toUpperCase()
+                                        sessionStorage.getItem("fname").charAt(0).toUpperCase()
+                                        + " " +
+                                        sessionStorage.getItem("lname").charAt(0).toUpperCase()
                                     }
                                     inline
                                 >

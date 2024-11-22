@@ -91,15 +91,15 @@ export const apiSlice = createApi({
         getUploadedPdf: builder.query({
             query: () => '/uploadpdffiles'
         }),
-        addMember: builder.mutation({
+        addCommunity: builder.mutation({
             query: initialPost => ({
-                url: 'members/',
+                url: 'communities/',
                 method: 'POST',
                 body: initialPost
             }),
         }),
-        getMembers: builder.query({
-            query: () => '/members'
+        getCommunities: builder.query({
+            query: () => '/communities'
         }),
         verify_email: builder.mutation({
             query: item => ({
@@ -107,6 +107,17 @@ export const apiSlice = createApi({
                 method: 'PATCH',
                 body: item
             })
+        }),
+        addMember: builder.mutation({
+            query: item => ({
+                url: 'members/',
+                method: 'POST',
+                body: item
+            }),
+
+        }),
+        getMembers: builder.query({
+            query: () => '/members'
         }),
     })
     
@@ -121,7 +132,8 @@ export const {
     useGetFormTemplatesQuery, 
     useUploadTextFileMutation, useGetTextFileQuery,
     useUploadPdfFileMutation, useGetUploadPdfQuery, useGetUploadedPdfQuery,
-    useAddMemberMutation, useGetMembersQuery,
-    useVerify_emailMutation
+    useVerify_emailMutation,
+    useAddCommunityMutation, useGetCommunitiesQuery,
+    useAddMemberMutation, useGetMembersQuery
     
 } = apiSlice

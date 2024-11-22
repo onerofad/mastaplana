@@ -216,7 +216,11 @@ const Document = ({mobile}) => {
                                 backgroundColor: '#fff'
                             }}>
                                 <Dropdown 
-                                    text={sessionStorage.getItem("fname").charAt(0).toUpperCase()} 
+                                    text={
+                                        sessionStorage.getItem("fname").charAt(0).toUpperCase()
+                                        + " " +
+                                        sessionStorage.getItem("lname").charAt(0).toUpperCase()
+                                    } 
                                     inline
                                 >
                                   <Dropdown.Menu>
