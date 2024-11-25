@@ -1,5 +1,5 @@
 import { Search } from "semantic-ui-react"
-import React from 'react'
+import {useReducer, useRef, useCallback, useEffect} from 'react'
 import { useGetCommunitiesQuery } from "../features/api/apiSlice"
 import _ from 'lodash'
 
@@ -40,11 +40,11 @@ const SearchCommunity = () => {
         ))
     }
 
-    const [state, dispatch] = React.useReducer(SearchReducer, initialState)
+    const [state, dispatch] = useReducer(SearchReducer, initialState)
     const {loading, results, value} = state
 
-    const timeoutRef = React.useRef()
-    const handleSearchChange = React.useCallback((e, data) => {
+    const timeoutRef = useRef()
+    const handleSearchChange = useCallback((e, data) => {
         clearTimeout(timeoutRef.current)
         dispatch({type: 'START_SEARCH', query: data.value})
 
@@ -62,8 +62,14 @@ const SearchCommunity = () => {
                 results: _.filter(source, isMatch),
             })
 
-        }, 1000)
-    }, []) 
+        }, 300)
+    }) 
+
+    useEffect(() => {
+        return() => {
+            clearTimeout(timeoutRef.current)
+        }
+    }, [])
 
     return(
         <Search
