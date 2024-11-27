@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Segment, Icon, Container, Dropdown, TextArea, Button, Modal, Form, Image, List, Placeholder } from "semantic-ui-react"
 import { Link } from "react-router-dom"
-import { useReducer, useState } from "react"
-
+import { useReducer, useState, useEffect } from "react"
 import { useGetUploadFilesQuery, useUploadFileMutation } from "../features/api/apiSlice";
+import emailjs from '@emailjs/browser'
+import { getUserMembers } from "../API";
 
 const initialState = {
     size: undefined,
@@ -22,6 +23,28 @@ function uploadReducer(state, action){
 
 }
 const Photos = ({mobile}) => {
+
+    const [members, setmembers] = useState([])
+    useEffect(() => {
+        getAllMembers()
+    })
+
+    const getAllMembers = () => {
+        getUserMembers().get("/")
+        .then(res => setmembers(res.data))
+        .catch(error => console.log('An error has occurred ' + error))
+    }
+
+    const [check, setcheck] = useState(false)
+
+        const [usertype, setusertype] = useState("")
+
+        const [msgerror, setmsgerror] = useState("")
+
+        const handleusertype = (e) => {
+            setusertype(e.target.value)
+        }
+
 
     const [state, dispatch] = useReducer(uploadReducer, initialState)
     const {open, size} = state
@@ -60,6 +83,13 @@ const Photos = ({mobile}) => {
     })
     }
 
+    let members_options
+        const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
+        members_options = current_members.map(c => (
+            {key: c.id, text: c.memberEmail, value: c.memberEmail}
+        ))
+    
+
     const fileUpload = () => {
         dispatch({type: 'open', size: 'mini'})
     }
@@ -76,7 +106,9 @@ const Photos = ({mobile}) => {
     const [fileownerError, setfileownerError] = useState(false)
     const [upload_fileError, setupload_fileError] = useState(false)
 
-    const handleFileowner = (e) => setfileowner(e.target.value)
+    const handlefileowner = (e, {value}) => {
+        setfileowner(value)
+    }
 
     const handleFile = (e) => {
         const file = e.target.files[0]
@@ -96,8 +128,10 @@ const Photos = ({mobile}) => {
     const saveFile = [fileowner, filesender].every(Boolean) && !isLoading
 
     const sendFile = async () => {
-        if(fileowner === ''){
-            setfileownerError({content: 'Enter email address', pointing: 'above'})
+        if(usertype === '' && fileowner === ''){
+            setmsgerror("You must Enter a member email or non-member email")
+        }else if(usertype !== '' && fileowner !== ''){
+            setmsgerror("You must choose a member email or non-member email")
         }else if(image === null){
             setupload_fileError({content: 'Select a file', pointing: 'above'})
         }else{
@@ -132,7 +166,44 @@ const Photos = ({mobile}) => {
                       //setUrl('')
                       setloading(false)
                       dispatch({type: 'open', size: 'mini'})
+                }else if(usertype !== ''){
+                    setloading(true);
+                    let imageURL
+                    const data = new FormData();
+                    data.append("file", image);
+                    data.append("upload_preset", "slakw5ml");
+                    data.append("cloud_name", "du3ck2joa");
+                    data.append("transformations", "fl_attachment")
+                    data.append("folder", "mastaplana");
+
+                    const response = await fetch(
+                        `https://api.cloudinary.com/v1_1/du3ck2joa/image/upload/`,
+                        {
+                          method: "POST",
+                          body: data,
+                        }
+                      );
+                      const res = await response.json();
+                      imageURL = res.url.toString()
+                      //alert(imageURL)
+                      uploaded_file = imageURL
+                      //setUrl(res.url.toString());
+                      emailjs.send("service_xb23hnw","template_6amwebl",{
+                        to_name: usertype,
+                        message: `${uploaded_file}`,
+                        to_email: usertype,
+                        from_email: filesender
+                    },  {publicKey: 'ksmb9LVXc2VEPulHb'});
+                   
+                      //await uploadFile({fileowner, uploaded_file, filesender}).unwrap()
+                      //setfileowner('')
+                      setPreview(null)
+                      setImage(null)
+                      //setUrl('')
+                      setloading(false)
+                      dispatch({type: 'open', size: 'mini'})
                 }
+
 
             }catch(error){
                 console.log('An error has occurred ' + error)
@@ -223,14 +294,27 @@ const Photos = ({mobile}) => {
                                     <Grid.Row>
                                         <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>
+                                        {msgerror}
+
                                             <Form.Field>
                                                 <Form.Input
-                                                    type="text"
-                                                    placeholder="Enter Receiver Email"
+                                                    placeholder="Enter Email (For none members)"
+                                                    value={usertype}
+                                                    onChange={handleusertype}
+                                                    onClick={() => setmsgerror("")}
+                                                />
+                                            </Form.Field>
+                                            <Form.Field>
+                                                <Form.Dropdown
+                                                    placeholder="Search Email (For members)"
+                                                    fluid
+                                                    selection
+                                                    search
+                                                    onChange={handlefileowner}
                                                     value={fileowner}
-                                                    error={fileownerError}
-                                                    onChange={handleFileowner}
-                                                    onClick={() => setfileownerError(false)}
+                                                    options={members_options}
+                                                    onClick={() => setmsgerror("")}
+
                                                 />
                                             </Form.Field>
                                             <Form.Field>
@@ -243,10 +327,14 @@ const Photos = ({mobile}) => {
                                                 onClick={() => setupload_fileError(false)}
                                             />
                                             </Form.Field>
-                                            <Button loading={loading} onClick={sendFile} size="large" color="green">
-                                            Send Photo
-                                            </Button>
-                                          
+                                            <Button 
+                                                loading={loading} 
+                                                onClick={sendFile} 
+                                                size="large" 
+                                                color="green"
+                                                content="Send Photo"
+                                                icon={check}
+                                            />                                          
                                         </Form>
                                         </Grid.Column>
                                         <Grid.Column width={ mobile ? 16 : 6} style={{marginTop: 0}}>

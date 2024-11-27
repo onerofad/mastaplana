@@ -5,6 +5,8 @@ import videojs from 'video.js';
 import { useGetUploadVideosQuery, useUploadVideoMutation } from "../features/api/apiSlice"
 import VideoJS from "./VideoJs";
 import React from "react";
+import emailjs from '@emailjs/browser'
+import { getUserMembers } from "../API";
 
 const initialState = {
     size: undefined,
@@ -25,6 +27,33 @@ function uploadReducer(state, action){
 
 const Video = ({mobile}) => {
 
+    const [members, setmembers] = useState([])
+    useEffect(() => {
+        getAllMembers()
+    })
+
+    const getAllMembers = () => {
+        getUserMembers().get("/")
+        .then(res => setmembers(res.data))
+        .catch(error => console.log('An error has occurred ' + error))
+    }
+   
+    const [check, setcheck] = useState(false)
+
+        const [usertype, setusertype] = useState("")
+
+        const [msgerror, setmsgerror] = useState("")
+
+        const handleusertype = (e) => {
+            setusertype(e.target.value)
+        }
+
+        let members_options
+        const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
+        members_options = current_members.map(c => (
+            {key: c.id, text: c.memberEmail, value: c.memberEmail}
+        ))
+
     const navigate = useNavigate()
 
     const [source, setSource] = useState(null)
@@ -42,8 +71,9 @@ const Video = ({mobile}) => {
     const [fileownerError, setfileownerError] = useState(false)
     const [upload_videoError, setupload_videoError] = useState(false)
 
-    const handleFileowner = (e) => setfileowner(e.target.value)
-
+    const handlefileowner = (e, {value}) => {
+        setfileowner(value)
+    }
     const handleVideo = (e) => {
         const file = e.target.files[0]
         setVideo(file)
@@ -88,8 +118,10 @@ const Video = ({mobile}) => {
     const saveVideo = [fileowner, filesender].every(Boolean) && !isLoading
 
     const sendVideo = async () => {
-        if(fileowner === ''){
-            setfileownerError({content: 'Enter email address', pointing: 'above'})
+        if(usertype === '' && fileowner === ''){
+            setmsgerror("You must Enter a member email or non-member email")
+        }else if(usertype !== '' && fileowner !== ''){
+            setmsgerror("You must choose a member email or non-member email")
         }else if(video === null){
             setupload_videoError({content: 'Select a file', pointing: 'above'})
         }else{
@@ -117,8 +149,40 @@ const Video = ({mobile}) => {
 
                       await uploadVideo({fileowner, uploaded_video, filesender}).unwrap()
                       setloading(false)
+                      dispatch({type: 'open', size: 'mini'})
+
+                }else if(usertype !== ''){
+                    setloading(true)
+                    let videoURL
+                    const data = new FormData();
+                    data.append("file", video);
+                    data.append("upload_preset", "slakw5ml");
+                    data.append("cloud_name", "du3ck2joa");
+                    data.append("resource_type", "video")
+                    data.append("folder", "mastaplana_video");
+
+                    const response = await fetch(
+                        `https://api.cloudinary.com/v1_1/du3ck2joa/upload/`,
+                        {
+                          method: "POST",
+                          body: data,
+                        }
+                      );
+                      const res = await response.json();
+                      videoURL = res.url.toString()
+                      uploaded_video = videoURL
+                      emailjs.send("service_xb23hnw","template_6amwebl",{
+                        to_name: usertype,
+                        message: `${uploaded_video}`,
+                        to_email: usertype,
+                        from_email: filesender
+                    },  {publicKey: 'ksmb9LVXc2VEPulHb'});
+                   
+                    //await uploadVideo({fileowner, uploaded_video, filesender}).unwrap()
+                      setloading(false)
+                      dispatch({type: 'open', size: 'mini'})
+
                 }
-                dispatch({type: 'open', size: 'mini'})
             }catch(error){
 
             }
@@ -234,15 +298,27 @@ const Video = ({mobile}) => {
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>
+                                        {msgerror}
+
                                             <Form.Field>
                                                 <Form.Input
-                                                    type="text"
-                                                    placeholder="Enter Receiver Email"
-                                                    onChange={handleFileowner}
+                                                    placeholder="Enter Email (For none members)"
+                                                    value={usertype}
+                                                    onChange={handleusertype}
+                                                    onClick={() => setmsgerror("")}
+                                                />
+                                            </Form.Field>
+                                            <Form.Field>
+                                                <Form.Dropdown
+                                                    placeholder="Search Email (For members)"
+                                                    fluid
+                                                    selection
+                                                    search
+                                                    onChange={handlefileowner}
                                                     value={fileowner}
-                                                    error={fileownerError}
-                                                    
-                                                    onClick={() => setfileownerError(false)}
+                                                    options={members_options}
+                                                    onClick={() => setmsgerror("")}
+
                                                 />
                                             </Form.Field>
                                             <Form.Field>

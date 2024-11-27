@@ -1,12 +1,21 @@
 import { Modal, Icon, Form, Button, List, Header } from "semantic-ui-react"
 import { useState } from "react"
-import { useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/apiSlice"
-
+import { useGetMembersQuery, useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/apiSlice"
+import emailjs from '@emailjs/browser'
 
     const TextModal = ({openModal, sizeModal, closeModal}) => {
 
+        const [check, setcheck] = useState(false)
+
+        const [usertype, setusertype] = useState("")
+
+        const [msgerror, setmsgerror] = useState("")
+
+        const handleusertype = (e) => {
+            setusertype(e.target.value)
+        }
+
         const [fileowner, setfileowner] = useState("")
-        const [fileownerError, setfileownerError] = useState(false)
    
         const [msg, setmsg] = useState("")
 
@@ -18,8 +27,8 @@ import { useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/
         const [file, setFile] = useState(null)
         const [fileError, setfileError] = useState(false)
 
-        const handlefileowner = (e) => {
-            setfileowner(e.target.value)
+        const handlefileowner = (e, {value}) => {
+            setfileowner(value)
         }
 
         const handlefile = (e) => {
@@ -32,13 +41,27 @@ import { useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/
 
         }
 
+        const {data:members, isSuccess} = useGetMembersQuery()
+
+        let members_options
+        if(isSuccess){
+            const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
+            members_options = current_members.map(c => (
+                {key: c.id, text: c.memberEmail, value: c.memberEmail}
+            ))
+        }
+        
+
         const [uploadFile, {isLoading}] = useUploadTextFileMutation()
         const saveFile = [fileowner, filesender].every(Boolean) && !isLoading
         
         const onSend = async () => {
-            if(fileowner === ''){
-                setfileownerError({content: 'Empty Field'})
-            }else if(file === null){
+            if(usertype === '' && fileowner === ''){
+                setmsgerror("You must Enter a member email or non-member email")
+            }else if(usertype !== '' && fileowner !== ''){
+                setmsgerror("You must choose a member email or non-member email")
+            }
+            else if(file === null){
                 setfileError({content: 'Empty Field'})
             }else{
                 try{
@@ -65,10 +88,45 @@ import { useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/
                         uploaded_text = fileURL
                             await uploadFile({fileowner, uploaded_text, filesender}).unwrap()
                             setfileowner("")
-                            setmsg("File upload Success")
+                            setmsg("File sent")
                             setFile(null)
                             setloading(false)
-                    }
+                            setcheck(true)
+                    }else if(usertype !== ''){
+                            setloading(true)
+                            let fileURL
+                            const data = new FormData()
+                            data.append('file', file)
+                            data.append("upload_preset", "slakw5ml");
+                            data.append("cloud_name", "du3ck2joa");
+                            data.append("resource_type", "text")
+                            data.append("folder", "mastaplana_text");
+        
+                                
+                            const response = await fetch(
+                                `https://api.cloudinary.com/v1_1/du3ck2joa/upload/`,
+                                {
+                                    method: "POST",
+                                    body: data,
+                                    }
+                                );
+                            const res = await response.json();
+                            fileURL = res.url.toString()
+                            uploaded_text = fileURL
+
+                                //await uploadFile({fileowner, uploaded_text, filesender}).unwrap()
+                                emailjs.send("service_xb23hnw","template_6amwebl",{
+                                    to_name: usertype,
+                                    message: `${uploaded_text}`,
+                                    to_email: usertype,
+                                    from_email: filesender
+                                },  {publicKey: 'ksmb9LVXc2VEPulHb'});
+                                //setfileowner("")
+                                setmsg("File sent")
+                                setFile(null)
+                                setloading(false)
+                                setcheck(true)
+                            }
                 }catch(error){
                     console.log('An error has occurred')
                 }
@@ -87,14 +145,27 @@ import { useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/
 
                 </Modal.Header>
                     <Modal.Content>
+                        {msgerror}
                         <Form>
                             <Form.Field>
                                 <Form.Input
-                                    placeholder="Send To"
+                                    placeholder="Enter Email (For none members)"
+                                    value={usertype}
+                                    onChange={handleusertype}
+                                    onClick={() => setmsgerror("")}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Form.Dropdown
+                                    placeholder="Search Email (For members)"
+                                    fluid
+                                    selection
+                                    search
                                     onChange={handlefileowner}
-                                    error={fileownerError}
                                     value={fileowner}
-                                    onClick={() => setfileownerError(false)}
+                                    options={members_options}
+                                    onClick={() => setmsgerror("")}
+
                                 />
                             </Form.Field>
                             <Form.Field>
@@ -113,10 +184,12 @@ import { useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/
                                 color="green"
                                 loading={loading}
                                 onClick={onSend}
-                            >
-                                Send File
-                            </Button>
-                            {msg}
+                                content="Send File"
+                                icon={check}
+                                size="large"
+
+                            />
+                            
                         </Form>
                        
                     </Modal.Content>

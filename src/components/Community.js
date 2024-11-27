@@ -2,14 +2,17 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useReducer, useState } from "react"
 import { Container, Segment, Grid, Dropdown, Header, Modal, Icon, Button, Table, Form, Select } from "semantic-ui-react"
 import { Link } from "react-router-dom"
-import { useGetCommunitiesQuery, useAddCommunityMutation, useAddMemberMutation, useGetMembersQuery } from '../features/api/apiSlice'
+import { useGetCommunitiesQuery, useAddCommunityMutation, useAddMemberMutation, useGetMembersQuery, useRemoveMemberMutation, useGetUsersQuery } from '../features/api/apiSlice'
 import SearchCommunity from "./SearchCommunity"
+import getUsers from "../API"
 
 const initialState = {
     size: undefined,
     open: false,
     size_member: undefined,
-    open_member: false
+    open_member: false,
+    open_delete: false,
+    size_delete: undefined
 }
 
 function openMember(state, action){
@@ -20,8 +23,11 @@ function openMember(state, action){
         case 'open_member':
             return {open_member: true, size_member: action.size_member}
 
+        case 'open_delete':
+            return {open_delete: true, size_delete: action.size_delete}
+
         case 'close':
-            return {open: false, open_member: false}
+            return {open: false, open_member: false, open_delete: false}
 
         default:
             return new Error('An error has occurred')
@@ -31,18 +37,27 @@ function openMember(state, action){
 const Community = ({mobile}) => {
 
     useEffect(() => {
+        getUAvailableUsers()
     }, [])
 
     const options = [
         {key: 'o', text: 'owner', value: 'owner'},
     ]
 
+    const [users, setusers] = useState([])
+
+    const getUAvailableUsers = () => {
+        getUsers().get("/")
+        .then(res => setusers(res.data))
+        .catch(error => console.log('An error has occurred' + error))
+    }
+
     const emailId = sessionStorage.getItem("email")
 
     const navigate = useNavigate()
 
     const [state, dispatch] = useReducer(openMember, initialState)
-    const {open, size, open_member, size_member} = state
+    const {open, size, open_member, size_member, open_delete, size_delete} = state
 
     const [communityname, setcommunityname] = useState("")
     const [communitynameError, setcommunitynameError] = useState(false)
@@ -70,7 +85,9 @@ const Community = ({mobile}) => {
         setcommunityname(e.target.value)
     }
 
-    const handlememberEmail = (e) => setmemberEmail(e.target.value)
+    const handlememberEmail = (e, {value}) => {
+        setmemberEmail(value)
+    }
 
     const handlememberRole = (e) => setmemberRole(e.target.value)
 
@@ -86,9 +103,18 @@ const Community = ({mobile}) => {
         ))
     }
 
+    let email_options
+    if(isSuccess){
+        const current_emails = users.filter(c => c.email !== emailId)
+        email_options = current_emails.map(c => (
+            {key: c.id, text: c.email, value: c.email}
+        ))
+    }
+
     const [getCommunity, {isLoading}] = useAddCommunityMutation()
     const saveCommunity = [communityname, role, community_owner].every(Boolean) && !isLoading
 
+    const [check2, setcheck2] = useState("")
     const addCommunity = async () => {
         if(communityname === ''){
             setcommunitynameError({content: 'Enter community name;', pointer: 'above'})
@@ -102,6 +128,7 @@ const Community = ({mobile}) => {
                         await getCommunity({communityname, role, community_owner}).unwrap()
                         setloading(false)
                         setcommunityname("")
+                        setcheck2("check")
                     }
                 }catch(error){
                     console.log('An error has occurred ' + error)
@@ -123,8 +150,9 @@ const Community = ({mobile}) => {
         }
     }
 
+    const [check, setcheck] = useState("")
     const [addMember] = useAddMemberMutation()
-    const saveMember = [community, memberEmail, memberRole].every(Boolean)  && !isLoading
+    const saveMember = [community, memberEmail, memberRole, community_owner].every(Boolean)  && !isLoading
     const memberBtn = async () => {
         if(memberEmail === ''){
             setmemberEmailError({content: 'Enter member email', pointer: 'above'})
@@ -134,13 +162,29 @@ const Community = ({mobile}) => {
             try{
                 if(saveMember){
                     setloading(true)
-                    await addMember({community, memberEmail, memberRole}).unwrap()
+                    await addMember({community, memberEmail, memberRole, community_owner}).unwrap()
                     setloading(false)
+                    setmemberEmail("")
+                    setmemberRole("")
+                    setcheck("check")
                 }
 
             }catch(error){
                 console.log('An error has occurred ' + error)
             }           
+        }
+    }
+
+    const [id, setId] = useState("")
+    const [ removeMember ] = useRemoveMemberMutation()
+    const deleteMember = async () => {
+        try{
+            setloading(true)
+            await removeMember(id).unwrap()
+            setloading(false)
+            dispatch({type: 'close'})
+        }catch(error){
+            console.log("An error has occurred " + error)
         }
     }
 
@@ -245,6 +289,7 @@ const Community = ({mobile}) => {
                                                         <Table.HeaderCell>Member Role</Table.HeaderCell>
                                                         <Table.HeaderCell>Access Number</Table.HeaderCell>
                                                         <Table.HeaderCell>Status</Table.HeaderCell>
+                                                        <Table.HeaderCell>Action</Table.HeaderCell>
                                                     </Table.Header>
                                                     <Table.Body>
                                                         {
@@ -258,6 +303,20 @@ const Community = ({mobile}) => {
                                                                                 <Table.Cell>{m.memberRole}</Table.Cell>
                                                                                 <Table.Cell>{m.accessnumber}</Table.Cell>
                                                                                 <Table.Cell>{m.status}</Table.Cell>
+                                                                                <Table.Cell>
+                                                                                    <Button color="youtube" icon onClick={() =>
+                                                                                                            {
+                                                                                                                setId(m.id)
+                                                                                                                dispatch({
+                                                                                                                    type: 'open_delete', 
+                                                                                                                    size_delete: 'mini'
+                                                                                                                })
+                                                                                                            }
+                                                                                                        }
+                                                                                    >
+                                                                                        <Icon name="trash" size="small" />
+                                                                                    </Button>
+                                                                                </Table.Cell>
                                                                             </Table.Row> 
                                                                            
                                                                         </>
@@ -351,9 +410,10 @@ const Community = ({mobile}) => {
                                     color="green"
                                     size="large" 
                                     onClick={addCommunity}
-                                >
-                                    Create
-                                </Button>
+                                    icon={check2}
+                                    content="Create"
+                                />
+                                    
                             </Form.Field>
                            
                         </Form>
@@ -387,12 +447,13 @@ const Community = ({mobile}) => {
                             </Form.Field>
                             <Form.Field>
                                 <label>Member Email</label>
-                                <Form.Input
+                                <Form.Select
                                     placeholder="Member Email"
                                     value={memberEmail}
                                     error={memberEmailError}
                                     onChange={handlememberEmail}
                                     onClick={() => setmemberEmailError(false)}
+                                    options={email_options}
                                 />
                             </Form.Field>
                             <Form.Field>
@@ -411,13 +472,47 @@ const Community = ({mobile}) => {
                                     size="large"
                                     onClick={memberBtn}
                                     loading={loading}
-                                >
-                                    Send Invite
-                                </Button>
+                                    icon={check}
+                                    content="Send Invite"
+                                />
+    
                             </Form.Field>
                         </Form>
                     </Modal.Content>
 
+                </Modal>
+                <Modal 
+                    open={open_delete}
+                    size={size_delete}
+        
+                >
+                    <Modal.Content>              
+                        <Header textAlign="center" icon as="h4">
+                            <Icon 
+                                color="green" 
+                                name="close" 
+                                size="large" 
+                                circular
+                            />
+                            Delete Member?
+                        </Header>
+                        <Modal.Actions style={{ textAlign: 'center' }}>
+                            <Button 
+                                color="positive"
+                                loading={loading}
+                                onClick={deleteMember}
+                            >
+                                Yes
+                            </Button>
+                            <Button 
+                                color="negative"
+                                onClick={() => dispatch({type: 'close'})}
+                            >
+                                No
+                            </Button>
+                        </Modal.Actions>
+                    </Modal.Content>
+                
                 </Modal>
         </Segment>
         </Container>

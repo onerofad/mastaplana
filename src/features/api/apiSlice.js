@@ -119,6 +119,12 @@ export const apiSlice = createApi({
         getMembers: builder.query({
             query: () => '/members'
         }),
+        removeMember: builder.mutation({
+            query: (id) => ({
+                url: `/members/${id}`,
+                method: 'DELETE'
+            })
+        })
     })
     
 })
@@ -134,6 +140,7 @@ export const {
     useUploadPdfFileMutation, useGetUploadPdfQuery, useGetUploadedPdfQuery,
     useVerify_emailMutation,
     useAddCommunityMutation, useGetCommunitiesQuery,
-    useAddMemberMutation, useGetMembersQuery
+    useAddMemberMutation, useGetMembersQuery,
+    useRemoveMemberMutation
     
 } = apiSlice

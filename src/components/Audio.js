@@ -1,10 +1,12 @@
 import { Container, Grid, Segment, Image, Header, Dropdown, Icon, Form, Button, Modal, List } from "semantic-ui-react"
 import { Link, useNavigate } from "react-router-dom"
-import { useReducer, useState } from "react"
+import { useReducer, useState, useEffect } from "react"
 import { useGetUploadAudiosQuery, useUploadAudioMutation } from "../features/api/apiSlice"
 import H5AudioPlayer from "react-h5-audio-player"
 import 'react-h5-audio-player/lib/styles.css'
 import '../audio.webp'
+import emailjs from '@emailjs/browser'
+import { getUserMembers } from "../API";
 
 
 const initialState = {
@@ -26,6 +28,27 @@ function uploadReducer(state, action){
 
 const Audio = ({mobile}) => {
 
+    const [members, setmembers] = useState([])
+    useEffect(() => {
+        getAllMembers()
+    })
+
+    const getAllMembers = () => {
+        getUserMembers().get("/")
+        .then(res => setmembers(res.data))
+        .catch(error => console.log('An error has occurred ' + error))
+    }
+
+    const [check, setcheck] = useState(false)
+
+        const [usertype, setusertype] = useState("")
+
+        const [msgerror, setmsgerror] = useState("")
+
+        const handleusertype = (e) => {
+            setusertype(e.target.value)
+        }
+
     const navigate = useNavigate()
 
     const [source, setSource] = useState('')
@@ -36,6 +59,12 @@ const Audio = ({mobile}) => {
     const [loading, setloading] = useState(false)
 
     const [audio, setAudio] = useState(null);
+
+    let members_options
+        const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
+        members_options = current_members.map(c => (
+            {key: c.id, text: c.memberEmail, value: c.memberEmail}
+        ))
     
     let uploaded_audio
     let filesender = sessionStorage.getItem("email")
@@ -44,7 +73,9 @@ const Audio = ({mobile}) => {
     const [fileownerError, setfileownerError] = useState(false)
     const [upload_audioError, setupload_audioError] = useState(false)
 
-    const handleFileowner = (e) => setfileowner(e.target.value)
+    const handlefileowner = (e, {value}) => {
+        setfileowner(value)
+    }
 
     const handleAudio = (e) => {
         const file = e.target.files[0]
@@ -89,8 +120,10 @@ const Audio = ({mobile}) => {
     const saveAudio = [fileowner, filesender].every(Boolean) && !isLoading
 
     const sendAudio = async () => {
-        if(fileowner === ''){
-            setfileownerError({content: 'Enter email address', pointing: 'above'})
+        if(usertype === '' && fileowner === ''){
+            setmsgerror("You must Enter a member email or non-member email")
+        }else if(usertype !== '' && fileowner !== ''){
+            setmsgerror("You must choose a member email or non-member email")
         }else if(audio === null){
             setupload_audioError({content: 'Select a file', pointing: 'above'})
         }else{
@@ -118,8 +151,40 @@ const Audio = ({mobile}) => {
 
                       await uploadAudio({fileowner, uploaded_audio, filesender}).unwrap()
                       setloading(false)
+                      dispatch({type: 'open', size: 'mini'})
+
+                }else if(usertype !== ''){
+                    setloading(true)
+                    let audioURL
+                    const data = new FormData();
+                    data.append("file", audio);
+                    data.append("upload_preset", "slakw5ml");
+                    data.append("cloud_name", "du3ck2joa");
+                    data.append("resource_type", "video")
+                    data.append("folder", "mastaplana_audio");
+
+                    const response = await fetch(
+                        `https://api.cloudinary.com/v1_1/du3ck2joa/upload/`,
+                        {
+                          method: "POST",
+                          body: data,
+                        }
+                      );
+                      const res = await response.json();
+                      audioURL = res.url.toString()
+                      uploaded_audio = audioURL
+                      emailjs.send("service_xb23hnw","template_6amwebl",{
+                        to_name: usertype,
+                        message: `${uploaded_audio}`,
+                        to_email: usertype,
+                        from_email: filesender
+                    },  {publicKey: 'ksmb9LVXc2VEPulHb'});
+                   
+                      //await uploadAudio({fileowner, uploaded_audio, filesender}).unwrap()
+                      setloading(false)
+                      dispatch({type: 'open', size: 'mini'})
+
                 }
-                dispatch({type: 'open', size: 'mini'})
             }catch(error){
 
             }
@@ -210,15 +275,27 @@ const Audio = ({mobile}) => {
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
                                         <Form>
+                                        {msgerror}
+
                                             <Form.Field>
                                                 <Form.Input
-                                                    type="text"
-                                                    placeholder="Enter Receiver Email"
-                                                    onChange={handleFileowner}
+                                                    placeholder="Enter Email (For none members)"
+                                                    value={usertype}
+                                                    onChange={handleusertype}
+                                                    onClick={() => setmsgerror("")}
+                                                />
+                                            </Form.Field>
+                                            <Form.Field>
+                                                <Form.Dropdown
+                                                    placeholder="Search Email (For members)"
+                                                    fluid
+                                                    selection
+                                                    search
+                                                    onChange={handlefileowner}
                                                     value={fileowner}
-                                                    error={fileownerError}
-                                                    
-                                                    onClick={() => setfileownerError(false)}
+                                                    options={members_options}
+                                                    onClick={() => setmsgerror("")}
+
                                                 />
                                             </Form.Field>
                                             <Form.Field>

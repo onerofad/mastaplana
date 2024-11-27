@@ -1,9 +1,20 @@
 import { Modal, Icon, Form, Button, List, Header } from "semantic-ui-react"
 import { useState } from "react"
-import { useUploadPdfFileMutation } from "../features/api/apiSlice"
+import { useGetMembersQuery, useUploadPdfFileMutation } from "../features/api/apiSlice"
+import emailjs from '@emailjs/browser'
 
 
     const PdfModal = ({openModalPdf, sizeModalPdf, closeModal}) => {
+
+        const [check, setcheck] = useState(false)
+
+        const [usertype, setusertype] = useState("")
+
+        const [msgerror, setmsgerror] = useState("")
+
+        const handleusertype = (e) => {
+            setusertype(e.target.value)
+        }
 
         const [fileowner, setfileowner] = useState("")
         const [fileownerError, setfileownerError] = useState(false)
@@ -18,8 +29,8 @@ import { useUploadPdfFileMutation } from "../features/api/apiSlice"
         const [file, setFile] = useState(null)
         const [fileError, setfileError] = useState(false)
 
-        const handlefileowner = (e) => {
-            setfileowner(e.target.value)
+        const handlefileowner = (e, {value}) => {
+            setfileowner(value)
         }
 
         const handlefile = (e) => {
@@ -32,12 +43,24 @@ import { useUploadPdfFileMutation } from "../features/api/apiSlice"
 
         }
 
+        const {data:members, isSuccess} = useGetMembersQuery()
+
+        let members_options
+        if(isSuccess){
+            const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
+            members_options = current_members.map(c => (
+                {key: c.id, text: c.memberEmail, value: c.memberEmail}
+            ))
+        }
+
         const [uploadFile, {isLoading}] = useUploadPdfFileMutation()
         const saveFile = [fileowner, filesender].every(Boolean) && !isLoading
         
         const onSend = async () => {
-            if(fileowner === ''){
-                setfileownerError({content: 'Empty Field'})
+            if(usertype === '' && fileowner === ''){
+                setmsgerror("You must Enter a member email or non-member email")
+            }else if(usertype !== '' && fileowner !== ''){
+                setmsgerror("You must choose a member email or non-member email")
             }else if(file === null){
                 setfileError({content: 'Empty Field'})
             }else{
@@ -68,6 +91,42 @@ import { useUploadPdfFileMutation } from "../features/api/apiSlice"
                             setmsg("File upload Success")
                             setFile(null)
                             setloading(false)
+                            setcheck(true)
+                    }else if(usertype !== ''){
+                        setloading(true)
+                        let fileURL
+                        const data = new FormData()
+                        data.append('file', file)
+                        data.append("upload_preset", "slakw5ml");
+                        data.append("cloud_name", "du3ck2joa");
+                        data.append("resource_type", "text")
+                        data.append("folder", "mastaplana_pdf");
+
+                        
+                        const response = await fetch(
+                            `https://api.cloudinary.com/v1_1/du3ck2joa/upload/`,
+                            {
+                            method: "POST",
+                            body: data,
+                            }
+                        );
+                        const res = await response.json();
+                        fileURL = res.url.toString()
+                        uploaded_pdf = fileURL
+                        emailjs.send("service_xb23hnw","template_6amwebl",{
+                            to_name: usertype,
+                            message: `${uploaded_pdf}`,
+                            to_email: usertype,
+                            from_email: filesender
+                        },  {publicKey: 'ksmb9LVXc2VEPulHb'});
+                        
+                            //await uploadFile({fileowner, uploaded_pdf, filesender}).unwrap()
+                            //setfileowner("")
+                           // setmsg("File upload Success")
+                            setFile(null)
+                            setloading(false)
+                            setcheck(true)
+
                     }
                 }catch(error){
                     console.log('An error has occurred')
@@ -87,14 +146,27 @@ import { useUploadPdfFileMutation } from "../features/api/apiSlice"
 
                 </Modal.Header>
                     <Modal.Content>
+                    {msgerror}
                         <Form>
-                            <Form.Field>
+                        <Form.Field>
                                 <Form.Input
-                                    placeholder="Send To"
+                                    placeholder="Enter Email (For none members)"
+                                    value={usertype}
+                                    onChange={handleusertype}
+                                    onClick={() => setmsgerror("")}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                            <Form.Dropdown
+                                    placeholder="Search Email (For members)"
+                                    fluid
+                                    selection
+                                    search
                                     onChange={handlefileowner}
-                                    error={fileownerError}
                                     value={fileowner}
-                                    onClick={() => setfileownerError(false)}
+                                    options={members_options}
+                                    onClick={() => setmsgerror("")}
+
                                 />
                             </Form.Field>
                             <Form.Field>
@@ -113,10 +185,12 @@ import { useUploadPdfFileMutation } from "../features/api/apiSlice"
                                 color="green"
                                 loading={loading}
                                 onClick={onSend}
-                            >
-                                Send Pdf
-                            </Button>
-                            {msg}
+                                size="large"
+                                icon={check}
+                                content="Send Pdf"
+                            />
+                                
+                           
                         </Form>
                        
                     </Modal.Content>

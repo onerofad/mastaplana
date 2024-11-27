@@ -1,10 +1,21 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Segment, Icon, Container, Dropdown, Button } from "semantic-ui-react"
-
+import { useState } from 'react'
+import { useGetMembersQuery } from "../features/api/apiSlice"
 
 const Dashboard = ({mobile}) => {
 
     const navigate = useNavigate()
+
+    const {data:members, isSucess} = useGetMembersQuery()
+
+    let notifications
+    if(isSucess){
+        const member_notification = members.filter(m => m.community_owner === sessionStorage.getItem("email"))
+       // notifications = member_notification.map(n => ())
+    }
+
+    const [count, setcount] = useState(2)
     
     return(
         <Container>
@@ -30,7 +41,7 @@ const Dashboard = ({mobile}) => {
                         </Grid.Column>
                     </Grid.Row>*/}
                     <Grid.Row>
-                        <Grid.Column width={mobile ? 4 : 6} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 4} verticalAlign="middle">
                             <Button 
                                 color="green"
                                 size={ mobile ? "mini" : "large"}
@@ -43,7 +54,7 @@ const Dashboard = ({mobile}) => {
                             </Button>
                             {/*<Header inverted content="Add Member" color="#fff" />*/}
                         </Grid.Column>
-                        <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
+                        <Grid.Column width={ mobile ? 4 : 4} verticalAlign="middle">
                             <Header 
                                 as={ mobile ? 'h4' : 'h1'} 
                                 inverted 
@@ -56,10 +67,24 @@ const Dashboard = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column>
-                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 2 : 2} verticalAlign="middle">
+                            <Icon aria-label="hello" circular name="bell outline" inverted color="#fff" size="big" />
+                            <Dropdown 
+                                    text={count}
+                                    inline
+                                    style={{color: '#fff'}}
+                            >
+                                  <Dropdown.Menu>
+                                    <Dropdown.Item>
+                                        
+                                    </Dropdown.Item>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                        </Grid.Column>
+                        <Grid.Column width={mobile ? 3 : 3} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
-                        <Grid.Column width={mobile ? 4 : 2} style={{textAlign: 'center'}}>
+                        <Grid.Column width={mobile ? 3 : 3} style={{textAlign: 'center'}}>
                             <Segment floated="right" vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
