@@ -250,8 +250,10 @@ const Community = ({mobile}) => {
                                         </Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <SearchCommunity  />
-                                        <Grid.Column width={4}>
+                                        <Grid.Column width={5}>
+                                            <SearchCommunity  />
+                                        </Grid.Column>
+                                        <Grid.Column width={6}>
                                             <Select
                                                 placeholder="Select community"
                                                 options={communities_options}
@@ -261,7 +263,7 @@ const Community = ({mobile}) => {
                                             />
                                         </Grid.Column>
   
-                                        <Grid.Column width={6}>
+                                        <Grid.Column width={5}>
                                             <Button
                                                 size="large"
                                                 fluid
@@ -274,7 +276,7 @@ const Community = ({mobile}) => {
                                                 }}
                                             >
                                                 <Icon name="user" />
-                                                Create Community
+                                                Create community
                                             </Button>
                                         </Grid.Column>
                                     </Grid.Row>
@@ -329,7 +331,7 @@ const Community = ({mobile}) => {
                                                     <Table.Footer>
                                                         <Table.Row>
                                                             <Table.Cell colspan="5">
-                                                                <Button floated="right" color="green" size="small"
+                                                                <Button floated="left" color="green" size="small"
                                                                     onClick={() => 
                                                                         dispatch({
                                                                             type: 'open_member', 

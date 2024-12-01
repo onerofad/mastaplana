@@ -97,11 +97,11 @@ const Dashboard = ({mobile}) => {
                             </Button>
                             {/*<Header inverted content="Add Member" color="#fff" />*/}
                         </Grid.Column>
-                        <Grid.Column width={ mobile ? 4 : 5} verticalAlign="middle">
+                        <Grid.Column width={ mobile ? 2 : 5} verticalAlign="middle">
                             <Header 
-                                as={ mobile ? '' : 'h1'} 
+                                as="h1"
                                 inverted 
-                                content="DASHBOARD" 
+                                content={mobile ? "" : "DASHBOARD" }
                                 color="#fff" 
                                 style={{
                                     fontFamily: 'Spicy Rice',
@@ -139,10 +139,10 @@ const Dashboard = ({mobile}) => {
                             
                             <Label circular color="red">{count}</Label>
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
-                        <Grid.Column width={mobile ? 4 : 2} style={{textAlign: 'center'}}>
+                        <Grid.Column width={mobile ? 3 : 2} style={{textAlign: 'center'}}>
                             <Segment floated="right" vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',

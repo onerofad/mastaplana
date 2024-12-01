@@ -72,19 +72,16 @@ const SearchCommunity = () => {
     }, [])
 
     return(
-        <Grid.Column mobile={16} computer={6}>
              <Search
                 loading={loading}
                 placeholder="Search Community"
                 onSearchChange={handleSearchChange}
                 results={results}
                 value={value}
-                size="large"
                 fluid
-                style={{width: '100%'}}
+                style={{minWidth: '100%'}}
             />
 
-        </Grid.Column>
        
     )
 
