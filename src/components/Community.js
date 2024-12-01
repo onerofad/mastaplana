@@ -279,9 +279,9 @@ const Community = ({mobile}) => {
                                         </Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <Grid.Column>
+                                        <Grid.Column style={{overflowX: 'auto'}}>
                                             {isMembers &&
-                                                <Table>
+                                                <Table size={mobile ? "small" : "large"}  unstackable  >
                                                     <Table.Header>
                                                         <Table.HeaderCell>Community Name</Table.HeaderCell>
                                                         <Table.HeaderCell>Member Email</Table.HeaderCell>
