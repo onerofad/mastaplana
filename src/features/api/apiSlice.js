@@ -25,8 +25,7 @@ export const apiSlice = createApi({
             })
         }),
         getUploadFiles: builder.query({
-            query: () => '/uploadfiles'
-            
+            query: () => '/uploadfiles'        
         }),
         uploadAudio: builder.mutation({
             query: initialPost => ({
@@ -124,6 +123,20 @@ export const apiSlice = createApi({
                 url: `/members/${id}`,
                 method: 'DELETE'
             })
+        }),
+        acceptMembership: builder.mutation({
+            query: item => ({
+                url: `/members/${item.id}/`,
+                method: 'PATCH',
+                body: item
+            })
+        }),
+        declineMembership: builder.mutation({
+            query: item => ({
+                url: `/members/${item.id}/`,
+                method: 'PATCH',
+                body: item
+            })
         })
     })
     
@@ -141,6 +154,7 @@ export const {
     useVerify_emailMutation,
     useAddCommunityMutation, useGetCommunitiesQuery,
     useAddMemberMutation, useGetMembersQuery,
-    useRemoveMemberMutation
+    useRemoveMemberMutation,
+    useAcceptMembershipMutation, useDeclineMembershipMutation
     
 } = apiSlice
