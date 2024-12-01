@@ -79,7 +79,8 @@ const SearchCommunity = () => {
                 results={results}
                 value={value}
                 fluid
-                style={{minWidth: '100%'}}
+                size="large"
+               
             />
 
        

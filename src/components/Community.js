@@ -250,8 +250,10 @@ const Community = ({mobile}) => {
                                         </Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <Grid.Column width={5}>
-                                            <SearchCommunity  />
+                                        <Grid.Column textAlign="center" width={5}>
+                                            <SearchCommunity  
+                                                
+                                            />
                                         </Grid.Column>
                                         <Grid.Column width={6}>
                                             <Select
