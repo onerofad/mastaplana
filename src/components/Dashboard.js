@@ -99,7 +99,7 @@ const Dashboard = ({mobile}) => {
                         </Grid.Column>
                         <Grid.Column width={ mobile ? 4 : 5} verticalAlign="middle">
                             <Header 
-                                as={ mobile ? 'h4' : 'h1'} 
+                                as={ mobile ? '' : 'h1'} 
                                 inverted 
                                 content="DASHBOARD" 
                                 color="#fff" 

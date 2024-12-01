@@ -243,29 +243,28 @@ const Community = ({mobile}) => {
                     <Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{padding: mobile ? 20 : 30, borderRadius: 10, backgroundColor: '#fff'}}>
-                                <Grid>
+                                <Grid stackable>
                                     <Grid.Row>
                                         <Grid.Column>
                                             <Header textAlign="center" as="h4" content="Create a community and add users to send documents, audios and videos now." />
                                         </Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <Grid.Column width={6}>
-                                           <SearchCommunity />
-                                        </Grid.Column>
+                                        <SearchCommunity  />
                                         <Grid.Column width={4}>
                                             <Select
                                                 placeholder="Select community"
                                                 options={communities_options}
                                                 value={community}
                                                 onChange={handlecommunity}
+                                                fluid
                                             />
                                         </Grid.Column>
   
                                         <Grid.Column width={6}>
                                             <Button
-                                                size={mobile ? "mini" : "large"}
-                                                floated="right"
+                                                size="large"
+                                                fluid
                                                 icon
                                                 labelPosition="left"
                                                 onClick={() => dispatch({type: 'open', size: "mini"})}

@@ -1,4 +1,4 @@
-import { Search } from "semantic-ui-react"
+import { Grid, Search } from "semantic-ui-react"
 import {useReducer, useRef, useCallback, useEffect} from 'react'
 import { useGetCommunitiesQuery } from "../features/api/apiSlice"
 import _ from 'lodash'
@@ -72,15 +72,20 @@ const SearchCommunity = () => {
     }, [])
 
     return(
-        <Search
-            loading={loading}
-            placeholder="Search Community"
-            onSearchChange={handleSearchChange}
-            results={results}
-            value={value}
-            size="large"
-            fluid
-        />
+        <Grid.Column mobile={16} computer={6}>
+             <Search
+                loading={loading}
+                placeholder="Search Community"
+                onSearchChange={handleSearchChange}
+                results={results}
+                value={value}
+                size="large"
+                fluid
+                style={{width: '100%'}}
+            />
+
+        </Grid.Column>
+       
     )
 
 }
