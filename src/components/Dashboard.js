@@ -110,7 +110,7 @@ const Dashboard = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column> 
-                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle">
                         <Label circular color="red">{count}</Label>
 
                             <Portal
@@ -140,7 +140,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
                         <Grid.Column width={mobile ? 3 : 2} style={{textAlign: 'center'}}>
