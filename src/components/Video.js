@@ -309,11 +309,12 @@ const Video = ({mobile}) => {
                                                 />
                                             </Form.Field>
                                             <Form.Field>
-                                                <Form.Dropdown
-                                                    text="Members"
-                                                    floating
-                                                    inline
+                                                <Dropdown
+                                                    placeholder="Members"
+                                                    selection
+                                                    clearable
                                                     onChange={handlefileowner}
+                                                    value={fileowner}
                                                     options={members_options}
                                                     onClick={() => setmsgerror("")}
 

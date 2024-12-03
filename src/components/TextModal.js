@@ -1,4 +1,4 @@
-import { Modal, Icon, Form, Button, List, Header } from "semantic-ui-react"
+import { Modal, Icon, Form, Button, List, Header, Dropdown } from "semantic-ui-react"
 import { useState } from "react"
 import { useGetMembersQuery, useGetTextFileQuery, useUploadTextFileMutation } from "../features/api/apiSlice"
 import emailjs from '@emailjs/browser'
@@ -49,6 +49,7 @@ import emailjs from '@emailjs/browser'
             members_options = current_members.map(c => (
                 {key: c.id, text: c.memberEmail, value: c.memberEmail}
             ))
+           
         }
         
 
@@ -156,16 +157,14 @@ import emailjs from '@emailjs/browser'
                                 />
                             </Form.Field>
                             <Form.Field>
-                                <Form.Dropdown
-                                    text="Members"
-                                    inline
-                                    floating
+                                <Dropdown
+                                    placeholder="Members"
+                                    selection
+                                    clearable
+                                    value={fileowner}
                                     onChange={handlefileowner}
                                     options={members_options}
                                     onClick={() => setmsgerror("")}
-                                    style={{
-                                    }}
-                                
                                 />
                             </Form.Field>
                             <Form.Field>

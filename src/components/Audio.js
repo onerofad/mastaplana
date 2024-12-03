@@ -286,10 +286,11 @@ const Audio = ({mobile}) => {
                                                 />
                                             </Form.Field>
                                             <Form.Field>
-                                                <Form.Dropdown
-                                                    text="Members"
-                                                    inline
-                                                    floating
+                                                <Dropdown
+                                                    placeholder="Members"
+                                                    selection
+                                                    clearable
+                                                    value={fileowner}
                                                     onChange={handlefileowner}
                                                     options={members_options}
                                                     onClick={() => setmsgerror("")}
