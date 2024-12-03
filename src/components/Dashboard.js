@@ -97,7 +97,7 @@ const Dashboard = ({mobile}) => {
                             </Button>
                             {/*<Header inverted content="Add Member" color="#fff" />*/}
                         </Grid.Column>
-                        <Grid.Column width={ mobile ? 2 : 5} verticalAlign="middle">
+                        <Grid.Column width={ mobile ? '0' : 5} verticalAlign="middle">
                             <Header 
                                 as="h1"
                                 inverted 
@@ -110,7 +110,7 @@ const Dashboard = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column> 
-                        <Grid.Column width={mobile ? 5 : 2} textAlign="center" verticalAlign="middle">
+                        <Grid.Column width={mobile ? 6 : 2} textAlign="center" verticalAlign="middle">
                         <Label circular color="red">{count}</Label>
 
                             <Portal
@@ -140,7 +140,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle" textAlign="center">
+                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle" textAlign="center">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
                         </Grid.Column>
                         <Grid.Column width={mobile ? 3 : 2} style={{textAlign: 'center'}}>
