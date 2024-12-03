@@ -158,16 +158,13 @@ import emailjs from '@emailjs/browser'
                             </Form.Field>
                             <Form.Field>
                             <Form.Dropdown
-                                    placeholder="Search Email (For members)"
-                                    fluid
-                                    selection
-                                    search
-                                    onChange={handlefileowner}
-                                    value={fileowner}
-                                    options={members_options}
-                                    onClick={() => setmsgerror("")}
-
-                                />
+                                text="Members"
+                                inline
+                                floating
+                                onChange={handlefileowner}
+                                options={members_options}
+                                onClick={() => setmsgerror("")}
+                            />
                             </Form.Field>
                             <Form.Field>
                                 <Form.Input

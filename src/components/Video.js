@@ -310,12 +310,10 @@ const Video = ({mobile}) => {
                                             </Form.Field>
                                             <Form.Field>
                                                 <Form.Dropdown
-                                                    placeholder="Search Email (For members)"
-                                                    fluid
-                                                    selection
-                                                    search
+                                                    text="Members"
+                                                    floating
+                                                    inline
                                                     onChange={handlefileowner}
-                                                    value={fileowner}
                                                     options={members_options}
                                                     onClick={() => setmsgerror("")}
 
