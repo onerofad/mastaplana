@@ -81,7 +81,7 @@ const Dashboard = ({mobile}) => {
     
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 15 : 40}}>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={mobile ? 3 : 5} verticalAlign="middle">
@@ -236,10 +236,10 @@ const Dashboard = ({mobile}) => {
                             <Segment vertical style={{borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center">
+                                        <Grid.Column width={mobile ? 8 : 8} textAlign="center">
                                             <Icon inverted size="huge" color="green" name="microphone" />
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" >
+                                        <Grid.Column width={mobile ? 8 : 8} textAlign="center" >
                                             <Icon  inverted size="huge" color="green" name="chat" />
                                         </Grid.Column>
                                     </Grid.Row>
