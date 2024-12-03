@@ -189,7 +189,7 @@ const Dashboard = ({mobile}) => {
                     </Grid.Row>  
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment vertical style={{paddingTop: 20, paddingBottom: 20, borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
+                            <Segment vertical style={{paddingTop: mobile ? 10 : 20, paddingBottom: 20, borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
                                 <Grid textAlign="center">
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
