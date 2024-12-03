@@ -157,7 +157,6 @@ import emailjs from '@emailjs/browser'
                             </Form.Field>
                             <Form.Field>
                                 <Form.Dropdown
-                                    placeholder="Search Email (For members)"
                                     fluid
                                     selection
                                     search

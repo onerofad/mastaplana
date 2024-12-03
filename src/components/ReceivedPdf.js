@@ -5,6 +5,15 @@ import { Link } from "react-router-dom"
 
     const ReceivedPdf = () => {
 
+        const openPdf = (link) => {
+            return(
+                <iframe
+                    src={link}
+                />
+            )
+           
+        }
+
         const [source, setSource] = useState('')
 
         const {data:uploadedPdfFiles, isSuccess} = useGetUploadPdfQuery()
@@ -23,9 +32,13 @@ import { Link } from "react-router-dom"
                                             <List.Description style={{wordWrap: 'break-word'}}>
                                                 {m.uploaded_pdf.substring(78)}
                                                 <Header as="h4" content={m.file_date} />
-                                                <Link to={[m.uploaded_pdf.slice(0, pos),substr, m.uploaded_pdf.slice(pos)].join('')}>  
+                                                {/*<Link to={[m.uploaded_pdf.slice(0, pos),substr, m.uploaded_pdf.slice(pos)].join('')}>  
                                                     <Icon name="download" />download
-                                                </Link>
+                                                </Link>*/}
+                                                {/*<Link to={m.uploaded_pdf}>  
+                                                    <Icon name="download" />download
+                                                </Link>*/}
+                                                <Icon link onClick={() => openPdf(m.uploaded_pdf)} name="download" />
                                             </List.Description>
                                         </List.Content>
                                     </List.Item>

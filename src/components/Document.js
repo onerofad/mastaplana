@@ -9,6 +9,7 @@ import TextModal from "./TextModal";
 import ReceivedFiles from "./ReceivedFiles";
 import ReceivedPdf from "./ReceivedPdf";
 import PdfModal from "./PdfModal";
+import TableModal from "./TableModal";
 
 const iinitialState = {
     open: false,
@@ -18,7 +19,10 @@ const iinitialState = {
     size_text: undefined,
 
     open_pdf: false,
-    size_pdf: undefined
+    size_pdf: undefined,
+
+    open_table: false,
+    size_table: undefined
 }
 
 function formReducer(state, action){
@@ -32,8 +36,11 @@ function formReducer(state, action){
         case 'open_pdf':
             return {open_pdf: true, size_pdf: action.size_pdf}
 
+        case 'open_table':
+            return {open_table: true, size_table: action.size_table}
+
         case 'close':
-            return {open: false, open_text: false, open_pdf: false}
+            return {open: false, open_text: false, open_pdf: false, open_table: false}
 
         default:
             return new Error('An error occurred')
@@ -43,7 +50,7 @@ function formReducer(state, action){
 const Document = ({mobile}) => {
 
     const [state, dispatch] = useReducer(formReducer, iinitialState)
-    const {open, size, open_text, size_text, open_pdf, size_pdf} = state
+    const {open, size, open_text, size_text, open_pdf, size_pdf, open_table, size_table} = state
 
     const closeModal = () => {
         dispatch({type: 'close'})
@@ -406,9 +413,9 @@ const Document = ({mobile}) => {
                                                 </Grid.Row>
                                                 </>
                                                 }
-                                            </Grid>                                
+                                            </Grid>                                 
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 16 : 4} style={{marginTop: 10}}>
+                                        <Grid.Column verticalAlign="middle"  width={mobile ? 16 : 4} style={{marginTop: 10}}>
                                             <Grid>
                                                 <Grid.Row>
                                                     <Grid.Column>
@@ -417,7 +424,7 @@ const Document = ({mobile}) => {
                                                             color="green"
                                                             onClick={() => dispatch({type: 'open', size: 'small'})}
                                                         >
-                                                            Send Form Data
+                                                            Save Form Data
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
@@ -442,6 +449,19 @@ const Document = ({mobile}) => {
                                                             onClick={() => dispatch({type: 'open_pdf', size_pdf: 'mini'})}
                                                         >
                                                             Send Pdf File
+                                                        </Button>
+                                                    </Grid.Column>
+                                                </Grid.Row>
+                                                <Grid.Row>
+                                                <Grid.Column>
+                                                        <Button 
+                                                            fluid 
+                                                            size="large" 
+                                                            color="green"
+                                                            onClick={() => dispatch({type: 'open_table', size_table: 'mini'})}
+
+                                                        >
+                                                            Save Tabular Data
                                                         </Button>
                                                     </Grid.Column>
                                                 </Grid.Row>
@@ -487,6 +507,12 @@ const Document = ({mobile}) => {
                     sizeModalPdf={size_pdf}
                     closeModal={closeModal}
                 />
+                <TableModal
+                    openModalTable={open_table}
+                    sizeModalTable={size_table}
+                    closeModal={closeModal}
+                />
+
         </Segment>
         </Container>
 

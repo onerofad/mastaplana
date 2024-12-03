@@ -51,27 +51,6 @@ const SignIn = ({mobile}) => {
     return(
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
-            {/*<Grid>
-<               Grid.Row style={{ margin: mobile ? '5px 5px' : '10px 40px'}}>
-                    <Grid.Column width={2}>
-                        <Image
-                            src="../mastaplana_logo.jpg"
-                        />
-                    </Grid.Column>
-                    <Grid.Column verticalAlign="middle" width={14}> 
-                        <Header 
-                            as="h1" 
-                            inverted 
-                            content="MASTA PLANA" 
-                            style={{
-                                fontFamily: 'Spicy Rice',
-                                fontWeight: 400,
-                                fontStyle: 'normal'
-                            }}
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>*/}
                 <Grid textAlign="center" style={{height: mobile ? '60vh' : '75vh'}} verticalAlign="middle">
                     <Grid.Row >
                         <Grid.Column style={{ maxWidth: 450}}>

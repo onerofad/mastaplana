@@ -84,7 +84,7 @@ const Dashboard = ({mobile}) => {
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={mobile ? 4 : 5} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 3 : 5} verticalAlign="middle">
                             <Button 
                                 color="green"
                                 size={ mobile ? "mini" : "large"}
@@ -110,7 +110,7 @@ const Dashboard = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column> 
-                        <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 2} verticalAlign="middle">
                         <Label circular color="red">{count}</Label>
 
                             <Portal
@@ -171,10 +171,11 @@ const Dashboard = ({mobile}) => {
                     </Grid.Row>   
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment vertical style={{backgroundColor: '#fff', borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#7c5353'}}>
+                            <Segment vertical style={{backgroundColor: mobile ? '' : '#fff', borderRadius: 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#7c5353'}}>
                                 <Header 
                                     textAlign="center" 
-                                    content="MASTA PLANA" 
+                                    content="MASTA PLANA"
+                                    inverted 
                                     as="h1" 
                                     style={{
                                         fontFamily: 'Spicy Rice',
@@ -188,7 +189,7 @@ const Dashboard = ({mobile}) => {
                     </Grid.Row>  
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment vertical style={{paddingTop: 20, paddingBottom: 20, borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
+                            <Segment vertical style={{paddingTop: 20, paddingBottom: 20, borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
                                 <Grid textAlign="center">
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
@@ -232,13 +233,13 @@ const Dashboard = ({mobile}) => {
                     </Grid.Row> 
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment vertical style={{borderRadius: 10, borderWidth: '5px', borderStyle: 'solid', borderColor: '#fff'}}>
+                            <Segment vertical style={{borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={8}>
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center">
                                             <Icon inverted size="huge" color="green" name="microphone" />
                                         </Grid.Column>
-                                        <Grid.Column width={8} textAlign="right">
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" >
                                             <Icon  inverted size="huge" color="green" name="chat" />
                                         </Grid.Column>
                                     </Grid.Row>
