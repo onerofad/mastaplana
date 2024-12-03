@@ -81,7 +81,7 @@ const Dashboard = ({mobile}) => {
     
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 15 : 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 10 : 40}}>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={mobile ? 3 : 5} verticalAlign="middle">
