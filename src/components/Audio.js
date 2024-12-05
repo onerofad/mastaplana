@@ -61,10 +61,14 @@ const Audio = ({mobile}) => {
     const [audio, setAudio] = useState(null);
 
     let members_options
-        const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
-        members_options = current_members.map(c => (
-            {key: c.id, text: c.memberEmail, value: c.memberEmail}
-        ))
+            const current_community = members.filter(c => c.memberEmail === sessionStorage.getItem("email"))[0]
+            if(current_community){
+                members_options = members.map(c => (
+                    (c.community === current_community.community && c.memberEmail !== current_community.memberEmail)  ?                   
+                    {key: c.id, text: c.memberEmail, value: c.memberEmail}
+                    : ''
+            ))
+            }
     
     let uploaded_audio
     let filesender = sessionStorage.getItem("email")
@@ -173,13 +177,12 @@ const Audio = ({mobile}) => {
                       const res = await response.json();
                       audioURL = res.url.toString()
                       uploaded_audio = audioURL
-                      emailjs.send("service_xb23hnw","template_6amwebl",{
+                      emailjs.send("service_k0d80hp","template_mp8ld0f",{
                         to_name: usertype,
                         message: `${uploaded_audio}`,
                         to_email: usertype,
                         from_email: filesender
-                    },  {publicKey: 'ksmb9LVXc2VEPulHb'});
-                   
+                    },  {publicKey: 'A3D4HSPHNJ8f_odij'});
                       //await uploadAudio({fileowner, uploaded_audio, filesender}).unwrap()
                       setloading(false)
                       dispatch({type: 'open', size: 'mini'})

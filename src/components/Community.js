@@ -96,11 +96,14 @@ const Community = ({mobile}) => {
     const {data:members} = useGetMembersQuery()
 
     let communities_options
+    let count_communities
     if(isSuccess){
         const current_communities = communities.filter(c => c.community_owner === emailId)
         communities_options = current_communities.map(c => (
             {key: c.id, text: c.communityname, value: c.communityname}
         ))
+
+        count_communities = current_communities.length
     }
 
     let email_options
@@ -124,8 +127,14 @@ const Community = ({mobile}) => {
             
                 try{
                     if(saveCommunity){
+                        let community = communityname
+                        let memberEmail = community_owner
+                        let memberRole = role
+                        let status = "accept"
                         setloading(true)
                         await getCommunity({communityname, role, community_owner}).unwrap()
+                        
+                        await addMember({community, memberEmail, memberRole, community_owner, status}).unwrap()
                         setloading(false)
                         setcommunityname("")
                         setcheck2("check")
@@ -270,6 +279,7 @@ const Community = ({mobile}) => {
                                                 size="large"
                                                 fluid
                                                 icon
+                                                disabled = {count_communities > 0 ? true : false}
                                                 labelPosition="left"
                                                 onClick={() => dispatch({type: 'open', size: "mini"})}
                                                 style={{

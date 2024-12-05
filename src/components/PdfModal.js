@@ -47,10 +47,15 @@ import emailjs from '@emailjs/browser'
 
         let members_options
         if(isSuccess){
-            const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
-            members_options = current_members.map(c => (
-                {key: c.id, text: c.memberEmail, value: c.memberEmail}
+            const current_community = members.filter(c => c.memberEmail === sessionStorage.getItem("email"))[0]
+            if(current_community){
+                members_options = members.map(c => (
+                    (c.community === current_community.community && c.memberEmail !== current_community.memberEmail)  ?                   
+                    {key: c.id, text: c.memberEmail, value: c.memberEmail}
+                    : ''
             ))
+            }
+            
         }
 
         const [uploadFile, {isLoading}] = useUploadPdfFileMutation()
@@ -113,12 +118,12 @@ import emailjs from '@emailjs/browser'
                         const res = await response.json();
                         fileURL = res.url.toString()
                         uploaded_pdf = fileURL
-                        emailjs.send("service_xb23hnw","template_6amwebl",{
+                        emailjs.send("service_k0d80hp","template_mp8ld0f",{
                             to_name: usertype,
                             message: `${uploaded_pdf}`,
                             to_email: usertype,
                             from_email: filesender
-                        },  {publicKey: 'ksmb9LVXc2VEPulHb'});
+                        },  {publicKey: 'A3D4HSPHNJ8f_odij'});
                         
                             //await uploadFile({fileowner, uploaded_pdf, filesender}).unwrap()
                             //setfileowner("")

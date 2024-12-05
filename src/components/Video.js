@@ -48,11 +48,15 @@ const Video = ({mobile}) => {
             setusertype(e.target.value)
         }
 
-        let members_options
-        const current_members = members.filter(c => c.community_owner === sessionStorage.getItem("email"))
-        members_options = current_members.map(c => (
-            {key: c.id, text: c.memberEmail, value: c.memberEmail}
-        ))
+         let members_options
+            const current_community = members.filter(c => c.memberEmail === sessionStorage.getItem("email"))[0]
+            if(current_community){
+                members_options = members.map(c => (
+                    (c.community === current_community.community && c.memberEmail !== current_community.memberEmail)  ?                   
+                    {key: c.id, text: c.memberEmail, value: c.memberEmail}
+                    : ''
+            ))
+            }
 
     const navigate = useNavigate()
 
@@ -171,13 +175,12 @@ const Video = ({mobile}) => {
                       const res = await response.json();
                       videoURL = res.url.toString()
                       uploaded_video = videoURL
-                      emailjs.send("service_xb23hnw","template_6amwebl",{
+                      emailjs.send("service_k0d80hp","template_mp8ld0f",{
                         to_name: usertype,
                         message: `${uploaded_video}`,
                         to_email: usertype,
                         from_email: filesender
-                    },  {publicKey: 'ksmb9LVXc2VEPulHb'});
-                   
+                    },  {publicKey: 'A3D4HSPHNJ8f_odij'});
                     //await uploadVideo({fileowner, uploaded_video, filesender}).unwrap()
                       setloading(false)
                       dispatch({type: 'open', size: 'mini'})
