@@ -164,7 +164,7 @@ const Audio = ({mobile}) => {
                     data.append("file", audio);
                     data.append("upload_preset", "slakw5ml");
                     data.append("cloud_name", "du3ck2joa");
-                    data.append("resource_type", "audio")
+                    data.append("resource_type", "video")
                     data.append("folder", "mastaplana_audio");
 
                     const response = await fetch(
@@ -304,7 +304,7 @@ const Audio = ({mobile}) => {
                                                 <Form.Input
                                                     type="file"
                                                     placeholder="Select a file"
-                                                    accept="audio/*"
+                                                    accept="video/*"
                                                     error={upload_audioError}
                                                     onChange={handleAudio}
                                                     onClick={() => setupload_audioError(false)}
