@@ -458,7 +458,7 @@ const Document = ({mobile}) => {
                                                             fluid 
                                                             size="large" 
                                                             color="green"
-                                                            onClick={() => dispatch({type: 'open_table', size_table: 'mini'})}
+                                                            onClick={() => dispatch({type: 'open_table', size_table: 'small'})}
 
                                                         >
                                                             Save Tabular Data
