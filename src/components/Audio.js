@@ -164,7 +164,7 @@ const Audio = ({mobile}) => {
                     data.append("file", audio);
                     data.append("upload_preset", "slakw5ml");
                     data.append("cloud_name", "du3ck2joa");
-                    data.append("resource_type", "video")
+                    data.append("resource_type", "audio")
                     data.append("folder", "mastaplana_audio");
 
                     const response = await fetch(
