@@ -301,15 +301,14 @@ const Audio = ({mobile}) => {
                                                 />
                                             </Form.Field>
                                             <Form.Field>
-                                                <Form.Input
+                                                <input
                                                     type="file"
                                                     placeholder="Select a file"
-                                                    accept="video/*"
+                                                    accept="audio/*"
+                                                    multiple
                                                     error={upload_audioError}
                                                     onChange={handleAudio}
                                                     onClick={() => setupload_audioError(false)}
-                                            
-                                                
                                                 />
                                             </Form.Field>
                                             <Button 
