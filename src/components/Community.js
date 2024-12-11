@@ -116,11 +116,13 @@ const Community = ({mobile}) => {
 
     let email_options = []
     if(isSuccess){
-        const current_emails = users.filter(c => c.email !== emailId)
-        const member_emails = userMembers.filter(u => u.memberEmail !== current_emails.email)
-        member_emails.map(c => (
-            email_options.push({key: c.id, text: c.email, value: c.email})
-        ))
+        users.map(u => {
+            const member_email = userMembers.find(um => um.memberEmail === u.email)
+            if(!member_email){
+                email_options.push({key: u.id, text: u.email, value: u.email})
+            }
+
+        })    
     }
 
     const [getCommunity, {isLoading}] = useAddCommunityMutation()
