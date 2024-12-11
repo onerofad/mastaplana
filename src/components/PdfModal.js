@@ -45,15 +45,15 @@ import emailjs from '@emailjs/browser'
 
         const {data:members, isSuccess} = useGetMembersQuery()
 
-        let members_options
+        let members_options = []
         if(isSuccess){
             const current_community = members.filter(c => c.memberEmail === sessionStorage.getItem("email"))[0]
             if(current_community){
-                members_options = members.map(c => (
+                members.map(c => (
                     (c.community === current_community.community && c.memberEmail !== current_community.memberEmail)  ?                   
-                    {key: c.id, text: c.memberEmail, value: c.memberEmail}
-                    : ''
-            ))
+                    members_options.push({key: c.id, text: c.memberEmail, value: c.memberEmail})
+                    : '<></>'
+                ))
             }
             
         }

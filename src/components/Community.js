@@ -4,7 +4,7 @@ import { Container, Segment, Grid, Dropdown, Header, Modal, Icon, Button, Table,
 import { Link } from "react-router-dom"
 import { useGetCommunitiesQuery, useAddCommunityMutation, useAddMemberMutation, useGetMembersQuery, useRemoveMemberMutation, useGetUsersQuery } from '../features/api/apiSlice'
 import SearchCommunity from "./SearchCommunity"
-import getUsers from "../API"
+import getUsers, { getUserMembers } from "../API"
 
 const initialState = {
     size: undefined,
@@ -38,6 +38,7 @@ const Community = ({mobile}) => {
 
     useEffect(() => {
         getUAvailableUsers()
+        getAlluserMembers()
     }, [])
 
     const options = [
@@ -45,11 +46,18 @@ const Community = ({mobile}) => {
     ]
 
     const [users, setusers] = useState([])
+    const [userMembers, setusermembers] = useState([])
 
     const getUAvailableUsers = () => {
         getUsers().get("/")
         .then(res => setusers(res.data))
         .catch(error => console.log('An error has occurred' + error))
+    }
+    const getAlluserMembers = () => {
+        getUserMembers().get("/")
+        .then(res => setusermembers(res.data))
+        .catch(error => console.log('An error has occurred' + error))
+
     }
 
     const emailId = sessionStorage.getItem("email")
@@ -106,11 +114,12 @@ const Community = ({mobile}) => {
         count_communities = current_communities.length
     }
 
-    let email_options
+    let email_options = []
     if(isSuccess){
         const current_emails = users.filter(c => c.email !== emailId)
-        email_options = current_emails.map(c => (
-            {key: c.id, text: c.email, value: c.email}
+        const member_emails = userMembers.filter(u => u.memberEmail !== current_emails.email)
+        member_emails.map(c => (
+            email_options.push({key: c.id, text: c.email, value: c.email})
         ))
     }
 

@@ -60,14 +60,14 @@ const Audio = ({mobile}) => {
 
     const [audio, setAudio] = useState(null);
 
-    let members_options
+    let members_options = []
             const current_community = members.filter(c => c.memberEmail === sessionStorage.getItem("email"))[0]
             if(current_community){
-                members_options = members.map(c => (
+                members.map(c => (
                     (c.community === current_community.community && c.memberEmail !== current_community.memberEmail)  ?                   
-                    {key: c.id, text: c.memberEmail, value: c.memberEmail}
-                    : ''
-            ))
+                    members_options.push({key: c.id, text: c.memberEmail, value: c.memberEmail})
+                    : '<></>'
+                ))
             }
     
     let uploaded_audio
