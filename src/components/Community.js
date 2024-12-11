@@ -114,7 +114,7 @@ const Community = ({mobile}) => {
         count_communities = current_communities.length
     }
 
-    let email_options = []
+    /*let email_options = []
     if(isSuccess){
         users.map(u => {
             const member_email = userMembers.find(um => um.memberEmail === u.email)
@@ -123,7 +123,22 @@ const Community = ({mobile}) => {
             }
 
         })    
-    }
+    }*/
+   let count_useremail = 0
+   let count_memberemail = 0
+   if(isSuccess){
+      users.map(u => {
+        if(u.email === memberEmail){
+            ++count_useremail
+        }
+      })
+
+      userMembers.map(um => {
+        if(um.memberEmail === memberEmail){
+            ++count_memberemail
+        }
+      })
+   }
 
     const [getCommunity, {isLoading}] = useAddCommunityMutation()
     const saveCommunity = [communityname, role, community_owner].every(Boolean) && !isLoading
@@ -176,6 +191,10 @@ const Community = ({mobile}) => {
     const memberBtn = async () => {
         if(memberEmail === ''){
             setmemberEmailError({content: 'Enter member email', pointer: 'above'})
+        }else if(count_useremail === 0){
+            setmemberEmailError({content: 'Email not signed up', pointer: 'above'})
+        }else if(count_memberemail > 0){
+            setmemberEmailError({content: 'Email Alresdy used as a member', pointer: 'above'})
         }else if(memberRole === ''){
             setmemberRoleError({content: 'Enter member role', pointer: 'above'})
         }else{
@@ -471,13 +490,20 @@ const Community = ({mobile}) => {
                             </Form.Field>
                             <Form.Field>
                                 <label>Member Email</label>
-                                <Form.Select
+                                {/*<Form.Select
                                     placeholder="Member Email"
                                     value={memberEmail}
                                     error={memberEmailError}
                                     onChange={handlememberEmail}
                                     onClick={() => setmemberEmailError(false)}
                                     options={email_options}
+                                />*/}
+                                <Form.Input
+                                    placeholder="Member Email"
+                                    value={memberEmail}
+                                    error={memberEmailError}
+                                    onChange={handlememberEmail}
+                                    onClick={() => setmemberEmailError(false)}
                                 />
                             </Form.Field>
                             <Form.Field>
