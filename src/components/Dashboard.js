@@ -98,7 +98,7 @@ const Dashboard = ({mobile}) => {
                             {/*<Header inverted content="Add Member" color="#fff" />*/}
                         </Grid.Column>
                         <Grid.Column width={ mobile ? 2 : 5} verticalAlign="middle">
-                            <Header 
+                            {/*<Header 
                                 as="h1"
                                 inverted 
                                 content={mobile ? "" : "DASHBOARD" }
@@ -108,7 +108,7 @@ const Dashboard = ({mobile}) => {
                                     fontWeight: 400,
                                     fontStyle: 'normal'
                                 }}
-                            />
+                            />*/}
                         </Grid.Column> 
                         <Grid.Column width={mobile ? 5 : 2} textAlign="right" verticalAlign="middle">
                         <Label circular color="red">{count}</Label>
