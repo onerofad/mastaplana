@@ -58,7 +58,7 @@ export const Alarmclock = () => {
             <Grid.Row>
                 <Grid.Column>
                     <Input
-                        type="date"
+                        type="time"
                         step="1"
                         value={alarmTime}
                         onChange={handleAlarmTimeChange}

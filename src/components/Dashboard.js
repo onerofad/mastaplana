@@ -128,9 +128,9 @@ const Dashboard = ({mobile}) => {
                             >
                                 <Segment
                                     style={{
-                                        left: '50%',
+                                        left: mobile ? '25%' : '55%',
                                         position: 'fixed',
-                                        top: '18%',
+                                        top: mobile ? '8%' '18%',
                                         zIndex: 500,
                                     }}
                                     >
@@ -157,9 +157,9 @@ const Dashboard = ({mobile}) => {
                             >
                                 <Segment
                                     style={{
-                                        left: '65%',
+                                        left: mobile ? '30%' : '60%',
                                         position: 'fixed',
-                                        top: '18%',
+                                        top: mobile ? '8%' '18%',
                                         zIndex: 500,
                                     }}
                                     >
