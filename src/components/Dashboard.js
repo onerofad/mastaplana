@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { Grid, Header, Label, Segment, Icon, Container, Dropdown, Button, Portal } from "semantic-ui-react"
 import { useAcceptMembershipMutation, useDeclineMembershipMutation, useGetMembersQuery } from "../features/api/apiSlice"
 import { useState } from "react"
-
+import { Alarmclock } from './Alarmclock'
 const Dashboard = ({mobile}) => {
 
     const navigate = useNavigate()
@@ -141,7 +141,33 @@ const Dashboard = ({mobile}) => {
                             
                         </Grid.Column>                          
                         <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle" textAlign="left">
-                            <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
+                        <Portal
+                                closeOnTriggerClick
+                                openOnTriggerClick
+                                trigger={
+                                    <Icon 
+                                        name="calendar alternate outline" 
+                                        inverted 
+                                        color="#fff" 
+                                        size="big" 
+                                    />
+
+                                }
+                            
+                            >
+                                <Segment
+                                    style={{
+                                        left: '65%',
+                                        position: 'fixed',
+                                        top: '18%',
+                                        zIndex: 500,
+                                    }}
+                                    >
+                                    <Header as="h3" attached>Calendar Reminder</Header>
+                                    <Alarmclock />
+                                    </Segment>
+                            </Portal>
+                            
                         </Grid.Column>
                         <Grid.Column width={mobile ? 3 : 2} style={{textAlign: 'center'}}>
                             <Segment floated="right" vertical style={{ 

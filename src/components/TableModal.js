@@ -1,17 +1,46 @@
-import { Modal,Grid, Icon, Table, Header, Button, Divider, Segment } from "semantic-ui-react"
+import { useState } from "react"
+import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } from "semantic-ui-react"
 
-    const tabularData = [
-        {
-            row: <>
-                    <Table.Cell></Table.Cell>
-                    <Table.Cell></Table.Cell>
-                    <Table.Cell></Table.Cell>
-                    <Table.Cell></Table.Cell>
-                    </>
-        },
-    ]
+
     const TableModal = ({openModalTable, sizeModalTable, closeModal}) => {
     
+        const [head1, sethead1] = useState("Head-1")
+        const [head2, sethead2] = useState("Head-2")
+        const [head3, sethead3] = useState("Head-3")
+        const [head4, sethead4] = useState("Head-4")
+
+        const handlehead1 = (e) => sethead1(e.target.value)
+        const handlehead2 = (e) => sethead2(e.target.value)
+        const handlehead3 = (e) => sethead3(e.target.value)
+        const handlehead4 = (e) => sethead4(e.target.value)
+
+        const [tabularData, setTabularData] = useState([])
+        const [tabularDataFake, setTabularDataFake] = useState([])
+        const data = []
+        let count = 1
+        const addRow = () => {
+           tabularDataFake.push({
+            'id': count,
+            'row': <Table.Row>
+                        <Table.Cell>count</Table.Cell>
+                        <Table.Cell>col-1</Table.Cell>
+                        <Table.Cell>col-2</Table.Cell>
+                        <Table.Cell>col-3</Table.Cell>
+                        <Table.Cell>col-4</Table.Cell>
+                   </Table.Row>
+           })
+           setTabularData(tabularDataFake)
+           alert(tabularDataFake.length)
+           alert(tabularData.length)
+
+           ++count
+        }
+
+        let tabularDataDetails
+        tabularDataDetails = tabularData.map(m => (
+            <>{m.row}</>
+        ))
+
         return(
             <Modal
                 open={openModalTable}
@@ -28,20 +57,36 @@ import { Modal,Grid, Icon, Table, Header, Button, Divider, Segment } from "seman
                             <Grid.Row>
                                 <Grid.Column width={10}>
                                     <Header content="Edit Table" />
-                                    <Table celled>
+                                    <Table fixed celled>
                                         <Table.Header>
-                                            <Table.HeaderCell>Head-1</Table.HeaderCell>
-                                            <Table.HeaderCell>Head-2</Table.HeaderCell>
-                                            <Table.HeaderCell>Head-3</Table.HeaderCell>
-                                            <Table.HeaderCell>Head-4</Table.HeaderCell>
+                                            <Table.HeaderCell>
+                                                <Input 
+                                                    value={head1}
+                                                    onChange={handlehead1}                                     
+                                                />
+                                            </Table.HeaderCell>
+                                            <Table.HeaderCell>
+                                                <Input 
+                                                    value={head2}
+                                                    onChange={handlehead2}                   
+                                                />
+                                            </Table.HeaderCell>
+                                            <Table.HeaderCell>
+                                                <Input 
+                                                    value={head3}
+                                                    onChange={handlehead3}                                
+                                                />
+                                            </Table.HeaderCell>
+                                            <Table.HeaderCell>
+                                                <Input 
+                                                    value={head4}
+                                                    onChange={handlehead4}     
+                                                />
+                                            </Table.HeaderCell>
                                         </Table.Header>
                                         <Table.Body>
                                             {
-                                                tabularData.map(m => {
-                                                    <Table.Row>
-                                                        {m.row}
-                                                    </Table.Row>
-                                                })
+                                                tabularDataDetails
                                             }
                                         </Table.Body>
                                     </Table>
@@ -56,36 +101,6 @@ import { Modal,Grid, Icon, Table, Header, Button, Divider, Segment } from "seman
                                         <Grid>
                                             <Grid.Row>
                                                 <Grid.Column>
-                                                    <Header as="h5" content="Edit Headings" />
-                                                    <Grid stackable>
-                                                        <Grid.Row>
-                                                            <Grid.Column width={4}>
-                                                                <Button 
-                                                                    basic
-                                                                    size="mini" 
-                                                                    color="green"
-                                                                >
-                                                                    add
-                                                                </Button>
-                                                            </Grid.Column>
-                                                            <Grid.Column width={4}>
-                                                                <Button 
-                                                                    basic
-                                                                    size="mini" 
-                                                                    color="red"
-                                                                >
-                                                                    del
-                                                                </Button>
-                                                            </Grid.Column>
-                                                        </Grid.Row>
-
-                                                        
-                                                    </Grid>
-                                                </Grid.Column>
-                                            </Grid.Row>
-
-                                            <Grid.Row>
-                                                <Grid.Column>
                                                     <Header as="h5" content="Edit Row" />
                                                     <Grid stackable>
                                                         <Grid.Row>
@@ -94,6 +109,7 @@ import { Modal,Grid, Icon, Table, Header, Button, Divider, Segment } from "seman
                                                                     basic
                                                                     size="mini" 
                                                                     color="green"
+                                                                    onClick={() => addRow()}
                                                                 >
                                                                     add
                                                                 </Button>
