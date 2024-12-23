@@ -157,7 +157,7 @@ const Dashboard = ({mobile}) => {
                             >
                                 <Segment
                                     style={{
-                                        left: mobile ? '27%' : '60%',
+                                        left: mobile ? '25%' : '60%',
                                         position: 'fixed',
                                         top: mobile ? '8%' : '18%',
                                         zIndex: 500,
