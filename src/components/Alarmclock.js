@@ -6,11 +6,13 @@ export const Alarmclock = () => {
   const [alarmTime, setAlarmTime] = useState("0");
   const [status, setStatus] = useState(false);
   const [color, setColor] = useState("positive");
+  const [play, setPlay] = useState('')
 
 
   useEffect(() => {
     if (status && clockTime === alarmTime) {
       console.log("get up", clockTime, alarmTime);
+      setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
       alert("get up Now")
       setStatus(false);
       setColor("positive")
