@@ -5,11 +5,15 @@ export const Alarmclock = () => {
   const [clockTime, setClockTime] = useState("00:00:00");
   const [alarmTime, setAlarmTime] = useState("0");
   const [status, setStatus] = useState(false);
+  const [color, setColor] = useState("positive");
+
 
   useEffect(() => {
     if (status && clockTime === alarmTime) {
       console.log("get up", clockTime, alarmTime);
+      alert("get up Now")
       setStatus(false);
+      setColor("positive")
     }
   }, [clockTime, alarmTime, status]);
 
@@ -35,6 +39,7 @@ export const Alarmclock = () => {
 
   const handleToggle = () => {
     setStatus(!status);
+    setColor("negative")
   };
 
   const handleReset = () => {
@@ -68,7 +73,7 @@ export const Alarmclock = () => {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
-                <Button positive onClick={handleToggle}>
+                <Button color={color} onClick={handleToggle}>
                     {status ? "Stop Alarm" : "Start Alarm"}
                 </Button>
                 <Button secondary onClick={handleReset}>
