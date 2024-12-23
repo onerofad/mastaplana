@@ -130,7 +130,7 @@ const Dashboard = ({mobile}) => {
                                     style={{
                                         left: mobile ? '25%' : '55%',
                                         position: 'fixed',
-                                        top: mobile ? '8%' '18%',
+                                        top: mobile ? '8%' : '18%',
                                         zIndex: 500,
                                     }}
                                     >
@@ -159,7 +159,7 @@ const Dashboard = ({mobile}) => {
                                     style={{
                                         left: mobile ? '30%' : '60%',
                                         position: 'fixed',
-                                        top: mobile ? '8%' '18%',
+                                        top: mobile ? '8%' : '18%',
                                         zIndex: 500,
                                     }}
                                     >
