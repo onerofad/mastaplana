@@ -242,6 +242,10 @@ const Dashboard = ({mobile}) => {
                                             <Icon inverted size="huge" link={true} onClick={() => navigate("/video")} color="green" name="youtube square" />
                                             <Header as="h4" inverted content="VIDEO" />
                                         </Grid.Column>
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                            <Icon inverted size="huge" link={true} color="green" name="database" />
+                                            <Header as="h4" inverted content="DATA BANK" />
+                                        </Grid.Column>
                                        {/*} <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="bell outline" />
                                             <Header as="h4" inverted content="NOTICE CENTER" />
@@ -266,7 +270,7 @@ const Dashboard = ({mobile}) => {
                                             <Icon inverted size="huge" color="green" name="microphone" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 8} textAlign="center" >
-                                            <Icon  inverted size="huge" color="green" name="chat" />
+                                            <Icon  inverted size="huge" color="green" name="rocketchat" />
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
