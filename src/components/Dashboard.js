@@ -141,6 +141,8 @@ const Dashboard = ({mobile}) => {
                             
                         </Grid.Column>                          
                         <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle" textAlign="left">
+                        <Label circular color="green">0</Label>
+
                         <Portal
                                 closeOnTriggerClick
                                 openOnTriggerClick
