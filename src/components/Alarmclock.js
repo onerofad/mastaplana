@@ -47,6 +47,7 @@ export const Alarmclock = () => {
   const handleReset = () => {
     setAlarmTime("0");
     setStatus(false);
+    setPlay('')
   };
 
   useEffect(() => {
@@ -75,6 +76,7 @@ export const Alarmclock = () => {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
+                <audio src={play} autoPlay/>
                 <Button color={color} onClick={handleToggle}>
                     {status ? "Stop Alarm" : "Start Alarm"}
                 </Button>
