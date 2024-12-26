@@ -97,7 +97,7 @@ const Dashboard = ({mobile}) => {
                             </Button>
                             {/*<Header inverted content="Add Member" color="#fff" />*/}
                         </Grid.Column>
-                        <Grid.Column width={ mobile ? 2 : 5} verticalAlign="middle">
+                        <Grid.Column width={ mobile ? 0 : 5} verticalAlign="middle">
                             {/*<Header 
                                 as="h1"
                                 inverted 
@@ -140,7 +140,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 3 : 2} verticalAlign="middle" textAlign="left">
+                        <Grid.Column width={mobile ? 5 : 2} verticalAlign="middle" textAlign="left">
                         <Label circular color="green">0</Label>
 
                         <Portal
