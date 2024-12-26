@@ -111,7 +111,7 @@ const Dashboard = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column> */}
-                        <Grid.Column width={mobile ? 5 : 4} textAlign="right" verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 4} textAlign="right" verticalAlign="middle">
                         <Label circular color="red">{count}</Label>
 
                             <Portal
@@ -122,7 +122,7 @@ const Dashboard = ({mobile}) => {
                                         name="bell outline" 
                                         inverted 
                                         color="#fff" 
-                                        size="big" 
+                                        size= { mobile ? "large" : "big"}
                                     />
                                 }
                             
@@ -141,7 +141,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 5 : 4} verticalAlign="middle" textAlign="right">
+                        <Grid.Column width={mobile ? 4 : 4} verticalAlign="middle" textAlign="right">
                         <Label circular color="green">0</Label>
 
                         <Portal
@@ -152,7 +152,8 @@ const Dashboard = ({mobile}) => {
                                         name="calendar alternate outline" 
                                         inverted 
                                         color="#fff" 
-                                        size="big" 
+                                        size= { mobile ? "large" : "big"}
+
                                     />
 
                                 }
@@ -172,7 +173,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>
-                        <Grid.Column width={mobile ? 1 : 3} style={{textAlign: 'center'}}>
+                        <Grid.Column width={mobile ? 3 : 3} style={{textAlign: 'center'}}>
                             <Segment floated="right" vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
