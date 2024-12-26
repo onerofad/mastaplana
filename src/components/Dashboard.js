@@ -246,6 +246,10 @@ const Dashboard = ({mobile}) => {
                                             <Icon inverted size="huge" link={true} color="green" name="database" />
                                             <Header as="h4" inverted content="DATA BANK" />
                                         </Grid.Column>
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                            <Icon inverted size="huge" link={true} color="green" name="rocketchat" />
+                                            <Header as="h4" inverted content="CHART" />
+                                        </Grid.Column>
                                        {/*} <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="bell outline" />
                                             <Header as="h4" inverted content="NOTICE CENTER" />
@@ -261,7 +265,7 @@ const Dashboard = ({mobile}) => {
                             </Segment>
                         </Grid.Column>
                     </Grid.Row> 
-                    <Grid.Row>
+                    {/*<Grid.Row>
                         <Grid.Column>
                             <Segment vertical style={{borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
                                 <Grid>
@@ -276,7 +280,7 @@ const Dashboard = ({mobile}) => {
                                 </Grid>
                             </Segment>
                         </Grid.Column>
-                    </Grid.Row>           
+                    </Grid.Row>       */}    
                 </Grid>
         </Segment>
         </Container>
