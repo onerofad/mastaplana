@@ -87,6 +87,7 @@ const Dashboard = ({mobile}) => {
                         <Grid.Column width={mobile ? 3 : 5} verticalAlign="middle">
                             <Button 
                                 color="green"
+                                compact
                                 size={ mobile ? "mini" : "large"}
                                 onClick={() => {
                                     navigate("/community")
@@ -97,8 +98,8 @@ const Dashboard = ({mobile}) => {
                             </Button>
                             {/*<Header inverted content="Add Member" color="#fff" />*/}
                         </Grid.Column>
-                        <Grid.Column width={ mobile ? 0 : 5} verticalAlign="middle">
-                            {/*<Header 
+                        {/*<Grid.Column width={ mobile ? 0 : 5} verticalAlign="middle">
+                            <Header 
                                 as="h1"
                                 inverted 
                                 content={mobile ? "" : "DASHBOARD" }
@@ -108,9 +109,9 @@ const Dashboard = ({mobile}) => {
                                     fontWeight: 400,
                                     fontStyle: 'normal'
                                 }}
-                            />*/}
-                        </Grid.Column> 
-                        <Grid.Column width={mobile ? 5 : 2} textAlign="right" verticalAlign="middle">
+                            />
+                        </Grid.Column> */}
+                        <Grid.Column width={mobile ? 5 : 4} textAlign="right" verticalAlign="middle">
                         <Label circular color="red">{count}</Label>
 
                             <Portal
@@ -140,7 +141,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 5 : 2} verticalAlign="middle" textAlign="left">
+                        <Grid.Column width={mobile ? 5 : 4} verticalAlign="middle" textAlign="left">
                         <Label circular color="green">0</Label>
 
                         <Portal
@@ -171,7 +172,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>
-                        <Grid.Column width={mobile ? 3 : 2} style={{textAlign: 'center'}}>
+                        <Grid.Column width={mobile ? 3 : 3} style={{textAlign: 'center'}}>
                             <Segment floated="right" vertical style={{ 
                                 alignSelf: 'right', 
                                 alignContent: 'center',
