@@ -84,7 +84,7 @@ const Dashboard = ({mobile}) => {
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 10 : 40}}>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={mobile ? 3 : 5} verticalAlign="middle">
+                        <Grid.Column width={mobile ? 5 : 5} verticalAlign="middle">
                             <Button 
                                 color="green"
                                 compact
@@ -111,7 +111,7 @@ const Dashboard = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column> */}
-                        <Grid.Column width={mobile ? 5 : 4} textAlign="right" verticalAlign="middle">
+                        <Grid.Column width={mobile ? 4 : 4} textAlign="right" verticalAlign="middle">
                         <Label circular color="red">{count}</Label>
 
                             <Portal
@@ -141,7 +141,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 5 : 4} verticalAlign="middle" textAlign="right">
+                        <Grid.Column width={mobile ? 4 : 4} verticalAlign="middle" textAlign="right">
                         <Label circular color="green">0</Label>
 
                         <Portal
