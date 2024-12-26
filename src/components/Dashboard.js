@@ -141,7 +141,7 @@ const Dashboard = ({mobile}) => {
                             </Portal>
                             
                         </Grid.Column>                          
-                        <Grid.Column width={mobile ? 5 : 4} verticalAlign="middle" textAlign="left">
+                        <Grid.Column width={mobile ? 5 : 4} verticalAlign="middle" textAlign="right">
                         <Label circular color="green">0</Label>
 
                         <Portal
