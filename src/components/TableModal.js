@@ -1,9 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } from "semantic-ui-react"
 
-
     const TableModal = ({openModalTable, sizeModalTable, closeModal}) => {
-    
+
         const [head1, sethead1] = useState("Head-1")
         const [head2, sethead2] = useState("Head-2")
         const [head3, sethead3] = useState("Head-3")
@@ -18,45 +17,45 @@ import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } fro
         const [tabularDataFake, setTabularDataFake] = useState([])
         const data = []
         let count = 1
+        let tabularDataDetails
+
         const addRow = () => {
-           tabularDataFake.push({
+            tabularDataFake.push({
             'id': count,
             'row': <Table.Row>
-                        <Table.Cell>count</Table.Cell>
                         <Table.Cell>col-1</Table.Cell>
                         <Table.Cell>col-2</Table.Cell>
                         <Table.Cell>col-3</Table.Cell>
                         <Table.Cell>col-4</Table.Cell>
                    </Table.Row>
            })
+           setTabularDataFake(tabularData)    
            setTabularData(tabularDataFake)
-           alert(tabularDataFake.length)
-           alert(tabularData.length)
-
+       
            ++count
         }
 
-        let tabularDataDetails
-        tabularDataDetails = tabularData.map(m => (
-            <>{m.row}</>
-        ))
+        /*useEffect(() => {
+            addRow() 
+         }, [tabularData] )*/
 
         return(
             <Modal
                 open={openModalTable}
                 size={sizeModalTable}
-                style={{maxHeight: 400, overflowY: 'auto'}}
             >
                 <Modal.Header>
                     Table Data
+                    {/*
                     <Icon link={true} style={{float: 'right'}} name="close" onClick={() => closeModal()} />
-
+                    */}
                 </Modal.Header>
                     <Modal.Content>
                         <Grid stackable divided> 
                             <Grid.Row>
                                 <Grid.Column width={10}>
                                     <Header content="Edit Table" />
+                                    <div style={{maxHeight: 200, overflowY: 'auto'}}>
                                     <Table fixed celled>
                                         <Table.Header>
                                             <Table.HeaderCell>
@@ -86,12 +85,19 @@ import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } fro
                                         </Table.Header>
                                         <Table.Body>
                                             {
-                                                tabularDataDetails
+                                                tabularData.map(m => (
+                                                    <>{m.row}</>
+                                                ))
                                             }
                                         </Table.Body>
-                                    </Table>
-                                    <Button color="green" size="large">
+                                    </Table>             
+                                    </div>
+                                    <br/>
+                                    <Button color="green" size="small">
                                         Save Data
+                                    </Button>
+                                    <Button color="youtube" size="small" onClick={() => closeModal()}>
+                                        Close Table
                                     </Button>
                                 </Grid.Column>
                                 <Grid.Column width={6}>

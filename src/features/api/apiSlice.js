@@ -6,6 +6,8 @@ export const apiSlice = createApi({
 
     baseQuery: fetchBaseQuery({baseUrl: 'https://backend-app-pied.vercel.app/api/'}),
 
+    tagTypes: ['Post'],
+
     endpoints: builder => ({
         addUsers: builder.mutation({
             query: initialPost => ({
@@ -48,21 +50,27 @@ export const apiSlice = createApi({
             query: () => '/uploadvideos'
         }),
         getNotes: builder.query({
-            query: () => '/notes'
+            query: () => '/notes',
+            providesTags: (result = [], error, arg) => [
+                'Post',
+                ...result.map(({ id }) => ({ type: 'Post', id }))
+            ], 
         }),
         addNotes: builder.mutation({
             query: initialPost => ({
                 url: 'notes/',
                 method: 'POST',
                 body: initialPost
-            })
+            }),
+            invalidatesTags: ['Post']
         }),
         editNote: builder.mutation({
             query: item => ({
                 url: `/notes/${item.id}/`,
                 method: 'PATCH',
                 body: item
-            })
+            }),
+            invalidatesTags: ['Post']
         }),
         getFormTemplates: builder.query({
             query: () => '/formtemplates'

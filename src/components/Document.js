@@ -422,7 +422,7 @@ const Document = ({mobile}) => {
                                                         <Button 
                                                             fluid size="large" 
                                                             color="green"
-                                                            onClick={() => dispatch({type: 'open', size: 'small'})}
+                                                            onClick={() => dispatch({type: 'open', size: 'mini'})}
                                                         >
                                                             Save Form Data
                                                         </Button>

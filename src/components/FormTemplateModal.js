@@ -8,7 +8,7 @@ import { useGetFormTemplatesQuery } from "../features/api/apiSlice"
         if(isSuccess){
             htmlFiles = htmlFile.map(forms => (
                 <>
-                <Grid.Column width={8}>
+                <Grid.Column>
                     <Modal.Description>
                         {forms.form_name}
                     </Modal.Description>
