@@ -29,8 +29,8 @@ import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } fro
                         <Table.Cell>col-4</Table.Cell>
                    </Table.Row>
            })
-           setTabularDataFake(tabularData)    
-           setTabularData(tabularDataFake)
+           setTabularDataFake(tabularDataFake)    
+           setTabularData(tabularData)
        
            ++count
         }
@@ -56,7 +56,7 @@ import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } fro
                                 <Grid.Column width={10}>
                                     <Header content="Edit Table" />
                                     <div style={{maxHeight: 200, overflowY: 'auto'}}>
-                                    <Table fixed celled>
+                                    <Table fixed celled stackable>
                                         <Table.Header>
                                             <Table.HeaderCell>
                                                 <Input 
