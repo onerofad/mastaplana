@@ -29,8 +29,8 @@ import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } fro
                         <Table.Cell>col-4</Table.Cell>
                    </Table.Row>
            })
-           setTabularDataFake(tabularDataFake)    
-           setTabularData(tabularData)
+           setTabularDataFake(tabularData)    
+           setTabularData(tabularDataFake)
        
            ++count
         }
