@@ -254,8 +254,8 @@ const Dashboard = ({mobile}) => {
                                             <Icon inverted size="huge" link={true} color="green" name="rocketchat" />
                                             <Header as="h4" inverted content="CHART" />
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge" color="green" name="bell outline" />
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center"  onClick={() => navigate("/notice_center")} style={{marginTop: 40}}>
+                                            <Icon inverted link={true} size="huge" color="green" name="bell outline" />
                                             <Header as="h4" inverted content="NOTICE CENTER" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>

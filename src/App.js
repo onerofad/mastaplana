@@ -11,6 +11,7 @@ import Video from './components/Video';
 import Document from './components/Document';
 import VerifyEmail from './components/VerifyEmail';
 import Community from './components/Community';
+import { NoticeCenter } from './components/mobile/NoticeCenter';
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
@@ -36,6 +37,7 @@ function App() {
             <Route path='/document' element={<Document mobile />} />
             <Route path='/community' element={<Community mobile />}  />
             <Route path='/verifyemail/:email' element={<VerifyEmail />} mobile />
+            <Route path='/notice_center' element={<NoticeCenter />} mobile />
 
           </Routes>
         </BrowserRouter>
@@ -55,6 +57,8 @@ function App() {
             <Route path='/document' element={<Document />} />
             <Route path='/community' element={<Community />} />
             <Route path='/verifyemail/:email' element={<VerifyEmail />} />
+            <Route path='/notice_center' element={<NoticeCenter />} />
+
 
           </Routes>
         </BrowserRouter>
