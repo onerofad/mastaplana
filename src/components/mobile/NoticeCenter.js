@@ -1,4 +1,4 @@
-import { Grid, Segment, Container, Dropdown, Icon, Header } from "semantic-ui-react"
+import { Grid, Segment, Container, Dropdown, Icon, Header, Table, Button } from "semantic-ui-react"
 import { Link, useNavigate } from "react-router-dom"
 
 export const NoticeCenter = ({mobile}) => {
@@ -18,7 +18,7 @@ export const NoticeCenter = ({mobile}) => {
                             <Header 
                                 as={ mobile ? 'h4' : 'h1'} 
                                 inverted 
-                                content="NOTICE" 
+                                content="NOTICE CENTER" 
                                 color="#fff" 
                                 style={{
                                     fontFamily: 'Spicy Rice',
@@ -58,23 +58,55 @@ export const NoticeCenter = ({mobile}) => {
                     </Grid.Row> 
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
-                                <Grid>
-                                    <Grid.Row>
-                                        <Grid.Column width={mobile ? 16 : 5} style={{marginTop: 10}}>
-                                               1
-                                        </Grid.Column>
-                                       
-                                        <Grid.Column width={ mobile ? 16 : 6} style={{marginTop: 0}}>
-                                                2
-                                        </Grid.Column>
-                                        <Grid.Column width={ mobile ? 16 : 5} style={{marginTop: 0}}>
-                                                3
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
+                            <Grid textAlign="center">
+                                <Grid.Column style={{maxWidth: 600}}>
+                                    <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
+                                        <Grid>
+                                            <Grid.Row>
+                                                <Grid.Column>
+                                                    <div style={{overflow: 'auto'}}>
+                                                    <Table basic="very" unstackable>
+                                                        <Table.Header>
+                                                            <Table.HeaderCell>
+                                                                Event No
+                                                            </Table.HeaderCell>
+                                                            <Table.HeaderCell>
+                                                                Event Description
+                                                            </Table.HeaderCell>
+                                                            <Table.HeaderCell>
+                                                                Event sheduled time
+                                                            </Table.HeaderCell>
+                                                            <Table.HeaderCell>
+                                                                Action
+                                                            </Table.HeaderCell>
+                                                        </Table.Header>
+                                                        <Table.Body>
+                                                            <Table.Row>
+                                                                <Table.Cell>
+                                                                    1
+                                                                </Table.Cell>
+                                                                <Table.Cell>
+                                                                    Going to church
+                                                                </Table.Cell>
+                                                                <Table.Cell>
+                                                                    12:45:00
+                                                                </Table.Cell>
+                                                                <Table.Cell>
+                                                                    <Button color="youtube">
+                                                                        cancle
+                                                                    </Button>
+                                                                </Table.Cell>
+                                                            </Table.Row>
+                                                        </Table.Body>
+                                                    </Table>
 
-                            </Segment>
+                                                    </div>
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                        </Grid>
+                                    </Segment>
+                                </Grid.Column>
+                            </Grid>
                         </Grid.Column>
                     </Grid.Row>     
                 </Grid>
