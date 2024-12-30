@@ -74,15 +74,15 @@ export const Alarmclock = () => {
   return (
     <Segment vertical style={{width: 250}}>
         <Grid textAlign="center">
-            <Grid.Row columns={2} divided>
+            <Grid.Row>
                 <Grid.Column>
                     <Header content="Current Time" />
                     {clockTime}
                 </Grid.Column>
-                <Grid.Column>
+                {/*<Grid.Column>
                     <Header content="Alarm Time" />
                     {aTime}
-                </Grid.Column>
+                </Grid.Column>*/}
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
