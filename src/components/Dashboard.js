@@ -219,8 +219,8 @@ const Dashboard = ({mobile}) => {
                     </Grid.Row>  
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment vertical style={{paddingTop: mobile ? 10 : 20, paddingBottom: 20, borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
-                                <Grid textAlign="center">
+                            <Segment padded vertical style={{paddingTop: mobile ? 10 : 20, paddingBottom: 20, borderRadius: mobile ? 0 : 10, borderWidth: mobile ? '' : '5px', borderStyle: mobile ? '' : 'solid', borderColor: mobile ? '' : '#fff'}}>
+                                <Grid textAlign="center" padded>
                                     <Grid.Row>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge"  link={true} onClick={() => navigate("/document")} color="green" name="edit outline" />
@@ -254,14 +254,14 @@ const Dashboard = ({mobile}) => {
                                             <Icon inverted size="huge" link={true} color="green" name="rocketchat" />
                                             <Header as="h4" inverted content="CHART" />
                                         </Grid.Column>
-                                       {/*} <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="bell outline" />
                                             <Header as="h4" inverted content="NOTICE CENTER" />
-                                        </Grid.Column> */}
-                                        {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                        </Grid.Column>
+                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="home" />
                                             <Header as="h4" inverted content="OFFICE" />
-                                        </Grid.Column> */}
+                                        </Grid.Column>
                                        
                                     </Grid.Row>
                                 </Grid>
