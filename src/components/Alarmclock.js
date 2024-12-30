@@ -1,19 +1,38 @@
 import {useState, useEffect} from 'react'
 import {Segment, Header, Button, Grid, Input} from 'semantic-ui-react'
+import DateTimePicker from 'react-datetime-picker'
+
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 
 export const Alarmclock = () => {
   const [clockTime, setClockTime] = useState("00:00:00");
-  const [alarmTime, setAlarmTime] = useState("0");
+  // ^const [alarmTime, setAlarmTime] = useState("0");
+  const [alarmTime, setAlarmTime] = useState(new Date());
+  const [aTime, setaTime] = useState("00:00:00");
   const [status, setStatus] = useState(false);
   const [color, setColor] = useState("positive");
   const [play, setPlay] = useState('')
 
-
   useEffect(() => {
-    if (status && clockTime === alarmTime) {
+    let h = alarmTime.getHours();
+    let m = alarmTime.getMinutes();
+    let s = alarmTime.getSeconds();
+
+    if (h.toString().length === 1) h = "0" + h;
+    if (m.toString().length === 1) m = "0" + m;
+    if (s.toString().length === 1) s = "0" + s;
+
+    let atime = `${h}:${m}:${s}`;
+
+    setaTime(atime)
+   
+   // alert(clockTime)
+    if (status && clockTime === aTime) 
+    {
       console.log("get up", clockTime, alarmTime);
       setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
-      //alert("get up Now")
       setStatus(false);
       setColor("positive")
     }
@@ -30,13 +49,11 @@ export const Alarmclock = () => {
     if (seconds.toString().length === 1) seconds = "0" + seconds;
 
     let clockFormat = `${hours}:${minutes}:${seconds}`;
-    //console.log("Clock: ", clockFormat);
     setClockTime(clockFormat);
   };
 
-  const handleAlarmTimeChange = (e) => {
-    console.log("alarm time: ", e.target.value);
-    setAlarmTime(e.target.value);
+  const handleAlarmTimeChange = (value) => {
+    setAlarmTime(value);
   };
 
   const handleToggle = () => {
@@ -65,12 +82,16 @@ export const Alarmclock = () => {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column>
-                    <Input
-                        type="time"
+                    {/*<Input
+                        type="calendar"
                         step="1"
                         value={alarmTime}
                         onChange={handleAlarmTimeChange}
                         fluid
+                    />*/}
+                    <DateTimePicker 
+                        value={alarmTime}
+                        onChange={(value) => handleAlarmTimeChange(value)}
                     />
                 </Grid.Column>
             </Grid.Row>
