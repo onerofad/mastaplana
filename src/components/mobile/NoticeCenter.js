@@ -14,7 +14,7 @@ export const NoticeCenter = ({mobile}) => {
                                 <Icon inverted name="angle left" color="green" size='big' />
                             </Link>
                         </Grid.Column>
-                        <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
+                        <Grid.Column width={ mobile ? 8 : 8} verticalAlign="middle">
                             <Header 
                                 as={ mobile ? 'h4' : 'h1'} 
                                 inverted 
@@ -27,9 +27,9 @@ export const NoticeCenter = ({mobile}) => {
                                 }}
                             />
                         </Grid.Column>
-                        <Grid.Column width={ mobile ? 4 : 2} verticalAlign="middle">
+                        {/*<Grid.Column width={ mobile ? 4 : 2} verticalAlign="middle">
                             <Icon name="calendar alternate outline" inverted color="#fff" size="big" />
-                        </Grid.Column>
+                        </Grid.Column>*/}
                         <Grid.Column width={ mobile ? 4 : 2} style={{textAlign: 'center'}}>
                             <Segment vertical floated="right" style={{ 
                                 alignSelf: 'right', 
