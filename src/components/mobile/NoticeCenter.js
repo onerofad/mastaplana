@@ -6,7 +6,7 @@ export const NoticeCenter = ({mobile}) => {
     const navigate = useNavigate()
     return(
         <Container>
-        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
+        <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 10 : 40}}>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={ mobile ? 4 : 6} verticalAlign="middle">
@@ -93,6 +93,7 @@ export const NoticeCenter = ({mobile}) => {
                                                                 </Table.Cell>
                                                                 <Table.Cell>
                                                                     <Button color="youtube">
+                                                                        <Icon name="trash" />
                                                                         cancle
                                                                     </Button>
                                                                 </Table.Cell>
