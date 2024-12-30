@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {Segment, Header, Button, Grid, Input} from 'semantic-ui-react'
+import {Segment, Header, Button, Grid, Input, Form} from 'semantic-ui-react'
 import DateTimePicker from 'react-datetime-picker'
 
 import 'react-datetime-picker/dist/DateTimePicker.css';
@@ -62,7 +62,7 @@ export const Alarmclock = () => {
   };
 
   const handleReset = () => {
-    setAlarmTime("0");
+    setAlarmTime(new Date());
     setStatus(false);
     setPlay('')
   };
@@ -74,10 +74,14 @@ export const Alarmclock = () => {
   return (
     <Segment vertical style={{width: 250}}>
         <Grid textAlign="center">
-            <Grid.Row>
+            <Grid.Row columns={2} divided>
                 <Grid.Column>
                     <Header content="Current Time" />
                     {clockTime}
+                </Grid.Column>
+                <Grid.Column>
+                    <Header content="Alarm Time" />
+                    {aTime}
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -89,10 +93,23 @@ export const Alarmclock = () => {
                         onChange={handleAlarmTimeChange}
                         fluid
                     />*/}
-                    <DateTimePicker 
+                    <DateTimePicker
+                        calendarIcon={null}
+                        clearIcon={null} 
                         value={alarmTime}
                         onChange={(value) => handleAlarmTimeChange(value)}
                     />
+                  
+                </Grid.Column>
+               
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Form size='small'>
+                      <Form.Input
+                        placeholder="Enter Event"
+                      />
+                    </Form>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>

@@ -167,7 +167,7 @@ const Dashboard = ({mobile}) => {
                                         zIndex: 500,
                                     }}
                                     >
-                                    <Header as="h3" attached>Calendar Reminder</Header>
+                                    <Header textAlign="center" as="h3" attached>Calendar Reminder</Header>
                                     <Alarmclock />
                                     </Segment>
                             </Portal>
