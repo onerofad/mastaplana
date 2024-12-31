@@ -142,7 +142,7 @@ const Dashboard = ({mobile}) => {
                             
                         </Grid.Column>                          
                         <Grid.Column width={mobile ? 4 : 4} verticalAlign="middle" textAlign="right">
-                        <Label circular color="green">0</Label>
+                        {/*<Label circular color="green">0</Label>*/}
 
                         <Portal
                                 closeOnTriggerClick
@@ -255,8 +255,18 @@ const Dashboard = ({mobile}) => {
                                             <Header as="h4" inverted content="CHART" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center"  onClick={() => navigate("/notice_center")} style={{marginTop: 40}}>
-                                            <Icon inverted link={true} size="huge" color="green" name="bell outline" />
-                                            <Header as="h4" inverted content="NOTICE CENTER" />
+                                            <Grid>
+                                                <Grid.Row>
+                                                    <Grid.Column>
+                                                        <Label circular color="red">0</Label>
+                                                    </Grid.Column>
+                                                    <Grid.Column>
+                                                        {/*<Label circular color="green">0</Label>*/}
+                                                        <Icon inverted link={true} size="huge" color="green" name="bell outline" />
+                                                    </Grid.Column>
+                                                </Grid.Row>
+                                            </Grid>
+                                            <Header as="h4" inverted content="NOTICE" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="home" />

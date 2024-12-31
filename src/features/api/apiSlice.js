@@ -145,7 +145,17 @@ export const apiSlice = createApi({
                 method: 'PATCH',
                 body: item
             })
-        })
+        }),
+        setAlarm: builder.mutation({
+            query: item => ({
+                url: 'alarms/',
+                method: 'POST',
+                body: item
+            }),
+        }),
+        getAlarms: builder.query({
+            query: () => '/alarms'
+        }),
     })
     
 })
@@ -163,6 +173,7 @@ export const {
     useAddCommunityMutation, useGetCommunitiesQuery,
     useAddMemberMutation, useGetMembersQuery,
     useRemoveMemberMutation,
-    useAcceptMembershipMutation, useDeclineMembershipMutation
+    useAcceptMembershipMutation, useDeclineMembershipMutation,
+    useSetAlarmMutation, useGetAlarmsQuery
     
 } = apiSlice
