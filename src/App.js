@@ -11,7 +11,7 @@ import Video from './components/Video';
 import Document from './components/Document';
 import VerifyEmail from './components/VerifyEmail';
 import Community from './components/Community';
-import { NoticeCenter } from './components/mobile/NoticeCenter';
+import { NoticeCenter } from './components/NoticeCenter';
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
