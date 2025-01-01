@@ -23,3 +23,15 @@ export function getUserMembers(){
         })
     )
 }
+
+export function getAlarms(){
+    return(
+        axios.create({
+            baseURL: "https://backend-app-pied.vercel.app/api/alarms",
+            headers: {
+                'Content-type': 'application/json',  
+                Accept: 'application/json' 
+            }
+        })
+    )
+}

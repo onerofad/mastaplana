@@ -5,7 +5,7 @@ import DateTimePicker from 'react-datetime-picker'
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
-import { useSetAlarmMutation } from '../features/api/apiSlice';
+import { useSetAlarmMutation, useGetAlarmsQuery } from '../features/api/apiSlice';
 
 export const Alarmclock = () => {
   const [clockTime, setClockTime] = useState("00:00:00");
@@ -26,6 +26,16 @@ export const Alarmclock = () => {
   const [loading, setLoading] = useState(false)
   const [check, setCheck] = useState("")
 
+  const {data:all_alarms, isSuccess} = useGetAlarmsQuery()
+
+    let count = 0
+    if(isSuccess){
+      const currentAlarms = all_alarms.filter(e => e.email === sessionStorage.getItem("email"))
+        currentAlarms.map(alarm => (              
+          ++count
+        ))
+      }
+    
   useEffect(() => {
     let h = alarmTime.getHours();
     let m = alarmTime.getMinutes();

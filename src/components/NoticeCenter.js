@@ -1,8 +1,74 @@
 import { Grid, Segment, Container, Dropdown, Icon, Header, Table, Button } from "semantic-ui-react"
 import { Link, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { getAlarms } from "../API";
+import { useGetAlarmsQuery } from "../features/api/apiSlice";
 
 export const NoticeCenter = ({mobile}) => {
 
+      const [clockTime, setClockTime] = useState("00:00:00");
+      const [yearformat, setyearformat] = useState("00/00/00")
+    
+      const [aTime, setaTime] = useState("");
+      const [dcal, setdcal] = useState("");
+      const [description, setDescription] = useState("")
+
+      const [play, setPlay] = useState('')
+
+      //const [count, setcount] = useState(0)
+      const {data:all_alarms, isSuccess} = useGetAlarmsQuery()
+
+      let alarm_details
+      let count = 0
+      if(isSuccess){
+        const currentAlarms = all_alarms.filter(e => e.email === sessionStorage.getItem("email"))
+            alarm_details = currentAlarms.map(alarm => (              
+                <Table.Row>
+                    <Table.Cell>{alarm.description}</Table.Cell>
+                    <Table.Cell>{alarm.dcal + "  " + alarm.aTime}</Table.Cell>
+                    <Table.Cell><Button><Icon name="trash" /></Button></Table.Cell>
+                </Table.Row>
+            ))
+
+      }
+    
+      useEffect(() => {
+        if (clockTime === aTime && yearformat === dcal) 
+        {
+          setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
+        }
+      }, [clockTime]);
+    
+      const updateClockTime = () => {
+        let currentTime = new Date();
+        let hours = currentTime.getHours();
+        let minutes = currentTime.getMinutes();
+        let seconds = currentTime.getSeconds();
+    
+        let day = currentTime.getDate();
+        let month = currentTime.getMonth() + 1;
+        let year = currentTime.getFullYear();
+    
+        if (hours.toString().length === 1) hours = "0" + hours;
+        if (minutes.toString().length === 1) minutes = "0" + minutes;
+        if (seconds.toString().length === 1) seconds = "0" + seconds;
+    
+        let clockFormat = `${hours}:${minutes}:${seconds}`;
+        setClockTime(clockFormat);
+    
+        if (day.toString().length === 1) day = "0" + day;
+        if (month.toString().length === 1) month = "0" + month;
+        if (year.toString().length === 1) year = "0" + year;
+    
+        let dateFormat = `${month}/${day}/${year}`;
+        setyearformat(dateFormat)
+    
+      };
+    
+    useEffect(() => {
+        setInterval(updateClockTime, 1000);
+    }, []);
+    
     const navigate = useNavigate()
     return(
         <Container>
@@ -68,9 +134,6 @@ export const NoticeCenter = ({mobile}) => {
                                                     <Table basic="very" unstackable>
                                                         <Table.Header>
                                                             <Table.HeaderCell>
-                                                                Event No
-                                                            </Table.HeaderCell>
-                                                            <Table.HeaderCell>
                                                                 Event Description
                                                             </Table.HeaderCell>
                                                             <Table.HeaderCell>
@@ -81,24 +144,10 @@ export const NoticeCenter = ({mobile}) => {
                                                             </Table.HeaderCell>
                                                         </Table.Header>
                                                         <Table.Body>
-                                                            <Table.Row>
-                                                                <Table.Cell>
-                                                                    1
-                                                                </Table.Cell>
-                                                                <Table.Cell>
-                                                                    Going to church
-                                                                </Table.Cell>
-                                                                <Table.Cell>
-                                                                    12:45:00
-                                                                </Table.Cell>
-                                                                <Table.Cell>
-                                                                    <Button color="youtube">
-                                                                        <Icon name="trash" />
-                                                                        cancle
-                                                                    </Button>
-                                                                </Table.Cell>
-                                                            </Table.Row>
-                                                        </Table.Body>
+                                                            {
+                                                                alarm_details
+                                                            }
+                                                            </Table.Body>
                                                     </Table>
 
                                                     </div>

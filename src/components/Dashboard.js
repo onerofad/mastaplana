@@ -1,10 +1,20 @@
 import { useNavigate } from "react-router-dom"
 import { Grid, Header, Label, Segment, Icon, Container, Dropdown, Button, Portal } from "semantic-ui-react"
 import { useAcceptMembershipMutation, useDeclineMembershipMutation, useGetMembersQuery } from "../features/api/apiSlice"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Alarmclock } from './Alarmclock'
+import { getAlarms } from "../API"
 const Dashboard = ({mobile}) => {
 
+    const [alarms, setalarms] = useState([])
+    useEffect(() => {
+        getAllAlarms()
+    },[])
+
+    const getAllAlarms = () => {
+        getAlarms().get("/")
+        .then(response => setalarms(response.data))
+    }
     const navigate = useNavigate()
 
     const [loading, setloading] = useState(false)
@@ -39,6 +49,13 @@ const Dashboard = ({mobile}) => {
             console.log('An error has occurred ' + error)
         }
     }
+    
+    let count2 = 0
+        const currentAlarms = alarms.filter(e => e.email === sessionStorage.getItem("email"))
+            currentAlarms.map(alarm => (              
+              ++count2
+        ))
+          
 
     const {data:members, isSuccess} = useGetMembersQuery()
 
@@ -142,7 +159,7 @@ const Dashboard = ({mobile}) => {
                             
                         </Grid.Column>                          
                         <Grid.Column width={mobile ? 4 : 4} verticalAlign="middle" textAlign="right">
-                        {/*<Label circular color="green">0</Label>*/}
+                        <Label circular color="green">{count2}</Label>
 
                         <Portal
                                 closeOnTriggerClick
@@ -250,28 +267,18 @@ const Dashboard = ({mobile}) => {
                                             <Icon inverted size="huge" link={true} color="green" name="database" />
                                             <Header as="h4" inverted content="DATA BANK" />
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                        {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" link={true} color="green" name="rocketchat" />
                                             <Header as="h4" inverted content="CHART" />
-                                        </Grid.Column>
+                                        </Grid.Column>*/}
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center"  onClick={() => navigate("/notice_center")} style={{marginTop: 40}}>
-                                            <Grid>
-                                                <Grid.Row>
-                                                    <Grid.Column>
-                                                        <Label circular color="red">0</Label>
-                                                    </Grid.Column>
-                                                    <Grid.Column>
-                                                        {/*<Label circular color="green">0</Label>*/}
-                                                        <Icon inverted link={true} size="huge" color="green" name="bell outline" />
-                                                    </Grid.Column>
-                                                </Grid.Row>
-                                            </Grid>
+                                            <Icon inverted link={true} size="huge" color="green" name="bell outline" />          
                                             <Header as="h4" inverted content="NOTICE" />
                                         </Grid.Column>
-                                        <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
+                                        {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
                                             <Icon inverted size="huge" color="green" name="home" />
                                             <Header as="h4" inverted content="OFFICE" />
-                                        </Grid.Column>
+                                        </Grid.Column>*/}
                                        
                                     </Grid.Row>
                                 </Grid>
