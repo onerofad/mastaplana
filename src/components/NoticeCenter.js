@@ -1,7 +1,6 @@
 import { Grid, Segment, Container, Dropdown, Icon, Header, Table, Button } from "semantic-ui-react"
 import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
-import { getAlarms } from "../API";
 import { useGetAlarmsQuery } from "../features/api/apiSlice";
 
 export const NoticeCenter = ({mobile}) => {
@@ -9,8 +8,8 @@ export const NoticeCenter = ({mobile}) => {
       const [clockTime, setClockTime] = useState("00:00:00");
       const [yearformat, setyearformat] = useState("00/00/00")
     
-      const [aTime, setaTime] = useState("");
-      const [dcal, setdcal] = useState("");
+      const [aTime, setaTime] = useState("07:40:00");
+      const [dcal, setdcal] = useState("01/02/2025");
       const [description, setDescription] = useState("")
 
       const [play, setPlay] = useState('')
@@ -36,6 +35,7 @@ export const NoticeCenter = ({mobile}) => {
         if (clockTime === aTime && yearformat === dcal) 
         {
           setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
+          alert("its time")
         }
       }, [clockTime]);
     
@@ -125,7 +125,7 @@ export const NoticeCenter = ({mobile}) => {
                     <Grid.Row>
                         <Grid.Column>
                             <Grid textAlign="center">
-                                <Grid.Column style={{maxWidth: 600}}>
+                                <Grid.Column>
                                     <Segment vertical style={{padding: 20, borderRadius: 10, backgroundColor: '#fff'}}>
                                         <Grid>
                                             <Grid.Row>
