@@ -5,15 +5,6 @@ import { useGetAlarmsQuery } from "../features/api/apiSlice";
 
 export const NoticeCenter = ({mobile}) => {
 
-      const [clockTime, setClockTime] = useState("00:00:00");
-      const [yearformat, setyearformat] = useState("00/00/00")
-    
-      const [aTime, setaTime] = useState("07:40:00");
-      const [dcal, setdcal] = useState("01/02/2025");
-      const [description, setDescription] = useState("")
-
-      const [play, setPlay] = useState('')
-
       //const [count, setcount] = useState(0)
       const {data:all_alarms, isSuccess} = useGetAlarmsQuery()
 
@@ -31,43 +22,7 @@ export const NoticeCenter = ({mobile}) => {
 
       }
     
-      useEffect(() => {
-        if (clockTime === aTime && yearformat === dcal) 
-        {
-          setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
-          alert("its time")
-        }
-      }, [clockTime]);
-    
-      const updateClockTime = () => {
-        let currentTime = new Date();
-        let hours = currentTime.getHours();
-        let minutes = currentTime.getMinutes();
-        let seconds = currentTime.getSeconds();
-    
-        let day = currentTime.getDate();
-        let month = currentTime.getMonth() + 1;
-        let year = currentTime.getFullYear();
-    
-        if (hours.toString().length === 1) hours = "0" + hours;
-        if (minutes.toString().length === 1) minutes = "0" + minutes;
-        if (seconds.toString().length === 1) seconds = "0" + seconds;
-    
-        let clockFormat = `${hours}:${minutes}:${seconds}`;
-        setClockTime(clockFormat);
-    
-        if (day.toString().length === 1) day = "0" + day;
-        if (month.toString().length === 1) month = "0" + month;
-        if (year.toString().length === 1) year = "0" + year;
-    
-        let dateFormat = `${month}/${day}/${year}`;
-        setyearformat(dateFormat)
-    
-      };
-    
-    useEffect(() => {
-        setInterval(updateClockTime, 1000);
-    }, []);
+     
     
     const navigate = useNavigate()
     return(
