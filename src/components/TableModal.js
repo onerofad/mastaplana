@@ -56,7 +56,7 @@ import { Modal, Grid, Input, Icon, Table, Header, Button, Divider, Segment } fro
                                 <Grid.Column width={10}>
                                     <Header content="Edit Table" />
                                     <div style={{maxHeight: 200, overflowY: 'auto'}}>
-                                    <Table fixed celled stackable>
+                                    <Table fixed celled unstackable>
                                         <Table.Header>
                                             <Table.HeaderCell>
                                                 <Input 

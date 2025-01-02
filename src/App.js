@@ -22,11 +22,11 @@ const { MediaContextProvider, Media } = createMedia({
     }
 })
 
-function App() {
+const App = () => {
     const [clockTime, setClockTime] = useState("00:00:00");
     const [yearformat, setyearformat] = useState("00/00/00")
       
-    const [aTime, setaTime] = useState("09:35:00");
+    const [aTime, setaTime] = useState("09:45:00");
     const [dcal, setdcal] = useState("01/02/2025");
     const [description, setDescription] = useState("")
   
@@ -38,7 +38,7 @@ function App() {
       setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
       alert("its time")
     }
-  }, [clockTime]);
+  }, [clockTime, play]);
 
   const updateClockTime = () => {
     let currentTime = new Date();
