@@ -36,8 +36,8 @@ function App() {
             <Route path='/video'  element={<Video mobile />} />
             <Route path='/document' element={<Document mobile />} />
             <Route path='/community' element={<Community mobile />}  />
-            <Route path='/verifyemail/:email' element={<VerifyEmail />} mobile />
-            <Route path='/notice_center' element={<NoticeCenter />} mobile />
+            <Route path='/verifyemail/:email' element={<VerifyEmail mobile />}  />
+            <Route path='/notice_center' element={<NoticeCenter mobile />}  />
 
           </Routes>
         </BrowserRouter>
