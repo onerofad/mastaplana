@@ -26,7 +26,7 @@ function App() {
     const [clockTime, setClockTime] = useState("00:00:00");
     const [yearformat, setyearformat] = useState("00/00/00")
       
-    const [aTime, setaTime] = useState("09:25:00");
+    const [aTime, setaTime] = useState("09:35:00");
     const [dcal, setdcal] = useState("01/02/2025");
     const [description, setDescription] = useState("")
   
