@@ -12,7 +12,10 @@ import Document from './components/Document';
 import VerifyEmail from './components/VerifyEmail';
 import Community from './components/Community';
 import { NoticeCenter } from './components/NoticeCenter';
-import { useState, useEffect } from 'react';
+import { getAlarms } from './API';
+import { useEffect, useReducer, useState } from 'react';
+import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { useRemoveAlarmMutation } from './features/api/apiSlice';
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
@@ -22,23 +25,60 @@ const { MediaContextProvider, Media } = createMedia({
     }
 })
 
+const initialState = {
+  open: false,
+  size: undefined
+}
+
+function alarmTimeReducer(state, action){
+  switch(action.type){
+    case 'open':
+      return {open: true, size: action.size}
+
+    case 'close':
+      return {open: false}
+
+    default:
+      return new Error("An error has occurred")
+  }
+}
+
 const App = () => {
-    const [clockTime, setClockTime] = useState("00:00:00");
-    const [yearformat, setyearformat] = useState("00/00/00")
-      
-    const [aTime, setaTime] = useState("10:05:00");
-    const [dcal, setdcal] = useState("01/02/2025");
-    const [description, setDescription] = useState("")
-  
-    const [play, setPlay] = useState('')
+
+  const [alarms, setalarms] = useState([])
+
+  const [clockTime, setClockTime] = useState("00:00:00");
+  const [yearformat, setyearformat] = useState("00/00/00")
+
+  const [description, setDescription] = useState("")
+  const [aTime, setaTime] = useState("")
+  const [dcal, setdcal] = useState("")
+  const [id, setId] = useState("")
+
+
+  const [play, setPlay] = useState("")
+
+  const [state, dispatch] = useReducer(alarmTimeReducer, initialState)
+  const {open, size} = state
 
   useEffect(() => {
-    if (clockTime === aTime && yearformat === dcal) 
-    {
-      setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
-      //alert("its time")
+    getAllAlarms()
+
+    if(sessionStorage.getItem("email")){
+      const alarm = alarms.filter(e => e.email === sessionStorage.getItem("email"))[0]
+      if(alarm){
+        if(alarm.aTime === clockTime && alarm.dcal === yearformat){
+          setDescription(alarm.description)
+          setaTime(alarm.aTime)
+          setdcal(alarm.dcal)
+          setId(alarm.id)
+          setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
+          dispatch({type: 'open', size: 'mini'})
+        }
+      }
+     
     }
-  }, [clockTime, play]);
+  }, [alarms])
 
   const updateClockTime = () => {
     let currentTime = new Date();
@@ -67,12 +107,26 @@ const App = () => {
   };
 
   useEffect(() => {
-      setInterval(updateClockTime, 1000);
+    setInterval(updateClockTime, 1000);
   }, []);
 
+  const getAllAlarms = () => {
+    getAlarms().get("/")
+    .then(res => setalarms(res.data))
+    .catch(error => console.log(error))
+  }
+
+  const [removeAlarm] = useRemoveAlarmMutation()
+    const deleteAlarm = async (id) => {
+      try{
+        await removeAlarm(id).unwrap()
+      }catch(err){
+        console.log("cannot delete", err)
+      }
+    }
+  
   return (
     <>
-    <audio src={play} autoPlay />
     <MediaContextProvider>
       <Media at="mobile">
         <BrowserRouter>
@@ -109,12 +163,38 @@ const App = () => {
             <Route path='/verifyemail/:email' element={<VerifyEmail />} />
             <Route path='/notice_center' element={<NoticeCenter />} />
 
-
           </Routes>
         </BrowserRouter>
 
       </Media>
     </MediaContextProvider>
+    <Modal
+      open={open}
+      size={size}
+    >
+      <Modal.Header>
+        <Icon name = "bell outline" />
+        Alarm Time
+      </Modal.Header>
+      <Modal.Content>
+         <Header textAlign='center' icon as="h4">
+              <Icon color='green' circular name='bell outline' />
+              {clockTime} ~ {description} ~ {aTime} ~ {dcal}
+         </Header>
+         <br/>
+         <audio src={play} autoPlay/>
+         <Button 
+            color='youtube' 
+            onClick={() => { 
+              dispatch({type: 'close'})
+              deleteAlarm(id)
+             }
+            }
+          >
+            stop
+         </Button>
+      </Modal.Content>
+    </Modal>
     </>
   );
 }

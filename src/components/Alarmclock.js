@@ -65,7 +65,8 @@ export const Alarmclock = () => {
       console.log("get up", clockTime, alarmTime);
       setPlay('https://res.cloudinary.com/du3ck2joa/video/upload/v1734954643/alarm_mastaplana/alarm2_cktu8c.wav')
       setStatus(false);
-      setColor("positive")
+      alert(description)
+      //setColor("positive")
     }
   }, [clockTime, alarmTime, status]);
 
@@ -114,7 +115,7 @@ export const Alarmclock = () => {
           await setAlarm({email, clockTime, aTime, yearformat, dcal, description}).unwrap()
           setLoading(false)
           setCheck("check")
-          setDescription("")
+          //setDescription("")
         }
       }catch(error){
         console.log(error)
@@ -136,7 +137,7 @@ export const Alarmclock = () => {
   const handleDescription = (e) => setDescription(e.target.value)
 
   return (
-    <Segment vertical style={{width: 250}}>
+    <Segment vertical>
         <Grid textAlign="center">
             <Grid.Row>
                 <Grid.Column>
@@ -159,7 +160,7 @@ export const Alarmclock = () => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form size='small'>
+                <Form>
                       <Form.Input
                         value={description}
                         error={descriptionError}

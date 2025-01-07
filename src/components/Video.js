@@ -7,6 +7,7 @@ import VideoJS from "./VideoJs";
 import React from "react";
 import emailjs from '@emailjs/browser'
 import { getUserMembers } from "../API";
+import { AlarmRing } from "./AlarmRing";
 
 const initialState = {
     size: undefined,
@@ -221,6 +222,7 @@ const Video = ({mobile}) => {
     return(
         <Container>
         <Segment vertical style={{backgroundColor: '#133467', margin: mobile ? 20 : 40}}>
+                <AlarmRing />
                 <Grid>
                 {/*<Grid.Row>
                     <Grid.Column width={2}>

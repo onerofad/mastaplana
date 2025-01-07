@@ -156,6 +156,13 @@ export const apiSlice = createApi({
         getAlarms: builder.query({
             query: () => '/alarms'
         }),
+        removeAlarm: builder.mutation({
+            query: (id) => ({
+                url: `/alarms/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }]
+        }),
     })
     
 })
@@ -174,6 +181,6 @@ export const {
     useAddMemberMutation, useGetMembersQuery,
     useRemoveMemberMutation,
     useAcceptMembershipMutation, useDeclineMembershipMutation,
-    useSetAlarmMutation, useGetAlarmsQuery
+    useSetAlarmMutation, useGetAlarmsQuery, useRemoveAlarmMutation
     
 } = apiSlice

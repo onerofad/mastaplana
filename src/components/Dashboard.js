@@ -1,10 +1,33 @@
 import { useNavigate } from "react-router-dom"
-import { Grid, Header, Label, Segment, Icon, Container, Dropdown, Button, Portal } from "semantic-ui-react"
+import { Grid, Header, Label, Segment, Icon, Container, Dropdown, Button, Portal, Input, Modal } from "semantic-ui-react"
 import { useAcceptMembershipMutation, useDeclineMembershipMutation, useGetMembersQuery } from "../features/api/apiSlice"
-import { useEffect, useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { Alarmclock } from './Alarmclock'
 import { getAlarms } from "../API"
+
+const initialState = {
+    open: false,
+    size: undefined,
+
+} 
+
+function alarmReducer(state, action){
+    switch(action.type){
+        case 'open':
+            return {open: true, size: action.size}
+
+        case 'close':
+            return {open: false}
+
+        default:
+            return new Error('An Error has occurred')
+    }
+
+}
 const Dashboard = ({mobile}) => {
+
+    const [state, dispatch] = useReducer(alarmReducer, initialState)
+    const {open, size} = state
 
     const [alarms, setalarms] = useState([])
     useEffect(() => {
@@ -161,33 +184,15 @@ const Dashboard = ({mobile}) => {
                         <Grid.Column width={mobile ? 4 : 4} verticalAlign="middle" textAlign="right">
                         <Label circular color="green">{count2}</Label>
 
-                        <Portal
-                                closeOnTriggerClick
-                                openOnTriggerClick
-                                trigger={
                                     <Icon 
                                         name="calendar alternate outline" 
                                         inverted 
                                         color="#fff" 
+                                        link={true}
                                         size= { mobile ? "large" : "big"}
+                                        onClick={() => dispatch({type: 'open', size: 'mini'})}
 
                                     />
-
-                                }
-                            
-                            >
-                                <Segment
-                                    style={{
-                                        left: mobile ? '25%' : '60%',
-                                        position: 'fixed',
-                                        top: mobile ? '8%' : '18%',
-                                        zIndex: 500,
-                                    }}
-                                    >
-                                    <Header textAlign="center" as="h3" attached>Calendar Reminder</Header>
-                                    <Alarmclock />
-                                    </Segment>
-                            </Portal>
                             
                         </Grid.Column>
                         <Grid.Column width={mobile ? 3 : 3} style={{textAlign: 'center'}}>
@@ -303,6 +308,25 @@ const Dashboard = ({mobile}) => {
                         </Grid.Column>
                     </Grid.Row>       */}    
                 </Grid>
+                <Modal
+                    open={open}
+                    size={size}
+                >
+                    <Modal.Header>
+                        <Icon name="bell outline" />
+                        Calendar Reminder
+                        <Icon 
+                            link={true} 
+                            name="close" 
+                            onClick={() => dispatch({type: 'close'})} 
+                            style={{float: 'right'}}
+                        />
+                    </Modal.Header>
+                    <Modal.Content>
+                        {/*<Header textAlign="center" as="h3" attached>Calendar Reminder</Header>*/}
+                        <Alarmclock />          
+                    </Modal.Content>
+                </Modal>
         </Segment>
         </Container>
 

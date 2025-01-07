@@ -1,9 +1,18 @@
 import { Grid, Segment, Container, Dropdown, Icon, Header, Table, Button } from "semantic-ui-react"
 import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
-import { useGetAlarmsQuery } from "../features/api/apiSlice";
+import { useGetAlarmsQuery, useRemoveAlarmMutation } from "../features/api/apiSlice";
 
 export const NoticeCenter = ({mobile}) => {
+
+    const [ removeAlarm ] = useRemoveAlarmMutation()
+      const deleteAlarm = async (id) => {
+        try{
+            await removeAlarm(id).unwrap()
+        }catch(err){
+            console.log("cannot delete", err)
+        }
+      }
 
       //const [count, setcount] = useState(0)
       const {data:all_alarms, isSuccess} = useGetAlarmsQuery()
@@ -16,13 +25,11 @@ export const NoticeCenter = ({mobile}) => {
                 <Table.Row>
                     <Table.Cell>{alarm.description}</Table.Cell>
                     <Table.Cell>{alarm.dcal + "  " + alarm.aTime}</Table.Cell>
-                    <Table.Cell><Button><Icon name="trash" /></Button></Table.Cell>
+                    <Table.Cell><Button onClick={() => deleteAlarm(alarm.id)}><Icon name="trash" /></Button></Table.Cell>
                 </Table.Row>
             ))
 
       }
-    
-     
     
     const navigate = useNavigate()
     return(
