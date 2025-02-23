@@ -269,7 +269,7 @@ const Dashboard = ({mobile}) => {
                                             <Header as="h4" inverted content="VIDEO" />
                                         </Grid.Column>
                                         <Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>
-                                            <Icon inverted size="huge" link={true} color="green" name="database" />
+                                            <Icon inverted size="huge" link={true} onClick={() => navigate("/data_bank")} color="green" name="database" />
                                             <Header as="h4" inverted content="DATA BANK" />
                                         </Grid.Column>
                                         {/*<Grid.Column width={mobile ? 8 : 2} textAlign="center" style={{marginTop: 40}}>

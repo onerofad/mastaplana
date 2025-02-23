@@ -16,6 +16,7 @@ import { getAlarms } from './API';
 import { useEffect, useReducer, useState } from 'react';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 import { useRemoveAlarmMutation } from './features/api/apiSlice';
+import { DataBank } from './components/DataBank';
 
 const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
@@ -78,7 +79,8 @@ const App = () => {
       }
      
     }
-  }, [alarms])
+  //}, [alarms])
+}, [])
 
   const updateClockTime = () => {
     let currentTime = new Date();
@@ -142,6 +144,7 @@ const App = () => {
             <Route path='/community' element={<Community mobile />}  />
             <Route path='/verifyemail/:email' element={<VerifyEmail mobile />}  />
             <Route path='/notice_center' element={<NoticeCenter mobile />}  />
+            <Route path='/data_bank' element={<DataBank mobile />}  />
 
           </Routes>
         </BrowserRouter>
@@ -162,6 +165,7 @@ const App = () => {
             <Route path='/community' element={<Community />} />
             <Route path='/verifyemail/:email' element={<VerifyEmail />} />
             <Route path='/notice_center' element={<NoticeCenter />} />
+            <Route path='/data_bank' element={<DataBank />}  />
 
           </Routes>
         </BrowserRouter>

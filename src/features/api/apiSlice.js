@@ -163,6 +163,13 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }]
         }),
+        createFolder: builder.mutation({
+            query: item => ({
+                url: 'create_folders/',
+                method: 'POST',
+                body: item
+            }),
+        }),
     })
     
 })
@@ -181,6 +188,7 @@ export const {
     useAddMemberMutation, useGetMembersQuery,
     useRemoveMemberMutation,
     useAcceptMembershipMutation, useDeclineMembershipMutation,
-    useSetAlarmMutation, useGetAlarmsQuery, useRemoveAlarmMutation
+    useSetAlarmMutation, useGetAlarmsQuery, useRemoveAlarmMutation,
+    useCreateFolderMutation
     
 } = apiSlice

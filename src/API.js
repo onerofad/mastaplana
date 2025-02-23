@@ -35,3 +35,5 @@ export function getAlarms(){
         })
     )
 }
+
+export const  mastaplana_file  =  '..//..//src//mastaplana_logo.jpg'
